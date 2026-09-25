@@ -5,44 +5,47 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+html,
 body {
-    background-color: #222222;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 20px;
 }
 
+/* ------------------------------------------------LOGIN-------------------------------------------------------------- */
 .loginContainer {
     background-color: #ffffff;
-    width: 90%;
-    max-width: 1200px;
-    min-height: 80vh;
-    padding: 60px 40px;
-    text-align: center;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    text-align: center;
 }
 
 .loginContainer h1 {
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: normal;
     color: #000000;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .loginContainer h2 {
-    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
     font-weight: normal;
     color: #000000;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .loginForm {
-    display: inline-block;
     width: 100%;
     max-width: 320px;
     text-align: left;
@@ -75,14 +78,14 @@ body {
 
 .buttonLoginForm {
     text-align: center;
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
 .botaoEntrar {
     background-color: #ffffff;
     border: 1px solid #000000;
-    padding: 8px 45px;
-    font-size: 1.05rem;
+    padding: 8px 50px;
+    font-size: 1.1rem;
     color: #000000;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -100,5 +103,130 @@ body {
 
     .botaoEntrar {
         width: 100%;
+    }
+}
+
+/* --------------------------------------------------------DASHBOARD-------------------------------------------------------- */
+
+.dashboard-container {
+    background-color: #ffffff;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #000000;
+}
+
+.top-bar h1 {
+    font-size: 2.8rem;
+    font-weight: normal;
+    color: #000000;
+}
+
+.btn-sair {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    padding: 8px 35px;
+    font-size: 1.1rem;
+    color: #000000;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-sair:hover {
+    background-color: #f0f0f0;
+}
+
+.dashboard-body {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 85px);
+}
+
+/* Menu Lateral (Sidebar) */
+.sidebar {
+    width: 250px;
+    border-right: 1px solid #000000;
+    padding: 30px 25px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li {
+    margin-bottom: 15px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 1.1rem;
+    display: block;
+}
+
+.sidebar li.active a {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Área Principal */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.main-content h2 {
+    font-size: 2.8rem;
+    font-weight: normal;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.main-content h3 {
+    font-size: 2rem;
+    font-weight: normal;
+    color: #000000;
+}
+
+@media (max-width: 768px) {
+    .dashboard-body {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #000000;
+        padding: 20px;
+    }
+
+    .top-bar {
+        padding: 15px 20px;
+    }
+
+    .top-bar h1 {
+        font-size: 1.8rem;
+    }
+
+    .main-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .main-content h3 {
+        font-size: 1.2rem;
     }
 }
