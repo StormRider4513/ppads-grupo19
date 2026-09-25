@@ -1,0 +1,100 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #222222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.loginContainer {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 650px;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.loginContainer h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: normal;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.loginContainer h2 {
+    font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+    font-weight: normal;
+    color: #000000;
+    margin-bottom: 35px;
+}
+
+.loginForm {
+    display: inline-block;
+    width: 100%;
+    max-width: 320px;
+    text-align: left;
+}
+
+.loginFormGroup {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.loginFormGroup label {
+    display: block;
+    font-size: 1.1rem;
+    color: #000000;
+    margin-bottom: 6px;
+}
+
+.loginFormGroup input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #000000;
+    font-size: 1rem;
+    color: #333333;
+    outline: none;
+}
+
+.loginFormGroup input::placeholder {
+    color: #a0a0a0;
+}
+
+.buttonLoginForm {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.botaoEntrar {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    padding: 8px 45px;
+    font-size: 1.05rem;
+    color: #000000;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 150px;
+}
+
+.botaoEntrar:hover {
+    background-color: #f0f0f0;
+}
+
+@media (max-width: 480px) {
+    .loginContainer {
+        padding: 30px 15px;
+    }
+
+    .botaoEntrar {
+        width: 100%;
+    }
+}
