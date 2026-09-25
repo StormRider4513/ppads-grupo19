@@ -7,15 +7,10 @@
 
 html,
 body {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: #ffffff;
-}
-
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    overflow-x: hidden;
 }
 
 /* ------------------------------------------------LOGIN-------------------------------------------------------------- */
@@ -106,8 +101,9 @@ body {
     }
 }
 
-/* --------------------------------------------------------DASHBOARD-------------------------------------------------------- */
+/* --------------------------------------------------------ESTRUTURA BASE (DASHBOARD & AGENDAMENTOS)-------------------------------------------------------- */
 
+.app-container,
 .dashboard-container {
     background-color: #ffffff;
     width: 100vw;
@@ -120,12 +116,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 20px 50px;
     border-bottom: 1px solid #000000;
+    height: 90px;
 }
 
 .top-bar h1 {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: normal;
     color: #000000;
 }
@@ -144,17 +141,27 @@ body {
     background-color: #f0f0f0;
 }
 
+.app-body,
 .dashboard-body {
     display: flex;
     flex: 1;
-    height: calc(100vh - 85px);
+    height: calc(100vh - 90px);
+    overflow: hidden;
 }
 
 /* Menu Lateral (Sidebar) */
 .sidebar {
-    width: 250px;
+    width: 280px;
+    min-width: 280px;
+    height: 100%;
     border-right: 1px solid #000000;
-    padding: 30px 25px;
+    padding: 40px 30px;
+    box-sizing: border-box;
+}
+
+#sidebar-container {
+    height: 100%;
+    display: flex;
 }
 
 .sidebar ul {
@@ -162,46 +169,62 @@ body {
 }
 
 .sidebar li {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
+}
+
+.sidebar li.menu-inicio {
+    margin-bottom: 40px;
+    /* Cria o espaçamento necessário abaixo do Início */
 }
 
 .sidebar a {
     text-decoration: none;
     color: #000000;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     display: block;
 }
 
 .sidebar li.active a {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
 }
 
-/* Área Principal */
+/* Área Principal - Ocupa todo o espaço restante */
 .main-content {
     flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    width: 100%;
+}
+
+/* Centralização exclusiva para a página inicial da Dashboard */
+.dashboard-home {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px;
     text-align: center;
+    padding: 40px;
 }
 
-.main-content h2 {
-    font-size: 2.8rem;
+.dashboard-home h2 {
+    font-size: 3rem;
     font-weight: normal;
     color: #000000;
     margin-bottom: 20px;
 }
 
-.main-content h3 {
+.dashboard-home h3 {
     font-size: 2rem;
     font-weight: normal;
     color: #000000;
 }
 
 @media (max-width: 768px) {
+
+    .app-body,
     .dashboard-body {
         flex-direction: column;
         height: auto;
@@ -219,14 +242,6 @@ body {
     }
 
     .top-bar h1 {
-        font-size: 1.8rem;
-    }
-
-    .main-content h2 {
-        font-size: 1.6rem;
-    }
-
-    .main-content h3 {
-        font-size: 1.2rem;
+        font-size: 2rem;
     }
 }

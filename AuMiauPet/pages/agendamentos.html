@@ -1,3 +1,73 @@
-<!-- agendar serviço, alterar, cancelar, consultar serviços agendados
-agendar serviço solicita cliente, pet, serviço, data e seleciona horário -->
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos - AuMiau Pet</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/agendamentos.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <div id="topbar-container"></div>
+        <div class="app-body">
+            <div id="sidebar-container"></div>
+
+            <!-- Área Principal de Conteúdo -->
+            <main class="main-content">
+                <div class="agendamento-container">
+                    <h2>Agendar serviço</h2>
+
+                    <form class="agendamento-form" action="#" method="POST">
+                        <div class="form-field">
+                            <label for="cliente">Cliente:</label>
+                            <select id="cliente" name="cliente" required>
+                                <option value="" disabled selected>Selecionar cliente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="pet">Pet:</label>
+                            <select id="pet" name="pet" required>
+                                <option value="" disabled selected>Selecionar pet</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="servico">Serviço:</label>
+                            <select id="servico" name="servico" required>
+                                <option value="" disabled selected>Selecionar serviço</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="data">Data:</label>
+                            <input type="text" id="data" name="data" placeholder="__/__/____" required />
+                        </div>
+
+                        <div class="form-field">
+                            <label>Horários disponíveis:</label>
+                            <div class="horarios-group">
+                                <button type="button" class="btn-horario">13:00</button>
+                                <button type="button" class="btn-horario">15:00</button>
+                                <button type="button" class="btn-horario">16:00</button>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-cancelar">Cancelar</button>
+                            <button type="submit" class="btn-confirmar">Confirmar agendamento</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/layout.js"></script>
+</body>
+
+</html>
