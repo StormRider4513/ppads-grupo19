@@ -1,3 +1,4 @@
+/* Área principal do formulário */
 .agendamento-container {
     padding: 40px 60px;
     width: 100%;
@@ -12,6 +13,7 @@
     margin-bottom: 25px;
 }
 
+/* Formulário de agendamento */
 .agendamento-form {
     max-width: 400px;
     display: flex;
@@ -19,6 +21,7 @@
     gap: 18px;
 }
 
+/* Cada campo do formulário */
 .form-field {
     display: flex;
     flex-direction: column;
@@ -51,11 +54,14 @@
     color: #555555;
 }
 
+/* Área onde os horários disponíveis aparecem */
 .horarios-group {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
+/* Botões dos horários */
 .btn-horario {
     background-color: #ffffff;
     border: 1px solid #000000;
@@ -71,6 +77,7 @@
     background-color: #e0e0e0;
 }
 
+/* Botões de cancelar e confirmar */
 .form-actions {
     display: flex;
     gap: 15px;
@@ -93,7 +100,9 @@
     background-color: #f0f0f0;
 }
 
+/* Ajustes para telas menores */
 @media (max-width: 768px) {
+
     .agendamento-container {
         padding: 20px;
     }

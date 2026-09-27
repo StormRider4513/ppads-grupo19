@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda - AuMiau Pet</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/agenda.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Área onde a barra superior será carregada pelo layout.js -->
+        <div id="topbar-container"></div>
+
+        <div class="app-body">
+
+            <!-- Área onde o menu lateral será carregado pelo layout.js -->
+            <div id="sidebar-container"></div>
+
+            <!-- Conteúdo principal da página -->
+            <main class="main-content">
+                <div class="agenda-container">
+
+                    <h2>Agenda de Serviços</h2>
+
+                    <!-- Campo de pesquisa e botão para criar um novo agendamento -->
+                    <div class="agenda-actions">
+
+                        <input type="text" id="pesquisa" placeholder="Pesquisar...">
+
+                        <button type="button" id="btn-pesquisar">
+                            Pesquisar
+                        </button>
+
+                        <button type="button" id="btn-novo-agendamento">
+                            Novo agendamento
+                        </button>
+
+                    </div>
+
+                    <!-- Tabela que mostra os agendamentos cadastrados -->
+                    <table class="agenda-table">
+
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Horário</th>
+                                <th>Cliente</th>
+                                <th>Pet</th>
+                                <th>Serviço</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+
+                        <!-- As linhas são criadas pelo agenda.js -->
+                        <tbody id="agenda-body">
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Arquivos JavaScript usados pela página -->
+    <script src="../js/layout.js"></script>
+    <script src="../js/dados.js"></script>
+    <script src="../js/agenda.js"></script>
+
+</body>
+
+</html>
