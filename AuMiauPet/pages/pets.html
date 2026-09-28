@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pets - AuMiau Pet</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pets.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <div id="topbar-container"></div>
+
+        <div class="app-body">
+            <div id="sidebar-container"></div>
+
+            <main class="main-content">
+                <section class="pets-container">
+                    <h2>Pets</h2>
+
+                    <form id="pesquisa-pets" class="pets-actions">
+                        <input
+                            type="search"
+                            id="pesquisa-pet"
+                            placeholder="Pesquisar pelo nome do pet..."
+                            aria-label="Pesquisar pelo nome do pet"
+                        >
+
+                        <button type="submit" class="pets-botao">
+                            Pesquisar
+                        </button>
+
+                        <a href="cadastro-pet.html" class="pets-botao">
+                            Cadastrar pet
+                        </a>
+                    </form>
+
+                    <p id="mensagem-pesquisa" role="status"></p>
+
+                    <div class="pets-tabela-container">
+                        <table class="pets-tabela">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Espécie</th>
+                                    <th>Raça</th>
+                                    <th>Cliente responsável</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="pets-body">
+                                <tr>
+                                    <td colspan="5">
+                                        Nenhum pet cadastrado.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="../js/layout.js"></script>
+    <script src="../js/dados.js"></script>
+    <script src="../js/pets.js"></script>
+</body>
+
+</html>

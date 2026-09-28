@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar pet - AuMiau Pet</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pets.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <div id="topbar-container"></div>
+
+        <div class="app-body">
+            <div id="sidebar-container"></div>
+
+            <main class="main-content">
+                <section class="pets-container">
+                    <h2>Cadastrar pet</h2>
+
+                    <form id="form-pet" class="pets-form">
+                        <div class="pets-campo">
+                            <label for="cliente-pet">
+                                Cliente responsável:
+                            </label>
+
+                            <select
+                                id="cliente-pet"
+                                name="clienteId"
+                                required
+                            >
+                                <option value="" disabled selected>
+                                    Selecione o cliente
+                                </option>
+                            </select>
+
+                            <a href="clientes.html" class="pets-link">
+                                Cadastrar responsável
+                            </a>
+                        </div>
+
+                        <div class="pets-campo">
+                            <label for="nome-pet">Nome do pet:</label>
+
+                            <input
+                                type="text"
+                                id="nome-pet"
+                                name="nome"
+                                placeholder="Digite o nome do pet"
+                                required
+                            >
+                        </div>
+
+                        <div class="pets-campo">
+                            <label for="especie-pet">Espécie:</label>
+
+                            <select
+                                id="especie-pet"
+                                name="especie"
+                                required
+                            >
+                                <option value="" disabled selected>
+                                    Selecione a espécie
+                                </option>
+                                <option value="cachorro">Cachorro</option>
+                                <option value="gato">Gato</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="pets-campo">
+                            <label for="raca-pet">Raça:</label>
+
+                            <input
+                                type="text"
+                                id="raca-pet"
+                                name="raca"
+                                placeholder="Digite a raça ou SRD"
+                            >
+                        </div>
+
+                        <div class="pets-campo">
+                            <label for="nascimento-pet">
+                                Data de nascimento:
+                            </label>
+
+                            <input
+                                type="date"
+                                id="nascimento-pet"
+                                name="dataNascimento"
+                            >
+                        </div>
+
+                        <div class="pets-actions">
+                            <a href="pets.html" class="pets-botao">
+                                Cancelar
+                            </a>
+
+                            <button
+                                type="button"
+                                id="btn-salvar-pet"
+                                class="pets-botao"
+                            >
+                                Salvar pet
+                            </button>
+                        </div>
+
+                        <p id="mensagem-pet" role="status"></p>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+
+     <script src="../js/layout.js"></script>
+    <script src="../js/dados.js"></script>
+    <script src="../js/pets.js"></script>
+</body>
+
+</html>

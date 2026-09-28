@@ -6,19 +6,39 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("topbar-container").innerHTML = data;
         });
 
-    // Carrega a Sidebar e marca a página ativa
+    // Carrega a Sidebar e marca a seção ativa
     fetch("../components/sidebar.html")
         .then(response => response.text())
         .then(data => {
             document.getElementById("sidebar-container").innerHTML = data;
 
-            // Destaca automaticamente o link da página atual no menu
-            const page = window.location.pathname.split("/").pop();
+            const paginaAtual = window.location.pathname.split("/").pop();
+
+            // O cadastro também pertence à seção Pets.
+            const paginaDoMenu = paginaAtual === "cadastro-pet.html"
+                ? "pets.html"
+                : paginaAtual;
+
             const links = document.querySelectorAll(".sidebar a");
+
             links.forEach(link => {
-                if (link.getAttribute("href") === page) {
-                    link.parentElement.classList.add("active");
+                const destino = link.getAttribute("href");
+
+                // Ignora links que ainda não têm uma página definida.
+                if (!destino || destino.startsWith("#")) {
+                    return;
                 }
+
+                // Obtém o nome do arquivo, independentemente do caminho.
+                const paginaDoLink = new URL(
+                    destino,
+                    window.location.href
+                ).pathname.split("/").pop();
+
+                link.parentElement.classList.toggle(
+                    "active",
+                    paginaDoLink === paginaDoMenu
+                );
             });
         });
 });
