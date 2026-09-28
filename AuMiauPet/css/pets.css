@@ -1,161 +1,236 @@
-/* Área principal das páginas de pets */
 .pets-container {
-    padding: 40px 60px;
+    background-color: var(--surface, #FFFFFF);
+    border: 1px solid var(--border, #DDD6CF);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(47, 42, 38, 0.08);
+    padding: 28px;
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    box-sizing: border-box;
-    min-width: 0;
 }
 
 .pets-container h2 {
-    font-size: 2rem;
-    font-weight: normal;
-    color: #000000;
-    margin: 0 0 25px;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #2F2A26;
+    margin-bottom: 24px;
 }
 
-/* Área de pesquisa e botões */
 .pets-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
+    gap: 12px;
+    margin-bottom: 24px;
     flex-wrap: wrap;
 }
 
 .pets-actions input {
     width: 300px;
     max-width: 100%;
-    padding: 8px 10px;
-    border: 1px solid #000000;
-    background-color: #ffffff;
+
+    padding: 12px 14px;
+
+    border: 1px solid #DDD6CF;
+    border-radius: 12px;
+
+    background-color: #FFFFFF;
+
     font-size: 1rem;
-    color: #000000;
-    box-sizing: border-box;
+    color: #2F2A26;
+
+    outline: none;
 }
 
-/* Botões e links com aparência de botão */
+.pets-actions input:focus,
+.pets-campo input:focus,
+.pets-campo select:focus {
+    border-color: #8FA89A;
+
+    box-shadow:
+        0 0 0 4px rgba(143, 168, 154, 0.18);
+}
+
 .pets-botao {
     display: inline-block;
-    background-color: #ffffff;
-    border: 1px solid #000000;
-    border-radius: 0;
-    padding: 7px 14px;
+
+    background-color: #8FA89A;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 11px 16px;
+
     font-family: inherit;
-    font-size: 1rem;
-    color: #000000;
+    font-size: 0.98rem;
+    font-weight: 700;
+
+    color: #FFFFFF;
+
     text-decoration: none;
     text-align: center;
+
     cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
 .pets-botao:hover {
-    background-color: #f0f0f0;
+    background-color: #6F8A7B;
 }
 
-/* Destaque ao navegar pelo teclado */
-.pets-container input:focus-visible,
-.pets-container select:focus-visible,
-.pets-botao:focus-visible,
-.pets-link:focus-visible {
-    outline: 2px solid #2459a6;
-    outline-offset: 2px;
+.pets-secundario {
+    background-color: #F1ECE6;
+    color: #2F2A26;
+
+    border: 1px solid #DDD6CF;
 }
 
-/* Tabela de pets */
+.pets-secundario:hover {
+    background-color: #E8E2DB;
+}
+
+
+/* TABELA */
+
 .pets-tabela-container {
     width: 100%;
     overflow-x: auto;
+
+    border: 1px solid #DDD6CF;
+    border-radius: 14px;
 }
 
 .pets-tabela {
     width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff;
+
+    background-color: #FFFFFF;
 }
 
 .pets-tabela th,
 .pets-tabela td {
-    border-bottom: 1px solid #000000;
-    padding: 10px;
+    border-bottom: 1px solid #DDD6CF;
+
+    padding: 14px;
+
     text-align: left;
-    font-size: 1rem;
+
+    font-size: 0.98rem;
+
+    color: #2F2A26;
 }
 
 .pets-tabela th {
-    font-weight: normal;
-    background-color: #f5f5f5;
+    background-color: #F1ECE6;
+
+    font-weight: 800;
 }
 
-/* Formulário de cadastro e edição */
-.pets-form {
-    max-width: 400px;
+.pets-tabela tbody tr:hover {
+    background-color: #FBFAF8;
+}
+
+
+/* MODAL */
+
+#pet-dialog {
+    border: 0;
+
+    border-radius: 16px;
+
+    padding: 0;
+
+    width: min(560px, 94vw);
+
+    background-color: #FFFFFF;
+
+    color: #2F2A26;
+
+    box-shadow:
+        0 24px 70px rgba(47, 42, 38, 0.22);
+}
+
+#pet-dialog::backdrop {
+    background:
+        rgba(47, 42, 38, 0.38);
+
+    backdrop-filter: blur(2px);
+}
+
+#form-pet {
+    padding: 26px;
+
     display: flex;
     flex-direction: column;
-    gap: 18px;
+
+    gap: 16px;
 }
 
-/* Cada campo do formulário */
+#form-pet h2 {
+    margin: 0 0 5px;
+
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+
+/* CAMPOS */
+
 .pets-campo {
     display: flex;
+
     flex-direction: column;
-    gap: 6px;
+
+    gap: 7px;
 }
 
 .pets-campo label {
-    font-size: 1.05rem;
-    color: #000000;
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    color: #2F2A26;
 }
 
-.pets-campo select,
-.pets-campo input {
+.pets-campo input,
+.pets-campo select {
     width: 100%;
-    min-width: 0;
-    padding: 8px 10px;
-    border: 1px solid #000000;
-    background-color: #ffffff;
+
+    padding: 12px 14px;
+
+    border: 1px solid #DDD6CF;
+
+    border-radius: 12px;
+
+    background-color: #FFFFFF;
+
     font-family: inherit;
+
     font-size: 1rem;
-    color: #000000;
-    border-radius: 0;
-    appearance: auto;
-    box-sizing: border-box;
+
+    color: #2F2A26;
+
+    outline: none;
 }
 
-.pets-campo select option[disabled] {
-    color: #888888;
-}
 
-.pets-campo input::placeholder {
-    color: #555555;
-}
+/* BOTÕES DO MODAL */
 
-/* Link para cadastrar o responsável */
-.pets-link {
-    align-self: flex-start;
-    margin-top: 4px;
-    font-size: 1rem;
-    color: #000000;
-    text-decoration: underline;
-}
+.pets-modal-actions {
+    display: flex;
 
-/* Botões do formulário */
-.pets-form .pets-actions {
-    gap: 15px;
+    justify-content: flex-end;
+
+    gap: 10px;
+
     margin-top: 10px;
-    margin-bottom: 0;
 }
 
-.pets-form .pets-botao {
-    padding: 6px 18px;
-}
 
-/* Mensagens */
+/* MENSAGENS */
+
 #mensagem-pet,
 #mensagem-pesquisa {
-    font-size: 1rem;
-    margin: 0 0 15px;
+    font-size: 0.95rem;
+
+    color: #766D64;
 }
 
 #mensagem-pet:empty,
@@ -163,8 +238,43 @@
     display: none;
 }
 
-/* Ajustes para telas menores */
+
+/* TOAST */
+
+#pet-toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 24px;
+
+    transform: translateX(-50%);
+
+    background-color: #2F2A26;
+
+    color: #FFFFFF;
+
+    padding: 11px 18px;
+
+    border-radius: 12px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity 0.2s;
+
+    z-index: 999;
+}
+
+#pet-toast.on {
+    opacity: 1;
+}
+
+
+/* MOBILE */
+
 @media (max-width: 768px) {
+
     .pets-container {
         padding: 20px;
     }
@@ -174,11 +284,12 @@
         align-items: stretch;
     }
 
-    .pets-actions input {
+    .pets-actions input,
+    .pets-botao {
         width: 100%;
     }
 
-    .pets-form {
-        max-width: 100%;
+    .pets-modal-actions {
+        flex-direction: column-reverse;
     }
 }

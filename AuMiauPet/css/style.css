@@ -1,113 +1,136 @@
+:root {
+    --bg: #F7F5F2;
+    --surface: #FFFFFF;
+    --surface-soft: #F1ECE6;
+    --text: #2F2A26;
+    --text-muted: #766D64;
+    --border: #DDD6CF;
+    --primary: #8FA89A;
+    --primary-dark: #6F8A7B;
+    --hover: #E8E2DB;
+    --shadow: 0 8px 24px rgba(47, 42, 38, 0.08);
+    --radius: 16px;
+    --radius-sm: 12px;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Nunito", sans-serif;
 }
 
 html,
 body {
-    width: 100vw;
-    height: 100vh;
-    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg);
+    color: var(--text);
     overflow-x: hidden;
 }
 
-/* ------------------------------------------------LOGIN-------------------------------------------------------------- */
+/* -------------------------------- LOGIN -------------------------------- */
+
 .loginContainer {
-    background-color: #ffffff;
-    width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 24px;
     text-align: center;
+    background: linear-gradient(180deg, #F7F5F2 0%, #F1ECE6 100%);
 }
 
 .loginContainer h1 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: normal;
-    color: #000000;
-    margin-bottom: 20px;
+    font-size: clamp(2.3rem, 4vw, 3.6rem);
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
 }
 
 .loginContainer h2 {
-    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-    font-weight: normal;
-    color: #000000;
-    margin-bottom: 40px;
+    font-size: clamp(1.1rem, 2.3vw, 1.5rem);
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 32px;
 }
 
 .loginForm {
     width: 100%;
-    max-width: 320px;
+    max-width: 420px;
     text-align: left;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px;
 }
 
 .loginFormGroup {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     width: 100%;
 }
 
 .loginFormGroup label {
     display: block;
-    font-size: 1.1rem;
-    color: #000000;
-    margin-bottom: 6px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
 }
 
 .loginFormGroup input {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #000000;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
     font-size: 1rem;
-    color: #333333;
+    color: var(--text);
+    background-color: #fff;
     outline: none;
+    transition: 0.2s ease;
 }
 
 .loginFormGroup input::placeholder {
-    color: #a0a0a0;
+    color: #A79E95;
+}
+
+.loginFormGroup input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(143, 168, 154, 0.18);
 }
 
 .buttonLoginForm {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 26px;
 }
 
 .botaoEntrar {
-    background-color: #ffffff;
-    border: 1px solid #000000;
-    padding: 8px 50px;
-    font-size: 1.1rem;
-    color: #000000;
+    width: 100%;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
     cursor: pointer;
-    transition: background-color 0.2s;
-    min-width: 150px;
+    transition: 0.2s ease;
 }
 
 .botaoEntrar:hover {
-    background-color: #f0f0f0;
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
 }
 
-@media (max-width: 480px) {
-    .loginContainer {
-        padding: 30px 15px;
-    }
-
-    .botaoEntrar {
-        width: 100%;
-    }
-}
-
-/* --------------------------------------------------------ESTRUTURA BASE (DASHBOARD & AGENDAMENTOS)-------------------------------------------------------- */
+/* --------------------------- ESTRUTURA GERAL ---------------------------- */
 
 .app-container,
 .dashboard-container {
-    background-color: #ffffff;
-    width: 100vw;
-    height: 100vh;
+    background-color: var(--bg);
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -116,47 +139,49 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    border-bottom: 1px solid #000000;
-    height: 90px;
+    padding: 18px 28px;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--surface);
+    height: 84px;
 }
 
 .top-bar h1 {
-    font-size: 3rem;
-    font-weight: normal;
-    color: #000000;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
 }
 
 .btn-sair {
-    background-color: #ffffff;
-    border: 1px solid #000000;
-    padding: 8px 35px;
-    font-size: 1.1rem;
-    color: #000000;
+    background-color: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text);
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: 0.2s ease;
 }
 
 .btn-sair:hover {
-    background-color: #f0f0f0;
+    background-color: var(--hover);
 }
 
 .app-body,
 .dashboard-body {
     display: flex;
     flex: 1;
-    height: calc(100vh - 90px);
-    overflow: hidden;
+    min-height: calc(100vh - 84px);
 }
 
-/* Menu Lateral (Sidebar) */
+/* Sidebar */
 .sidebar {
-    width: 280px;
-    min-width: 280px;
+    width: 260px;
+    min-width: 260px;
     height: 100%;
-    border-right: 1px solid #000000;
-    padding: 40px 30px;
-    box-sizing: border-box;
+    border-right: 1px solid var(--border);
+    padding: 28px 20px;
+    background-color: var(--surface);
 }
 
 #sidebar-container {
@@ -166,82 +191,146 @@ body {
 
 .sidebar ul {
     list-style: none;
+    width: 100%;
 }
 
 .sidebar li {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 .sidebar li.menu-inicio {
-    margin-bottom: 40px;
-    /* Cria o espaçamento necessário abaixo do Início */
+    margin-bottom: 24px;
 }
 
 .sidebar a {
     text-decoration: none;
-    color: #000000;
-    font-size: 1.15rem;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
     display: block;
+    padding: 12px 14px;
+    border-radius: 12px;
+    transition: 0.2s ease;
+}
+
+.sidebar a:hover {
+    background-color: var(--surface-soft);
+    color: var(--primary-dark);
 }
 
 .sidebar li.active a {
-    font-weight: bold;
-    font-size: 1.25rem;
+    background-color: rgba(143, 168, 154, 0.18);
+    color: var(--primary-dark);
+    font-weight: 800;
 }
 
-/* Área Principal - Ocupa todo o espaço restante */
+/* Conteúdo */
 .main-content {
     flex: 1;
-    height: 100%;
     overflow-y: auto;
     width: 100%;
+    padding: 32px;
 }
 
-/* Centralização exclusiva para a página inicial da Dashboard */
+/* Dashboard */
 .dashboard-home {
     width: 100%;
-    height: 100%;
+    min-height: calc(100vh - 148px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px;
+    padding: 20px;
 }
 
 .dashboard-home h2 {
-    font-size: 3rem;
-    font-weight: normal;
-    color: #000000;
-    margin-bottom: 20px;
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
 }
 
 .dashboard-home h3 {
-    font-size: 2rem;
-    font-weight: normal;
-    color: #000000;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-muted);
 }
 
-@media (max-width: 768px) {
+/* Componentes genéricos */
+input,
+select,
+textarea,
+button {
+    font: inherit;
+}
 
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(143, 168, 154, 0.18);
+    outline: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
     .app-body,
     .dashboard-body {
         flex-direction: column;
-        height: auto;
     }
 
     .sidebar {
         width: 100%;
+        min-width: 100%;
         border-right: none;
-        border-bottom: 1px solid #000000;
+        border-bottom: 1px solid var(--border);
+        padding: 18px;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .sidebar li,
+    .sidebar li.menu-inicio {
+        margin-bottom: 0;
+    }
+
+    .main-content {
         padding: 20px;
     }
 
     .top-bar {
-        padding: 15px 20px;
+        padding: 16px 18px;
     }
 
     .top-bar h1 {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .loginForm {
+        padding: 22px 18px;
+    }
+
+    .dashboard-home h2 {
         font-size: 2rem;
+    }
+
+    .dashboard-home h3 {
+        font-size: 1rem;
     }
 }
