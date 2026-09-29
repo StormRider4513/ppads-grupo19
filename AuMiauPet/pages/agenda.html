@@ -4,73 +4,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Agenda - AuMiau Pet</title>
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
+    >
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/agenda.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
 </head>
 
 <body>
 
     <div class="app-container">
 
-        <!-- Área onde a barra superior será carregada pelo layout.js -->
         <div id="topbar-container"></div>
 
         <div class="app-body">
 
-            <!-- Área onde o menu lateral será carregado pelo layout.js -->
             <div id="sidebar-container"></div>
 
-            <!-- Conteúdo principal da página -->
             <main class="main-content">
-                <div class="agenda-container">
+
+                <section class="agenda-container">
 
                     <h2>Agenda de Serviços</h2>
 
-                    <!-- Campo de pesquisa e botão para criar um novo agendamento -->
                     <div class="agenda-actions">
 
-                        <input type="text" id="pesquisa" placeholder="Pesquisar...">
+                        <input
+                            type="search"
+                            id="pesquisa"
+                            placeholder="Pesquisar cliente, pet ou serviço..."
+                        >
 
-                        <button type="button" id="btn-pesquisar">
+                        <button
+                            type="button"
+                            id="btn-pesquisar"
+                            class="btn-secundario"
+                        >
                             Pesquisar
                         </button>
 
-                        <button type="button" id="btn-novo-agendamento">
+                        <button
+                            type="button"
+                            id="btn-novo-agendamento"
+                            class="btn-principal"
+                        >
                             Novo agendamento
                         </button>
 
                     </div>
 
-                    <!-- Tabela que mostra os agendamentos cadastrados -->
-                    <table class="agenda-table">
+                    <div class="agenda-tabela-container">
 
-                        <thead>
-                            <tr>
-                                <th>Data</th>
-                                <th>Horário</th>
-                                <th>Cliente</th>
-                                <th>Pet</th>
-                                <th>Serviço</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
+                        <table class="agenda-table">
 
-                        <!-- As linhas são criadas pelo agenda.js -->
-                        <tbody id="agenda-body">
-                        </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Horário</th>
+                                    <th>Cliente</th>
+                                    <th>Pet</th>
+                                    <th>Serviço</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
 
-                    </table>
+                            <tbody id="agenda-body"></tbody>
 
-                </div>
+                        </table>
+
+                    </div>
+
+                </section>
+
             </main>
 
         </div>
+
     </div>
 
-    <!-- Arquivos JavaScript usados pela página -->
+
+    <!-- MODAL DE AGENDAMENTO -->
+
+    <dialog id="modal-agendamento">
+
+        <form
+            id="form-agendamento"
+            class="agendamento-form"
+        >
+
+            <h2 id="titulo-modal">
+                Novo agendamento
+            </h2>
+
+
+            <div class="form-field">
+
+                <label for="cliente">
+                    Cliente
+                </label>
+
+                <select
+                    id="cliente"
+                    required
+                >
+                    <option
+                        value=""
+                        disabled
+                        selected
+                    >
+                        Selecionar cliente
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="pet">
+                    Pet
+                </label>
+
+                <select
+                    id="pet"
+                    required
+                >
+                    <option
+                        value=""
+                        disabled
+                        selected
+                    >
+                        Selecionar pet
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="servico">
+                    Serviço
+                </label>
+
+                <select
+                    id="servico"
+                    required
+                >
+                    <option
+                        value=""
+                        disabled
+                        selected
+                    >
+                        Selecionar serviço
+                    </option>
+                </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label for="data">
+                    Data
+                </label>
+
+                <input
+                    type="date"
+                    id="data"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label>
+                    Horários disponíveis
+                </label>
+
+                <div
+                    id="horarios-disponiveis"
+                    class="horarios-group"
+                >
+
+                    <span class="mensagem-horarios">
+                        Escolha uma data
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="btn-cancelar-modal"
+                    class="btn-cancelar"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    id="btn-salvar-agendamento"
+                    class="btn-confirmar"
+                >
+                    Confirmar agendamento
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+
+    <div
+        id="agenda-toast"
+        role="status"
+    ></div>
+
+
     <script src="../js/layout.js"></script>
     <script src="../js/dados.js"></script>
     <script src="../js/agenda.js"></script>

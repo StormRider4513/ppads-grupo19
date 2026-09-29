@@ -1,295 +1,507 @@
-:root {
-    --bg: #F7F5F2;
-    --surface: #FFFFFF;
-    --surface-soft: #F1ECE6;
-    --text: #2F2A26;
-    --text-muted: #766D64;
-    --border: #DDD6CF;
-    --primary: #8FA89A;
-    --primary-dark: #6F8A7B;
-    --hover: #E8E2DB;
-    --error: #B42318;
-    --shadow: 0 8px 24px rgba(47, 42, 38, 0.08);
-    --radius: 16px;
-}
+/* -------------------------------------------------------
+   CONTAINER
+------------------------------------------------------- */
 
-* {
-    box-sizing: border-box;
-}
+.clientes-container {
+    width: 100%;
 
-body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font: 400 16px/1.5 "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
+    min-width: 0;
 
-header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 18px 24px;
-}
-
-.wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-header .wrap {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    flex-wrap: wrap;
-}
-
-h1 {
-    margin: 0;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--text);
-}
-
-header span {
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-main {
-    padding: 32px 20px;
-}
-
-main > .wrap {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
     padding: 28px;
+
+    background-color:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
 }
+
+.clientes-container h2 {
+    margin:
+        0 0 24px;
+
+    font-size: 1.9rem;
+    font-weight: 800;
+
+    color: var(--text);
+}
+
+
+/* -------------------------------------------------------
+   PESQUISA
+------------------------------------------------------- */
 
 .bar {
     display: flex;
+
+    align-items: center;
+
     gap: 12px;
+
     flex-wrap: wrap;
+
     margin-bottom: 24px;
-}
-
-input,
-textarea,
-select {
-    font: inherit;
-    color: var(--text);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 14px;
-    width: 100%;
-    outline: none;
-    transition: 0.2s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(143, 168, 154, 0.18);
 }
 
 .bar input {
     flex: 1 1 280px;
-    width: auto;
-}
 
-button {
-    font: inherit;
-    font-weight: 700;
-    border: 0;
-    border-radius: 12px;
-    padding: 11px 16px;
-    cursor: pointer;
-    background: var(--primary);
-    color: #fff;
+    width: auto;
+
+    min-width: 220px;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    outline: none;
+
     transition: 0.2s ease;
 }
 
-button:hover {
-    background: var(--primary-dark);
+.bar input::placeholder {
+    color: #9A9187;
 }
 
-button.sec {
-    background: var(--surface-soft);
-    color: var(--text);
-    border: 1px solid var(--border);
+
+/* Botão novo cliente */
+
+.bar button {
+    padding: 11px 16px;
+
+    border: none;
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--primary);
+
+    color: #4E4322;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
-button.sec:hover {
-    background: var(--hover);
+.bar button:hover {
+    background-color:
+        var(--primary-dark);
 }
 
-button.link {
-    background: transparent;
-    color: var(--primary-dark);
-    padding: 6px 10px;
-}
 
-button.link:hover {
-    background: rgba(143, 168, 154, 0.14);
-}
+/* -------------------------------------------------------
+   TABELA
+------------------------------------------------------- */
 
 .tbl {
-    overflow-x: auto;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-}
-
-table {
-    border-collapse: collapse;
     width: 100%;
-    min-width: 620px;
+
+    overflow-x: auto;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background-color:
+        var(--surface);
 }
 
-th,
-td {
-    text-align: left;
+.tbl table {
+    width: 100%;
+
+    min-width: 700px;
+
+    border-collapse: collapse;
+}
+
+.tbl th,
+.tbl td {
     padding: 14px;
-    border-bottom: 1px solid var(--border);
+
+    text-align: left;
+
+    border-bottom:
+        1px solid var(--border);
+
+    color:
+        var(--text);
+
+    font-size: 0.96rem;
 }
 
-th {
+.tbl th {
+    background-color:
+        var(--surface-soft);
+
+    font-size: 0.9rem;
+
     font-weight: 800;
-    color: var(--text);
-    font-size: 14px;
-    background: var(--surface-soft);
 }
 
-tbody tr:hover {
-    background: #FBFAF8;
+.tbl tbody tr {
+    transition:
+        background-color 0.2s ease;
 }
 
-tr:last-child td {
-    border-bottom: 0;
+.tbl tbody tr:hover {
+    background-color: #FBFAF8;
 }
 
-td small {
-    color: var(--text-muted);
+.tbl tr:last-child td {
+    border-bottom: none;
+}
+
+.tbl td small {
     display: block;
+
+    margin-top: 3px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 0.86rem;
 }
+
+
+/* -------------------------------------------------------
+   LISTA VAZIA
+------------------------------------------------------- */
 
 .empty {
     padding: 36px 20px;
+
     text-align: center;
-    color: var(--text-muted);
+
+    color:
+        var(--text-muted);
 }
 
-dialog {
-    border: 0;
-    border-radius: 16px;
-    padding: 0;
-    width: min(580px, 94vw);
-    background: var(--surface);
-    color: var(--text);
-    max-height: 92vh;
-    overflow: auto;
-    box-shadow: 0 24px 70px rgba(47, 42, 38, 0.22);
+
+/* -------------------------------------------------------
+   BOTÕES DA TABELA
+------------------------------------------------------- */
+
+button.link {
+    padding: 7px 11px;
+
+    border:
+        1px solid
+        var(--primary);
+
+    border-radius: 10px;
+
+    background-color:
+        var(--primary-soft);
+
+    color: #655722;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
 }
 
-dialog::backdrop {
-    background: rgba(47, 42, 38, 0.38);
-    backdrop-filter: blur(2px);
+button.link:hover {
+    background-color:
+        var(--hover);
 }
 
-form {
+
+/* -------------------------------------------------------
+   FORMULÁRIO DO MODAL
+------------------------------------------------------- */
+
+#frm {
     padding: 26px;
 }
 
-form h2 {
-    margin: 0 0 20px;
+#frm h2 {
+    margin:
+        0 0 20px;
+
     font-size: 1.5rem;
     font-weight: 800;
+
+    color:
+        var(--text);
 }
+
+
+/* -------------------------------------------------------
+   GRID
+------------------------------------------------------- */
 
 .g {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap: 14px;
 }
 
 .g .f {
-    grid-column: span 2;
+    grid-column:
+        span 2;
 }
 
 .g .h {
-    grid-column: span 1;
+    grid-column:
+        span 1;
 }
 
-label {
-    font-weight: 700;
-    font-size: 14px;
+
+/* -------------------------------------------------------
+   CAMPOS
+------------------------------------------------------- */
+
+#frm label {
     display: block;
+
     margin-bottom: 6px;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    color:
+        var(--text);
 }
+
+#frm input,
+#frm textarea,
+#frm select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+#frm input::placeholder,
+#frm textarea::placeholder {
+    color: #9A9187;
+}
+
+#frm textarea {
+    min-height: 80px;
+
+    resize: vertical;
+}
+
+
+/* -------------------------------------------------------
+   ERROS
+------------------------------------------------------- */
 
 .e {
-    color: var(--error);
-    font-size: 13px;
-    min-height: 18px;
     display: block;
+
+    min-height: 18px;
+
     margin-top: 4px;
+
+    color:
+        var(--error);
+
+    font-size: 0.8rem;
 }
+
+
+/* -------------------------------------------------------
+   AÇÕES DO MODAL
+------------------------------------------------------- */
 
 .acts {
     display: flex;
+
     justify-content: flex-end;
+
     gap: 10px;
-    margin-top: 18px;
+
+    margin-top: 20px;
 }
+
+.acts button {
+    padding: 11px 16px;
+
+    border-radius:
+        var(--radius-small);
+
+    font-size: 0.98rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.acts #salvar {
+    border: none;
+
+    background-color:
+        var(--primary);
+
+    color: #4E4322;
+}
+
+.acts #salvar:hover {
+    background-color:
+        var(--primary-dark);
+}
+
+.acts .sec {
+    border:
+        1px solid var(--border);
+
+    background-color:
+        var(--surface-soft);
+
+    color:
+        var(--text);
+}
+
+.acts .sec:hover {
+    background-color:
+        var(--hover);
+}
+
+
+/* -------------------------------------------------------
+   TOAST
+------------------------------------------------------- */
 
 #toast {
     position: fixed;
+
     left: 50%;
-    transform: translateX(-50%);
     bottom: 24px;
-    background: var(--text);
-    color: #fff;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 9999;
+
     padding: 11px 18px;
-    border-radius: 12px;
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--text);
+
+    color: #FFFFFF;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
     opacity: 0;
+
     pointer-events: none;
-    transition: opacity .2s;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
 }
 
 #toast.on {
     opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(-4px);
 }
 
-@media (max-width: 620px) {
-    main {
-        padding: 20px 14px;
-    }
 
-    main > .wrap {
+/* -------------------------------------------------------
+   RESPONSIVIDADE
+------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .clientes-container {
         padding: 20px;
     }
 
-    .g .h,
-    .g .f {
-        grid-column: span 2;
+    .clientes-container h2 {
+        font-size: 1.6rem;
     }
 
     .bar {
         flex-direction: column;
+
+        align-items: stretch;
     }
 
     .bar input,
     .bar button {
         width: 100%;
+
+        min-width: 0;
+    }
+
+}
+
+
+@media (max-width: 620px) {
+
+    .g {
+        grid-template-columns: 1fr;
+    }
+
+    .g .h,
+    .g .f {
+        grid-column:
+            span 1;
     }
 
     .acts {
-        flex-direction: column-reverse;
+        flex-direction:
+            column-reverse;
     }
 
     .acts button {
         width: 100%;
     }
+
+    #frm {
+        padding: 20px;
+    }
+
 }
