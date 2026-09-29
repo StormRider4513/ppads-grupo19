@@ -20,7 +20,7 @@
 
         <div class="app-body">
             <div id="sidebar-container"></div>
-        
+
             <main class="main-content">
                 <section class="servicos-container">
                     <div class="servicos-header">
@@ -76,7 +76,7 @@
                     Descrição
                 </label>
 
-                <textarea id="descricao-servico" rows="3"></textarea>
+                <textarea id="descricao-servico" maxlength="150" rows="3"></textarea>
             </div>
 
             <div class="servico-campo">
@@ -89,10 +89,17 @@
 
             <div class="servico-campo">
                 <label for="duracao-servico">
-                    Duração em minutos
+                    Duração
                 </label>
 
-                <input type="number" id="duracao-servico" min="1" required>
+                <div class="duracao-input">
+                    <input type="number" id="duracao-servico" min="1" required>
+
+                    <select id="unidade-duracao">
+                        <option value="minutos">minutos</option>
+                        <option value="horas">horas</option>
+                    </select>
+                </div>
             </div>
 
             <div class="servico-actions">

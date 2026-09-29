@@ -154,6 +154,155 @@ function salvarAgendamentos(lista) {
 
 }
 
+function limparAgendamentosAntigos() {
+
+    const hoje =
+        new Date();
+
+    const ano =
+        hoje.getFullYear();
+
+    const mes =
+        String(
+            hoje.getMonth() + 1
+        ).padStart(2, "0");
+
+    const dia =
+        String(
+            hoje.getDate()
+        ).padStart(2, "0");
+
+
+    const dataHoje =
+        `${ano}-${mes}-${dia}`;
+
+
+    const agendamentos =
+        obterAgendamentos();
+
+
+    const agendamentosAtuais =
+        agendamentos.filter(
+            function (agendamento) {
+
+                return (
+                    agendamento.data >=
+                    dataHoje
+                );
+
+            }
+        );
+
+
+    salvarAgendamentos(
+        agendamentosAtuais
+    );
+
+}
+
+function definirDataMinima() {
+
+    const hoje =
+        new Date();
+
+    const ano =
+        hoje.getFullYear();
+
+    const mes =
+        String(
+            hoje.getMonth() + 1
+        ).padStart(2, "0");
+
+    const dia =
+        String(
+            hoje.getDate()
+        ).padStart(2, "0");
+
+
+    const dataHoje =
+        `${ano}-${mes}-${dia}`;
+
+
+    inputData.min =
+        dataHoje;
+
+}
+
+function obterHoraAtual() {
+
+    const agora = new Date();
+
+    const horas =
+        String(agora.getHours()).padStart(2, "0");
+
+    const minutos =
+        String(agora.getMinutes()).padStart(2, "0");
+
+    return `${horas}:${minutos}`;
+}
+
+// function limparAgendamentosPassados() {
+
+//     const agora = new Date();
+
+//     const ano = agora.getFullYear();
+
+//     const mes =
+//         String(agora.getMonth() + 1)
+//             .padStart(2, "0");
+
+//     const dia =
+//         String(agora.getDate())
+//             .padStart(2, "0");
+
+//     const hora =
+//         String(agora.getHours())
+//             .padStart(2, "0");
+
+//     const minuto =
+//         String(agora.getMinutes())
+//             .padStart(2, "0");
+
+
+//     const agoraTexto =
+//         `${ano}-${mes}-${dia} ${hora}:${minuto}`;
+
+
+//     const agendamentos =
+//         obterAgendamentos();
+
+
+//     const agendamentosFuturos =
+//         agendamentos.filter(
+//             function (agendamento) {
+
+//                 const dataHora =
+//                     `${agendamento.data} ${agendamento.horario}`;
+
+//                 return dataHora > agoraTexto;
+
+//             }
+//         );
+
+
+//     if (
+//         agendamentosFuturos.length !==
+//         agendamentos.length
+//     ) {
+
+//         salvarAgendamentos(
+//             agendamentosFuturos
+//         );
+
+//     }
+
+
+//     return agendamentosFuturos;
+
+// }
+
+
+
 /* ----------------------------------
    CLIENTE E PET
 ---------------------------------- */
@@ -480,6 +629,8 @@ function carregarHorarios() {
     }
 
 
+
+
     const horarios = [
 
         "08:00",
@@ -495,13 +646,40 @@ function carregarHorarios() {
 
     ];
 
+    const agora = new Date();
+
+    const hoje =
+        `${agora.getFullYear()}-` +
+        `${String(agora.getMonth() + 1).padStart(2, "0")}-` +
+        `${String(agora.getDate()).padStart(2, "0")}`;
+
+    const horaAtual =
+        `${String(agora.getHours()).padStart(2, "0")}:` +
+        `${String(agora.getMinutes()).padStart(2, "0")}`;
+
 
     const agendamentos =
         obterAgendamentos();
 
+    if (data < hoje) {
+        horariosContainer.innerHTML = `
+        <span class="mensagem-horarios">
+            Não é possível agendar em uma data passada.
+        </span>
+    `;
 
+        return;
+    }
+    
     horarios.forEach(
         function (horario) {
+
+            if (
+                data === hoje &&
+                horario <= horaAtual
+            ) {
+                return;
+            }
 
             const ocupado =
                 agendamentos.some(
@@ -622,6 +800,22 @@ function abrirModal(
 
     formularioAgendamento.reset();
 
+    const hoje = new Date();
+
+    const ano = hoje.getFullYear();
+
+    const mes =
+        String(hoje.getMonth() + 1)
+            .padStart(2, "0");
+
+    const dia =
+        String(hoje.getDate())
+            .padStart(2, "0");
+
+    inputData.min =
+        `${ano}-${mes}-${dia}`;
+
+
     carregarClientes();
 
     carregarServicos();
@@ -726,7 +920,6 @@ function fecharModal() {
 ---------------------------------- */
 
 function salvarAgendamento() {
-
     const clienteId =
         Number(
             selectCliente.value
@@ -742,6 +935,49 @@ function salvarAgendamento() {
 
     const data =
         inputData.value;
+
+    const agora =
+        new Date();
+
+    const dataHoje =
+        `${agora.getFullYear()}-` +
+        `${String(agora.getMonth() + 1).padStart(2, "0")}-` +
+        `${String(agora.getDate()).padStart(2, "0")}`;
+
+    const horaAtual =
+        obterHoraAtual();
+
+
+    /* Não permite data passada */
+
+    if (data < dataHoje) {
+
+        alert(
+            "Não é possível realizar agendamentos em datas passadas."
+        );
+
+        return;
+    }
+
+
+    /* Não permite horário passado hoje */
+
+    if (
+        data === dataHoje &&
+        horarioSelecionado &&
+        horarioSelecionado <= horaAtual
+    ) {
+
+        alert(
+            "Não é possível realizar agendamento em um horário que já passou."
+        );
+
+        horarioSelecionado = null;
+
+        carregarHorarios();
+
+        return;
+    }
 
 
     if (
@@ -1330,6 +1566,27 @@ modalAgendamento.addEventListener(
 
 criarAgendamentosIniciais();
 
+/* Remove agendamentos que já passaram */
+
+// limparAgendamentosPassados();
+
 mostrarAgendamentos(
     obterAgendamentos()
 );
+
+
+/* Verifica novamente a cada minuto */
+
+// setInterval(
+//     function () {
+
+//         const agendamentos =
+//             limparAgendamentosPassados();
+
+//         mostrarAgendamentos(
+//             agendamentos
+//         );
+
+//     },
+//     60000
+// );

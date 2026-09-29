@@ -47,7 +47,8 @@ const pets = [
 const servicos = [
     "Consulta veterinária",
     "Banho",
-    "Tosa"
+    "Tosa",
+    "Diária de hospedagem"
 ];
 
 // ----------------------------------------------------

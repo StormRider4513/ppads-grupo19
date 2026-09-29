@@ -54,6 +54,11 @@ const campoDuracao =
         "duracao-servico"
     );
 
+const unidadeDuracao =
+    document.getElementById(
+        "unidade-duracao"
+    );
+
 
 let servicoEmEdicao = null;
 
@@ -83,7 +88,8 @@ function criarServicosIniciais() {
             descricao:
                 "Banho completo para o pet.",
             valor: 60,
-            duracao: 60
+            duracao: 60,
+            unidadeDuracao: "minutos"
         },
 
         {
@@ -92,7 +98,8 @@ function criarServicosIniciais() {
             descricao:
                 "Serviço de tosa.",
             valor: 80,
-            duracao: 90
+            duracao: 90,
+            unidadeDuracao: "minutos"
         },
 
         {
@@ -102,7 +109,8 @@ function criarServicosIniciais() {
             descricao:
                 "Consulta clínica veterinária.",
             valor: 150,
-            duracao: 45
+            duracao: 45,
+            unidadeDuracao: "minutos"
         }
 
     ];
@@ -208,12 +216,12 @@ function mostrarServicos() {
 
                 <td>
                     ${formatarValor(
-                        servico.valor
-                    )}
+                servico.valor
+            )}
                 </td>
 
                 <td>
-                    ${servico.duracao} min
+                    ${servico.duracao} ${servico.unidadeDuracao || "minutos"}
                 </td>
 
                 <td>
@@ -281,6 +289,9 @@ function abrirModal(servico = null) {
 
         campoDuracao.value =
             servico.duracao;
+        
+        unidadeDuracao.value =
+            servico.unidadeDuracao || "minutos";
 
     } else {
 
@@ -347,7 +358,10 @@ formularioServico.addEventListener(
             duracao:
                 Number(
                     campoDuracao.value
-                )
+                ),
+
+            unidadeDuracao:
+                unidadeDuracao.value
 
         };
 

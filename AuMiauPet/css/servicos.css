@@ -263,6 +263,42 @@
     resize: vertical;
 }
 
+.duracao-input {
+    display: flex;
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+.duracao-input input {
+    flex: 1;
+}
+
+.duracao-input select {
+    width: 120px;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    font-family: inherit;
+    font-size: 1rem;
+
+    outline: none;
+
+    cursor: pointer;
+}
 
 /* AÇÕES DO MODAL */
 
