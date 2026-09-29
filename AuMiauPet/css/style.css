@@ -1,94 +1,214 @@
 :root {
     --bg: #F7F5F2;
+
     --surface: #FFFFFF;
-    --surface-soft: #F1ECE6;
+    --surface-soft: #F3EFE7;
+
     --text: #2F2A26;
     --text-muted: #766D64;
+
     --border: #DDD6CF;
-    --primary: #8FA89A;
-    --primary-dark: #6F8A7B;
-    --hover: #E8E2DB;
-    --shadow: 0 8px 24px rgba(47, 42, 38, 0.08);
+
+    /* Amarelo pastel / manteiga */
+    --primary: #E8D9A7;
+    --primary-dark: #D6C27F;
+    --primary-soft: #F7F0D3;
+
+    --hover: #EFE4C2;
+
+    --error: #B42318;
+
+    --shadow:
+        0 8px 24px rgba(47, 42, 38, 0.08);
+
+    --shadow-modal:
+        0 24px 70px rgba(47, 42, 38, 0.22);
+
     --radius: 16px;
-    --radius-sm: 12px;
+    --radius-small: 12px;
 }
+
+
+/* -------------------------------------------------------
+   RESET
+------------------------------------------------------- */
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Nunito", sans-serif;
+
+    font-family:
+        "Nunito",
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+
     background-color: var(--bg);
+
     color: var(--text);
+}
+
+body {
     overflow-x: hidden;
 }
 
-/* -------------------------------- LOGIN -------------------------------- */
+
+/* -------------------------------------------------------
+   LOGIN
+------------------------------------------------------- */
 
 .loginContainer {
     min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #F7F5F2 0%,
+            #F3EFE7 100%
+        );
+}
+
+.loginCard {
+    width: 100%;
+    max-width: 460px;
+
+    background-color: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 45px rgba(47, 42, 38, 0.10);
+
+    padding: 32px 30px;
+}
+
+.loginBrand {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-logo-img {
+    display: block;
+
+    width: 130px;
+    max-width: 100%;
+
+    height: auto;
+
+    object-fit: contain;
+
+    margin: 0 auto 10px;
+}
+
+.loginSubtitle {
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+.loginWelcome {
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.loginWelcome h2 {
+    margin: 0 0 6px;
+
+    font-size: 1.3rem;
+    font-weight: 800;
+
+    color: var(--text);
+}
+
+.loginWelcome p {
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 0.96rem;
+}
+
+.loginHint {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 24px;
-    text-align: center;
-    background: linear-gradient(180deg, #F7F5F2 0%, #F1ECE6 100%);
+
+    gap: 4px;
+
+    margin-bottom: 22px;
+
+    padding: 14px 16px;
+
+    border: 1px solid #EADFB8;
+
+    border-radius: 14px;
+
+    background-color: var(--primary-soft);
+
+    color: #5E5024;
+
+    font-size: 0.95rem;
 }
 
-.loginContainer h1 {
-    font-size: clamp(2.3rem, 4vw, 3.6rem);
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 10px;
-}
+.loginHint strong {
+    font-size: 0.96rem;
 
-.loginContainer h2 {
-    font-size: clamp(1.1rem, 2.3vw, 1.5rem);
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 32px;
+    margin-bottom: 2px;
 }
 
 .loginForm {
     width: 100%;
-    max-width: 420px;
-    text-align: left;
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 28px;
 }
 
 .loginFormGroup {
     margin-bottom: 18px;
-    width: 100%;
 }
 
 .loginFormGroup label {
     display: block;
-    font-size: 0.98rem;
+
+    margin-bottom: 7px;
+
+    font-size: 0.95rem;
     font-weight: 700;
+
     color: var(--text);
-    margin-bottom: 8px;
 }
 
 .loginFormGroup input {
     width: 100%;
-    padding: 12px 14px;
+
+    padding: 13px 14px;
+
     border: 1px solid var(--border);
-    border-radius: 12px;
-    font-size: 1rem;
+
+    border-radius: 14px;
+
+    background-color: #FFFFFF;
+
     color: var(--text);
-    background-color: #fff;
+
+    font-size: 1rem;
+
     outline: none;
+
     transition: 0.2s ease;
 }
 
@@ -97,105 +217,189 @@ body {
 }
 
 .loginFormGroup input:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(143, 168, 154, 0.18);
+    border-color: var(--primary-dark);
+
+    box-shadow:
+        0 0 0 4px rgba(232, 217, 167, 0.30);
 }
 
-.buttonLoginForm {
+.mensagem-login {
+    min-height: 20px;
+
+    margin: -4px 0 14px;
+
     text-align: center;
-    margin-top: 26px;
+
+    color: var(--error);
+
+    font-size: 0.92rem;
+    font-weight: 600;
 }
 
 .botaoEntrar {
     width: 100%;
-    background-color: var(--primary);
+
+    padding: 13px 18px;
+
     border: none;
-    border-radius: 12px;
-    padding: 12px 18px;
+
+    border-radius: 14px;
+
+    background-color: var(--primary);
+
+    color: #4E4322;
+
     font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
+    font-weight: 800;
+
     cursor: pointer;
+
     transition: 0.2s ease;
 }
 
 .botaoEntrar:hover {
     background-color: var(--primary-dark);
+
     transform: translateY(-1px);
 }
 
-/* --------------------------- ESTRUTURA GERAL ---------------------------- */
+.botaoEntrar:active {
+    transform: translateY(0);
+}
+
+
+/* -------------------------------------------------------
+   ESTRUTURA DO SISTEMA
+------------------------------------------------------- */
 
 .app-container,
 .dashboard-container {
-    background-color: var(--bg);
     width: 100%;
+
     min-height: 100vh;
+
     display: flex;
     flex-direction: column;
+
+    background-color: var(--bg);
 }
+
+
+/* -------------------------------------------------------
+   TOPBAR
+------------------------------------------------------- */
 
 .top-bar {
+    height: 84px;
+
     display: flex;
+
     justify-content: space-between;
     align-items: center;
-    padding: 18px 28px;
-    border-bottom: 1px solid var(--border);
+
+    padding: 10px 28px;
+
     background-color: var(--surface);
-    height: 84px;
+
+    border-bottom:
+        1px solid var(--border);
 }
 
-.top-bar h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--text);
+.topbar-brand {
+    display: flex;
+
+    align-items: center;
+
+    text-decoration: none;
+}
+
+.topbar-logo {
+    display: block;
+
+    width: 105px;
+    height: 65px;
+
+    object-fit: contain;
+
+    object-position: left center;
 }
 
 .btn-sair {
-    background-color: var(--surface-soft);
-    border: 1px solid var(--border);
-    border-radius: 12px;
     padding: 10px 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--surface-soft);
+
+    color: var(--text);
+
     font-size: 0.98rem;
     font-weight: 700;
-    color: var(--text);
+
     cursor: pointer;
+
     transition: 0.2s ease;
 }
 
 .btn-sair:hover {
-    background-color: var(--hover);
+    background-color:
+        var(--hover);
 }
+
+
+/* -------------------------------------------------------
+   CORPO
+------------------------------------------------------- */
 
 .app-body,
 .dashboard-body {
     display: flex;
+
     flex: 1;
-    min-height: calc(100vh - 84px);
+
+    min-height:
+        calc(100vh - 84px);
 }
 
-/* Sidebar */
-.sidebar {
-    width: 260px;
-    min-width: 260px;
-    height: 100%;
-    border-right: 1px solid var(--border);
-    padding: 28px 20px;
-    background-color: var(--surface);
-}
+
+/* -------------------------------------------------------
+   SIDEBAR
+------------------------------------------------------- */
 
 #sidebar-container {
     height: 100%;
+
     display: flex;
 }
 
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+
+    min-height:
+        calc(100vh - 84px);
+
+    padding: 28px 20px;
+
+    background-color: var(--surface);
+
+    border-right:
+        1px solid var(--border);
+}
+
 .sidebar ul {
-    list-style: none;
     width: 100%;
+
+    list-style: none;
 }
 
 .sidebar li {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .sidebar li.menu-inicio {
@@ -203,61 +407,99 @@ body {
 }
 
 .sidebar a {
-    text-decoration: none;
+    display: block;
+
+    padding: 12px 14px;
+
+    border-radius:
+        var(--radius-small);
+
     color: var(--text);
+
+    text-decoration: none;
+
     font-size: 1rem;
     font-weight: 600;
-    display: block;
-    padding: 12px 14px;
-    border-radius: 12px;
+
     transition: 0.2s ease;
 }
 
 .sidebar a:hover {
-    background-color: var(--surface-soft);
-    color: var(--primary-dark);
+    background-color:
+        var(--primary-soft);
+
+    color: #655722;
 }
 
 .sidebar li.active a {
-    background-color: rgba(143, 168, 154, 0.18);
-    color: var(--primary-dark);
+    background-color:
+        var(--primary-soft);
+
+    color: #655722;
+
     font-weight: 800;
 }
 
-/* Conteúdo */
+
+/* -------------------------------------------------------
+   CONTEÚDO PRINCIPAL
+------------------------------------------------------- */
+
 .main-content {
     flex: 1;
-    overflow-y: auto;
+
     width: 100%;
+
+    min-width: 0;
+
     padding: 32px;
+
+    overflow-y: auto;
 }
 
-/* Dashboard */
+
+/* -------------------------------------------------------
+   DASHBOARD
+------------------------------------------------------- */
+
 .dashboard-home {
     width: 100%;
-    min-height: calc(100vh - 148px);
+
+    min-height:
+        calc(100vh - 148px);
+
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
-    text-align: center;
+
     padding: 20px;
+
+    text-align: center;
 }
 
 .dashboard-home h2 {
+    margin-bottom: 12px;
+
     font-size: 2.6rem;
     font-weight: 800;
+
     color: var(--text);
-    margin-bottom: 12px;
 }
 
 .dashboard-home h3 {
     font-size: 1.2rem;
     font-weight: 600;
+
     color: var(--text-muted);
 }
 
-/* Componentes genéricos */
+
+/* -------------------------------------------------------
+   INPUTS GLOBAIS
+------------------------------------------------------- */
+
 input,
 select,
 textarea,
@@ -265,47 +507,132 @@ button {
     font: inherit;
 }
 
+input,
+select,
+textarea {
+    color: var(--text);
+}
+
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(143, 168, 154, 0.18);
     outline: none;
+
+    border-color:
+        var(--primary-dark);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(232, 217, 167, 0.32);
 }
+
+
+/* -------------------------------------------------------
+   MODAL GLOBAL
+------------------------------------------------------- */
+
+dialog {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    margin: 0;
+
+    width:
+        min(580px, 94vw);
+
+    max-height: 90vh;
+
+    padding: 0;
+
+    overflow-y: auto;
+
+    border: none;
+
+    border-radius:
+        var(--radius);
+
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    box-shadow:
+        var(--shadow-modal);
+}
+
+dialog::backdrop {
+    background-color:
+        rgba(47, 42, 38, 0.38);
+
+    backdrop-filter:
+        blur(2px);
+}
+
+
+/* -------------------------------------------------------
+   FOCO / ACESSIBILIDADE
+------------------------------------------------------- */
 
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-    outline: 2px solid var(--primary-dark);
+    outline:
+        2px solid var(--primary-dark);
+
     outline-offset: 2px;
 }
 
-/* Responsividade */
+
+/* -------------------------------------------------------
+   RESPONSIVIDADE
+------------------------------------------------------- */
+
 @media (max-width: 900px) {
+
     .app-body,
     .dashboard-body {
         flex-direction: column;
     }
 
+    #sidebar-container {
+        width: 100%;
+
+        height: auto;
+    }
+
     .sidebar {
         width: 100%;
         min-width: 100%;
+
+        min-height: auto;
+
+        padding: 16px 18px;
+
         border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 18px;
+
+        border-bottom:
+            1px solid var(--border);
     }
 
     .sidebar ul {
         display: flex;
+
         flex-wrap: wrap;
+
         gap: 8px;
     }
 
     .sidebar li,
     .sidebar li.menu-inicio {
-        margin-bottom: 0;
+        margin: 0;
     }
 
     .main-content {
@@ -313,24 +640,39 @@ textarea:focus-visible {
     }
 
     .top-bar {
-        padding: 16px 18px;
+        padding: 10px 18px;
     }
 
-    .top-bar h1 {
-        font-size: 1.6rem;
+    .topbar-logo {
+        width: 95px;
+        height: 58px;
     }
+
 }
 
+
 @media (max-width: 480px) {
-    .loginForm {
-        padding: 22px 18px;
+
+    .loginContainer {
+        padding: 18px;
+    }
+
+    .loginCard {
+        padding: 24px 20px;
+
+        border-radius: 20px;
+    }
+
+    .login-logo-img {
+        width: 105px;
+    }
+
+    dialog {
+        width: 94vw;
     }
 
     .dashboard-home h2 {
         font-size: 2rem;
     }
 
-    .dashboard-home h3 {
-        font-size: 1rem;
-    }
 }

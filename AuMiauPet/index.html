@@ -1,5 +1,3 @@
-<!--tela de login de usuário e senha-->
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,37 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - AuMiau Pet</title>
-    <link rel="stylesheet" href="css/login.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
     <main class="loginContainer">
-        <!-- Título e apresentação -->
-        <h1>AuMiau Pet</h1>
-        <h2>Sistema de gestão para Pet Shop</h2>
 
-        <!-- Dados -->
-        <div class="loginForm">
-            <form action="#" method="POST">
+        <section class="loginCard">
+
+            <div class="loginBrand">
+
+                <img src="assets/AuMiauPet-Logo.png" alt="AuMiau Pet" class="login-logo-img">
+
+                <p class="loginSubtitle">
+                    Sistema de gestão para Pet Shop
+                </p>
+
+            </div>
+
+            <div class="loginWelcome">
+                <h2>Bem-vindo(a)!</h2>
+                <p>Faça login para acessar o painel do sistema.</p>
+            </div>
+
+            <form id="loginForm" class="loginForm">
+
                 <div class="loginFormGroup">
-                    <label for="usuario">Usuário:</label>
-                    <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" maxlength="10"
-                        required />
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário"
+                        autocomplete="username" required>
                 </div>
 
                 <div class="loginFormGroup">
-                    <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha" maxlength="10"
-                        required />
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Digite sua senha"
+                        autocomplete="current-password" required>
                 </div>
 
-                <div class="buttonLoginForm">
-                    <button type="submit" class="botaoEntrar">Entrar</button>
-                </div>
+                <p id="mensagem-login" class="mensagem-login"></p>
+
+                <button type="submit" class="botaoEntrar">
+                    Entrar
+                </button>
+
             </form>
-        </div>
+
+        </section>
+
     </main>
+
+    <script src="js/login.js"></script>
 </body>
 
 </html>

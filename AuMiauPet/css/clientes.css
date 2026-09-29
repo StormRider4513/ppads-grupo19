@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+/* -------------------------------------------------------
+   CONTAINER
+------------------------------------------------------- */
+
+.clientes-container {
+    width: 100%;
+    min-width: 0;
+
+    padding: 28px;
+
+    background-color: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+=======
 :root {
     --bg: #FAFBF9;
     --card: #fff;
@@ -88,10 +106,87 @@ header span {
 
 main {
     padding: 20px
+>>>>>>> origin/main
 }
+
+.clientes-container h2 {
+    margin: 0 0 24px;
+
+    font-size: 1.9rem;
+    font-weight: 800;
+
+    color: var(--text);
+}
+
+
+/* -------------------------------------------------------
+   PESQUISA
+------------------------------------------------------- */
 
 .bar {
     display: flex;
+<<<<<<< HEAD
+    align-items: center;
+
+    gap: 12px;
+    flex-wrap: wrap;
+
+    margin-bottom: 24px;
+}
+
+.bar input {
+    flex: 1 1 280px;
+
+    width: auto;
+    min-width: 220px;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+
+    background-color: var(--surface);
+
+    color: var(--text);
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.bar input::placeholder {
+    color: #9A9187;
+}
+
+
+/* Botão novo cliente */
+
+.bar button {
+    padding: 11px 16px;
+
+    border: none;
+    border-radius: var(--radius-small);
+
+    background-color: var(--primary);
+
+    color: #4E4322;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.bar button:hover {
+    background-color: var(--primary-dark);
+}
+
+
+/* -------------------------------------------------------
+   TABELA
+------------------------------------------------------- */
+=======
     gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 16px
@@ -142,17 +237,74 @@ button.link {
     color: var(--pri);
     padding: 6px 10px
 }
+>>>>>>> origin/main
 
 .tbl {
+    width: 100%;
+
     overflow-x: auto;
+<<<<<<< HEAD
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    background-color: var(--surface);
+=======
     background: var(--card);
     border: 1.5px solid var(--line);
     border-radius: 14px
+>>>>>>> origin/main
 }
 
-table {
-    border-collapse: collapse;
+.tbl table {
     width: 100%;
+<<<<<<< HEAD
+    min-width: 700px;
+
+    border-collapse: collapse;
+}
+
+.tbl th,
+.tbl td {
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom: 1px solid var(--border);
+
+    color: var(--text);
+
+    font-size: 0.96rem;
+}
+
+.tbl th {
+    background-color: var(--surface-soft);
+
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.tbl tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.tbl tbody tr:hover {
+    background-color: #FBFAF8;
+}
+
+.tbl tr:last-child td {
+    border-bottom: none;
+}
+
+.tbl td small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--text-muted);
+
+    font-size: 0.86rem;
+=======
     min-width: 620px
 }
 
@@ -176,11 +328,80 @@ tr:last-child td {
 td small {
     color: var(--mut);
     display: block
+>>>>>>> origin/main
 }
+
+
+/* -------------------------------------------------------
+   LISTA VAZIA
+------------------------------------------------------- */
 
 .empty {
     padding: 36px 20px;
+
     text-align: center;
+<<<<<<< HEAD
+
+    color: var(--text-muted);
+}
+
+
+/* -------------------------------------------------------
+   BOTÕES DA TABELA
+------------------------------------------------------- */
+
+button.link {
+    padding: 7px 11px;
+
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+
+    background-color: var(--primary-soft);
+
+    color: #655722;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+button.link:hover {
+    background-color: var(--hover);
+}
+
+
+/* -------------------------------------------------------
+   MODAL DE CLIENTE
+------------------------------------------------------- */
+
+#dlg {
+    width: min(580px, 94vw);
+
+    max-height: calc(100vh - 40px);
+
+    overflow: hidden;
+}
+
+
+/* -------------------------------------------------------
+   FORMULÁRIO DO MODAL
+------------------------------------------------------- */
+
+#frm {
+    padding: 24px 26px;
+}
+
+#frm h2 {
+    margin: 0 0 16px;
+
+    font-size: 1.5rem;
+    font-weight: 800;
+
+    color: var(--text);
+=======
     color: var(--mut)
 }
 
@@ -206,12 +427,25 @@ form {
 form h2 {
     margin: 0 0 14px;
     font-size: 22px
+>>>>>>> origin/main
 }
+
+
+/* -------------------------------------------------------
+   GRID
+------------------------------------------------------- */
 
 .g {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+<<<<<<< HEAD
+
+    column-gap: 14px;
+    row-gap: 10px;
+=======
     gap: 12px
+>>>>>>> origin/main
 }
 
 .g .f {
@@ -228,6 +462,41 @@ form h2 {
     }
 }
 
+<<<<<<< HEAD
+
+/* -------------------------------------------------------
+   CAMPOS
+------------------------------------------------------- */
+
+#frm label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    color: var(--text);
+}
+
+#frm input,
+#frm textarea,
+#frm select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+
+    background-color: var(--surface);
+
+    color: var(--text);
+
+    outline: none;
+
+    transition: 0.2s ease;
+=======
 label {
     font-weight: 600;
     font-size: 14px;
@@ -240,26 +509,194 @@ label {
     font-size: 13px;
     min-height: 18px;
     display: block
+>>>>>>> origin/main
 }
+
+#frm input::placeholder,
+#frm textarea::placeholder {
+    color: #9A9187;
+}
+
+#frm textarea {
+    min-height: 60px;
+    max-height: 100px;
+
+    resize: vertical;
+}
+
+
+/* -------------------------------------------------------
+   ERROS
+------------------------------------------------------- */
+
+.e {
+    display: block;
+
+    min-height: 18px;
+
+    margin-top: 4px;
+
+    color: var(--error);
+
+    font-size: 0.8rem;
+}
+
+
+/* -------------------------------------------------------
+   AÇÕES DO MODAL
+------------------------------------------------------- */
 
 .acts {
     display: flex;
+
     justify-content: flex-end;
+
     gap: 10px;
+<<<<<<< HEAD
+
+    margin-top: 16px;
+=======
     margin-top: 14px
+>>>>>>> origin/main
 }
+
+.acts button {
+    padding: 11px 16px;
+
+    border-radius: var(--radius-small);
+
+    font-size: 0.98rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.acts #salvar {
+    border: none;
+
+    background-color: var(--primary);
+
+    color: #4E4322;
+}
+
+.acts #salvar:hover {
+    background-color: var(--primary-dark);
+}
+
+.acts .sec {
+    border: 1px solid var(--border);
+
+    background-color: var(--surface-soft);
+
+    color: var(--text);
+}
+
+.acts .sec:hover {
+    background-color: var(--hover);
+}
+
+
+/* -------------------------------------------------------
+   TOAST
+------------------------------------------------------- */
 
 #toast {
     position: fixed;
+
     left: 50%;
+<<<<<<< HEAD
+    bottom: 24px;
+
+    transform: translateX(-50%);
+
+    z-index: 9999;
+
+    padding: 11px 18px;
+
+    border-radius: var(--radius-small);
+
+    background-color: var(--text);
+
+    color: #FFFFFF;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+=======
     transform: translateX(-50%);
     bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     background: var(--ink);
     color: var(--bg);
     padding: 10px 18px;
     border-radius: 10px;
+>>>>>>> origin/main
     opacity: 0;
+
     pointer-events: none;
+<<<<<<< HEAD
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+#toast.on {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(-4px);
+}
+
+
+/* -------------------------------------------------------
+   RESPONSIVIDADE - LARGURA
+------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .clientes-container {
+        padding: 20px;
+    }
+
+    .clientes-container h2 {
+        font-size: 1.6rem;
+    }
+
+    .bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bar input,
+    .bar button {
+        width: 100%;
+        min-width: 0;
+    }
+
+}
+
+
+@media (max-width: 620px) {
+
+    .g {
+        grid-template-columns: 1fr;
+    }
+
+    .g .h,
+    .g .f {
+        grid-column: span 1;
+    }
+
+    .acts {
+        flex-direction: column-reverse;
+    }
+
+    .acts button {
+        width: 100%;
+=======
     transition: opacity .2s
 }
 
@@ -270,5 +707,28 @@ label {
 @media(prefers-reduced-motion:reduce) {
     #toast {
         transition: none
+>>>>>>> origin/main
     }
+
+    #frm {
+        padding: 20px;
+    }
+
+}
+
+
+/* -------------------------------------------------------
+   RESPONSIVIDADE - ALTURA
+
+   Só adiciona scroll quando realmente necessário
+------------------------------------------------------- */
+
+@media (max-height: 720px) {
+
+    #dlg {
+        max-height: calc(100vh - 24px);
+
+        overflow-y: auto;
+    }
+
 }

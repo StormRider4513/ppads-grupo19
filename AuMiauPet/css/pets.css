@@ -1,70 +1,103 @@
+/* -------------------------------------------------------
+   CONTAINER
+------------------------------------------------------- */
+
 .pets-container {
-    background-color: var(--surface, #FFFFFF);
-    border: 1px solid var(--border, #DDD6CF);
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(47, 42, 38, 0.08);
-    padding: 28px;
     width: 100%;
+
+    min-width: 0;
+
+    padding: 28px;
+
+    background-color:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
 }
 
 .pets-container h2 {
+    margin:
+        0 0 24px;
+
     font-size: 1.9rem;
     font-weight: 800;
-    color: #2F2A26;
-    margin-bottom: 24px;
+
+    color:
+        var(--text);
 }
+
+
+/* -------------------------------------------------------
+   PESQUISA / AÇÕES
+------------------------------------------------------- */
 
 .pets-actions {
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     margin-bottom: 24px;
+
     flex-wrap: wrap;
 }
 
 .pets-actions input {
     width: 300px;
+
     max-width: 100%;
 
     padding: 12px 14px;
 
-    border: 1px solid #DDD6CF;
-    border-radius: 12px;
+    border:
+        1px solid var(--border);
 
-    background-color: #FFFFFF;
+    border-radius:
+        var(--radius-small);
 
-    font-size: 1rem;
-    color: #2F2A26;
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text);
 
     outline: none;
 }
 
-.pets-actions input:focus,
-.pets-campo input:focus,
-.pets-campo select:focus {
-    border-color: #8FA89A;
 
-    box-shadow:
-        0 0 0 4px rgba(143, 168, 154, 0.18);
-}
+/* -------------------------------------------------------
+   BOTÕES
+------------------------------------------------------- */
 
 .pets-botao {
     display: inline-block;
 
-    background-color: #8FA89A;
-
-    border: none;
-    border-radius: 12px;
-
     padding: 11px 16px;
 
-    font-family: inherit;
+    border: none;
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--primary);
+
+    color: #4E4322;
+
     font-size: 0.98rem;
+
     font-weight: 700;
 
-    color: #FFFFFF;
-
     text-decoration: none;
+
     text-align: center;
 
     cursor: pointer;
@@ -73,106 +106,117 @@
 }
 
 .pets-botao:hover {
-    background-color: #6F8A7B;
+    background-color:
+        var(--primary-dark);
 }
 
 .pets-secundario {
-    background-color: #F1ECE6;
-    color: #2F2A26;
+    border:
+        1px solid var(--border);
 
-    border: 1px solid #DDD6CF;
+    background-color:
+        var(--surface-soft);
+
+    color:
+        var(--text);
 }
 
 .pets-secundario:hover {
-    background-color: #E8E2DB;
+    background-color:
+        var(--hover);
 }
 
 
-/* TABELA */
+/* -------------------------------------------------------
+   TABELA
+------------------------------------------------------- */
 
 .pets-tabela-container {
     width: 100%;
+
     overflow-x: auto;
 
-    border: 1px solid #DDD6CF;
+    border:
+        1px solid var(--border);
+
     border-radius: 14px;
 }
 
 .pets-tabela {
     width: 100%;
+
     border-collapse: collapse;
 
-    background-color: #FFFFFF;
+    background-color:
+        var(--surface);
 }
 
 .pets-tabela th,
 .pets-tabela td {
-    border-bottom: 1px solid #DDD6CF;
-
     padding: 14px;
 
     text-align: left;
 
-    font-size: 0.98rem;
+    border-bottom:
+        1px solid var(--border);
 
-    color: #2F2A26;
+    color:
+        var(--text);
+
+    font-size: 0.98rem;
 }
 
 .pets-tabela th {
-    background-color: #F1ECE6;
+    background-color:
+        var(--surface-soft);
 
     font-weight: 800;
+}
+
+.pets-tabela tbody tr {
+    transition:
+        background-color 0.2s ease;
 }
 
 .pets-tabela tbody tr:hover {
     background-color: #FBFAF8;
 }
 
-
-/* MODAL */
-
-#pet-dialog {
-    border: 0;
-
-    border-radius: 16px;
-
-    padding: 0;
-
-    width: min(560px, 94vw);
-
-    background-color: #FFFFFF;
-
-    color: #2F2A26;
-
-    box-shadow:
-        0 24px 70px rgba(47, 42, 38, 0.22);
+.pets-tabela tr:last-child td {
+    border-bottom: none;
 }
 
-#pet-dialog::backdrop {
-    background:
-        rgba(47, 42, 38, 0.38);
 
-    backdrop-filter: blur(2px);
-}
+/* -------------------------------------------------------
+   FORMULÁRIO DO MODAL
+------------------------------------------------------- */
 
 #form-pet {
     padding: 26px;
 
     display: flex;
+
     flex-direction: column;
 
     gap: 16px;
 }
 
 #form-pet h2 {
-    margin: 0 0 5px;
+    margin:
+        0 0 5px;
 
     font-size: 1.5rem;
+
     font-weight: 800;
+
+    color:
+        var(--text);
 }
 
 
-/* CAMPOS */
+/* -------------------------------------------------------
+   CAMPOS
+------------------------------------------------------- */
 
 .pets-campo {
     display: flex;
@@ -184,9 +228,11 @@
 
 .pets-campo label {
     font-size: 0.95rem;
+
     font-weight: 700;
 
-    color: #2F2A26;
+    color:
+        var(--text);
 }
 
 .pets-campo input,
@@ -195,23 +241,29 @@
 
     padding: 12px 14px;
 
-    border: 1px solid #DDD6CF;
+    border:
+        1px solid var(--border);
 
-    border-radius: 12px;
+    border-radius:
+        var(--radius-small);
 
-    background-color: #FFFFFF;
+    background-color:
+        var(--surface);
 
-    font-family: inherit;
-
-    font-size: 1rem;
-
-    color: #2F2A26;
+    color:
+        var(--text);
 
     outline: none;
 }
 
+.pets-campo input::placeholder {
+    color: #9A9187;
+}
 
-/* BOTÕES DO MODAL */
+
+/* -------------------------------------------------------
+   AÇÕES DO MODAL
+------------------------------------------------------- */
 
 .pets-modal-actions {
     display: flex;
@@ -224,13 +276,18 @@
 }
 
 
-/* MENSAGENS */
+/* -------------------------------------------------------
+   MENSAGENS
+------------------------------------------------------- */
 
 #mensagem-pet,
 #mensagem-pesquisa {
-    font-size: 0.95rem;
+    margin-bottom: 14px;
 
-    color: #766D64;
+    color:
+        var(--text-muted);
+
+    font-size: 0.95rem;
 }
 
 #mensagem-pet:empty,
@@ -239,7 +296,9 @@
 }
 
 
-/* TOAST */
+/* -------------------------------------------------------
+   TOAST
+------------------------------------------------------- */
 
 #pet-toast {
     position: fixed;
@@ -247,23 +306,28 @@
     left: 50%;
     bottom: 24px;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
-    background-color: #2F2A26;
-
-    color: #FFFFFF;
+    z-index: 9999;
 
     padding: 11px 18px;
 
-    border-radius: 12px;
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--text);
+
+    color:
+        #FFFFFF;
 
     opacity: 0;
 
     pointer-events: none;
 
-    transition: opacity 0.2s;
-
-    z-index: 999;
+    transition:
+        opacity 0.2s ease;
 }
 
 #pet-toast.on {
@@ -271,7 +335,9 @@
 }
 
 
-/* MOBILE */
+/* -------------------------------------------------------
+   RESPONSIVIDADE
+------------------------------------------------------- */
 
 @media (max-width: 768px) {
 
@@ -281,6 +347,7 @@
 
     .pets-actions {
         flex-direction: column;
+
         align-items: stretch;
     }
 
@@ -290,6 +357,8 @@
     }
 
     .pets-modal-actions {
-        flex-direction: column-reverse;
+        flex-direction:
+            column-reverse;
     }
+
 }
