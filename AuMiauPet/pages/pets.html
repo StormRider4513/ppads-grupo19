@@ -7,11 +7,8 @@
 
     <title>Pets - AuMiau Pet</title>
 
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
-    >
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css" />
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/pets.css">
 </head>
@@ -34,34 +31,20 @@
 
                     <form id="pesquisa-pets" class="pets-actions">
 
-                        <input
-                            type="search"
-                            id="pesquisa-pet"
-                            placeholder="Pesquisar pelo nome do pet..."
-                            aria-label="Pesquisar pelo nome do pet"
-                        >
+                        <input type="search" id="pesquisa-pet" placeholder="Pesquisar pelo nome do pet..."
+                            aria-label="Pesquisar pelo nome do pet">
 
-                        <button
-                            type="submit"
-                            class="pets-botao"
-                        >
+                        <button type="submit" class="pets-botao">
                             Pesquisar
                         </button>
 
-                        <button
-                            type="button"
-                            id="novo-pet"
-                            class="pets-botao"
-                        >
+                        <button type="button" id="novo-pet" class="pets-botao">
                             Cadastrar pet
                         </button>
 
                     </form>
 
-                    <p
-                        id="mensagem-pesquisa"
-                        role="status"
-                    ></p>
+                    <p id="mensagem-pesquisa" role="status"></p>
 
                     <div class="pets-tabela-container">
 
@@ -116,16 +99,9 @@
                     Cliente responsável:
                 </label>
 
-                <select
-                    id="cliente-pet"
-                    required
-                >
+                <select id="cliente-pet" required>
 
-                    <option
-                        value=""
-                        disabled
-                        selected
-                    >
+                    <option value="" disabled selected>
                         Selecione o cliente
                     </option>
 
@@ -140,12 +116,7 @@
                     Nome do pet:
                 </label>
 
-                <input
-                    type="text"
-                    id="nome-pet"
-                    placeholder="Digite o nome do pet"
-                    required
-                >
+                <input type="text" id="nome-pet" placeholder="Digite o nome do pet" required>
 
             </div>
 
@@ -156,16 +127,9 @@
                     Espécie:
                 </label>
 
-                <select
-                    id="especie-pet"
-                    required
-                >
+                <select id="especie-pet" required>
 
-                    <option
-                        value=""
-                        disabled
-                        selected
-                    >
+                    <option value="" disabled selected>
                         Selecione a espécie
                     </option>
 
@@ -192,11 +156,7 @@
                     Raça:
                 </label>
 
-                <input
-                    type="text"
-                    id="raca-pet"
-                    placeholder="Digite a raça ou SRD"
-                >
+                <input type="text" id="raca-pet" placeholder="Digite a raça ou SRD">
 
             </div>
 
@@ -207,35 +167,21 @@
                     Data de nascimento:
                 </label>
 
-                <input
-                    type="date"
-                    id="nascimento-pet"
-                >
+                <input type="date" id="nascimento-pet">
 
             </div>
 
 
-            <p
-                id="mensagem-pet"
-                role="status"
-            ></p>
+            <p id="mensagem-pet" role="status"></p>
 
 
             <div class="pets-modal-actions">
 
-                <button
-                    type="button"
-                    id="cancelar-pet"
-                    class="pets-botao pets-secundario"
-                >
+                <button type="button" id="cancelar-pet" class="pets-botao pets-secundario">
                     Cancelar
                 </button>
 
-                <button
-                    type="submit"
-                    id="btn-salvar-pet"
-                    class="pets-botao"
-                >
+                <button type="submit" id="btn-salvar-pet" class="pets-botao">
                     Salvar pet
                 </button>
 
@@ -246,10 +192,7 @@
     </dialog>
 
 
-    <div
-        id="pet-toast"
-        role="status"
-    ></div>
+    <div id="pet-toast" role="status"></div>
 
 
     <script src="../js/layout.js"></script>

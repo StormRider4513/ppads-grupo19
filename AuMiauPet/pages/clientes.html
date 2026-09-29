@@ -7,11 +7,8 @@
 
     <title>Clientes - AuMiau Pet</title>
 
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
-    >
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css" />
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/clientes.css">
 </head>
@@ -37,26 +34,16 @@
 
                     <div class="bar">
 
-                        <input
-                            id="q"
-                            type="search"
-                            placeholder="Buscar por nome, CPF ou telefone"
-                            aria-label="Buscar cliente"
-                        >
+                        <input id="q" type="search" placeholder="Buscar por nome, CPF ou telefone"
+                            aria-label="Buscar cliente">
 
-                        <button
-                            id="novo"
-                            type="button"
-                        >
+                        <button id="novo" type="button">
                             Novo cliente
                         </button>
 
                     </div>
 
-                    <div
-                        class="tbl"
-                        id="lista"
-                    ></div>
+                    <div class="tbl" id="lista"></div>
 
                 </section>
 
@@ -71,10 +58,7 @@
 
     <dialog id="dlg">
 
-        <form
-            id="frm"
-            novalidate
-        >
+        <form id="frm" novalidate>
 
             <h2 id="tit">
                 Novo cliente
@@ -89,15 +73,9 @@
                         Nome completo *
                     </label>
 
-                    <input
-                        id="nome"
-                        autocomplete="off"
-                    >
+                    <input id="nome" autocomplete="off">
 
-                    <span
-                        class="e"
-                        data-e="nome"
-                    ></span>
+                    <span class="e" data-e="nome"></span>
 
                 </div>
 
@@ -108,16 +86,9 @@
                         CPF *
                     </label>
 
-                    <input
-                        id="cpf"
-                        inputmode="numeric"
-                        placeholder="000.000.000-00"
-                    >
+                    <input id="cpf" inputmode="numeric" placeholder="000.000.000-00">
 
-                    <span
-                        class="e"
-                        data-e="cpf"
-                    ></span>
+                    <span class="e" data-e="cpf"></span>
 
                 </div>
 
@@ -128,16 +99,9 @@
                         Telefone *
                     </label>
 
-                    <input
-                        id="tel"
-                        inputmode="tel"
-                        placeholder="(11) 90000-0000"
-                    >
+                    <input id="tel" inputmode="tel" placeholder="(11) 90000-0000">
 
-                    <span
-                        class="e"
-                        data-e="tel"
-                    ></span>
+                    <span class="e" data-e="tel"></span>
 
                 </div>
 
@@ -148,15 +112,9 @@
                         E-mail
                     </label>
 
-                    <input
-                        id="email"
-                        type="email"
-                    >
+                    <input id="email" type="email">
 
-                    <span
-                        class="e"
-                        data-e="email"
-                    ></span>
+                    <span class="e" data-e="email"></span>
 
                 </div>
 
@@ -178,10 +136,7 @@
                         Observações
                     </label>
 
-                    <textarea
-                        id="obs"
-                        rows="2"
-                    ></textarea>
+                    <textarea id="obs" rows="2"></textarea>
 
                 </div>
 
@@ -190,18 +145,11 @@
 
             <div class="acts">
 
-                <button
-                    type="button"
-                    class="sec"
-                    id="cancel"
-                >
+                <button type="button" class="sec" id="cancel">
                     Cancelar
                 </button>
 
-                <button
-                    type="submit"
-                    id="salvar"
-                >
+                <button type="submit" id="salvar">
                     Salvar cliente
                 </button>
 
@@ -212,10 +160,7 @@
     </dialog>
 
 
-    <div
-        id="toast"
-        role="status"
-    ></div>
+    <div id="toast" role="status"></div>
 
 
     <!-- Primeiro carrega o layout universal -->

@@ -7,11 +7,8 @@
 
     <title>Serviços - AuMiau Pet</title>
 
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
-    >
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css" />
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/servicos.css">
 </head>
@@ -34,11 +31,7 @@
 
                         <h2>Serviços</h2>
 
-                        <button
-                            type="button"
-                            id="novo-servico"
-                            class="btn-principal"
-                        >
+                        <button type="button" id="novo-servico" class="btn-principal">
                             Novo serviço
                         </button>
 
@@ -91,11 +84,7 @@
                     Nome
                 </label>
 
-                <input
-                    type="text"
-                    id="nome-servico"
-                    required
-                >
+                <input type="text" id="nome-servico" required>
 
             </div>
 
@@ -106,10 +95,7 @@
                     Descrição
                 </label>
 
-                <textarea
-                    id="descricao-servico"
-                    rows="3"
-                ></textarea>
+                <textarea id="descricao-servico" rows="3"></textarea>
 
             </div>
 
@@ -120,13 +106,7 @@
                     Valor
                 </label>
 
-                <input
-                    type="number"
-                    id="valor-servico"
-                    min="0"
-                    step="0.01"
-                    required
-                >
+                <input type="number" id="valor-servico" min="0" step="0.01" required>
 
             </div>
 
@@ -137,31 +117,18 @@
                     Duração em minutos
                 </label>
 
-                <input
-                    type="number"
-                    id="duracao-servico"
-                    min="1"
-                    required
-                >
+                <input type="number" id="duracao-servico" min="1" required>
 
             </div>
 
 
             <div class="servico-actions">
 
-                <button
-                    type="button"
-                    id="cancelar-servico"
-                    class="btn-secundario"
-                >
+                <button type="button" id="cancelar-servico" class="btn-secundario">
                     Cancelar
                 </button>
 
-                <button
-                    type="submit"
-                    class="btn-principal"
-                    id="salvar-servico"
-                >
+                <button type="submit" class="btn-principal" id="salvar-servico">
                     Salvar serviço
                 </button>
 
@@ -172,10 +139,7 @@
     </dialog>
 
 
-    <div
-        id="servico-toast"
-        role="status"
-    ></div>
+    <div id="servico-toast" role="status"></div>
 
 
     <script src="../js/layout.js"></script>
