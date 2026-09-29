@@ -4,27 +4,20 @@
 
 .clientes-container {
     width: 100%;
-
     min-width: 0;
 
     padding: 28px;
 
-    background-color:
-        var(--surface);
+    background-color: var(--surface);
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 
-    border-radius:
-        var(--radius);
-
-    box-shadow:
-        var(--shadow);
+    box-shadow: var(--shadow);
 }
 
 .clientes-container h2 {
-    margin:
-        0 0 24px;
+    margin: 0 0 24px;
 
     font-size: 1.9rem;
     font-weight: 800;
@@ -39,11 +32,9 @@
 
 .bar {
     display: flex;
-
     align-items: center;
 
     gap: 12px;
-
     flex-wrap: wrap;
 
     margin-bottom: 24px;
@@ -53,22 +44,16 @@
     flex: 1 1 280px;
 
     width: auto;
-
     min-width: 220px;
 
     padding: 12px 14px;
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
 
-    border-radius:
-        var(--radius-small);
+    background-color: var(--surface);
 
-    background-color:
-        var(--surface);
-
-    color:
-        var(--text);
+    color: var(--text);
 
     outline: none;
 
@@ -86,12 +71,9 @@
     padding: 11px 16px;
 
     border: none;
+    border-radius: var(--radius-small);
 
-    border-radius:
-        var(--radius-small);
-
-    background-color:
-        var(--primary);
+    background-color: var(--primary);
 
     color: #4E4322;
 
@@ -103,8 +85,7 @@
 }
 
 .bar button:hover {
-    background-color:
-        var(--primary-dark);
+    background-color: var(--primary-dark);
 }
 
 
@@ -117,18 +98,14 @@
 
     overflow-x: auto;
 
-    border:
-        1px solid var(--border);
-
+    border: 1px solid var(--border);
     border-radius: 14px;
 
-    background-color:
-        var(--surface);
+    background-color: var(--surface);
 }
 
 .tbl table {
     width: 100%;
-
     min-width: 700px;
 
     border-collapse: collapse;
@@ -140,27 +117,22 @@
 
     text-align: left;
 
-    border-bottom:
-        1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 
-    color:
-        var(--text);
+    color: var(--text);
 
     font-size: 0.96rem;
 }
 
 .tbl th {
-    background-color:
-        var(--surface-soft);
+    background-color: var(--surface-soft);
 
     font-size: 0.9rem;
-
     font-weight: 800;
 }
 
 .tbl tbody tr {
-    transition:
-        background-color 0.2s ease;
+    transition: background-color 0.2s ease;
 }
 
 .tbl tbody tr:hover {
@@ -176,8 +148,7 @@
 
     margin-top: 3px;
 
-    color:
-        var(--text-muted);
+    color: var(--text-muted);
 
     font-size: 0.86rem;
 }
@@ -192,8 +163,7 @@
 
     text-align: center;
 
-    color:
-        var(--text-muted);
+    color: var(--text-muted);
 }
 
 
@@ -204,14 +174,10 @@
 button.link {
     padding: 7px 11px;
 
-    border:
-        1px solid
-        var(--primary);
-
+    border: 1px solid var(--primary);
     border-radius: 10px;
 
-    background-color:
-        var(--primary-soft);
+    background-color: var(--primary-soft);
 
     color: #655722;
 
@@ -224,8 +190,20 @@ button.link {
 }
 
 button.link:hover {
-    background-color:
-        var(--hover);
+    background-color: var(--hover);
+}
+
+
+/* -------------------------------------------------------
+   MODAL DE CLIENTE
+------------------------------------------------------- */
+
+#dlg {
+    width: min(580px, 94vw);
+
+    max-height: calc(100vh - 40px);
+
+    overflow: hidden;
 }
 
 
@@ -234,18 +212,16 @@ button.link:hover {
 ------------------------------------------------------- */
 
 #frm {
-    padding: 26px;
+    padding: 24px 26px;
 }
 
 #frm h2 {
-    margin:
-        0 0 20px;
+    margin: 0 0 16px;
 
     font-size: 1.5rem;
     font-weight: 800;
 
-    color:
-        var(--text);
+    color: var(--text);
 }
 
 
@@ -256,20 +232,18 @@ button.link:hover {
 .g {
     display: grid;
 
-    grid-template-columns:
-        1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
-    gap: 14px;
+    column-gap: 14px;
+    row-gap: 10px;
 }
 
 .g .f {
-    grid-column:
-        span 2;
+    grid-column: span 2;
 }
 
 .g .h {
-    grid-column:
-        span 1;
+    grid-column: span 1;
 }
 
 
@@ -285,8 +259,7 @@ button.link:hover {
     font-size: 0.9rem;
     font-weight: 700;
 
-    color:
-        var(--text);
+    color: var(--text);
 }
 
 #frm input,
@@ -296,17 +269,12 @@ button.link:hover {
 
     padding: 12px 14px;
 
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
 
-    border-radius:
-        var(--radius-small);
+    background-color: var(--surface);
 
-    background-color:
-        var(--surface);
-
-    color:
-        var(--text);
+    color: var(--text);
 
     outline: none;
 
@@ -319,7 +287,8 @@ button.link:hover {
 }
 
 #frm textarea {
-    min-height: 80px;
+    min-height: 60px;
+    max-height: 100px;
 
     resize: vertical;
 }
@@ -336,8 +305,7 @@ button.link:hover {
 
     margin-top: 4px;
 
-    color:
-        var(--error);
+    color: var(--error);
 
     font-size: 0.8rem;
 }
@@ -354,17 +322,15 @@ button.link:hover {
 
     gap: 10px;
 
-    margin-top: 20px;
+    margin-top: 16px;
 }
 
 .acts button {
     padding: 11px 16px;
 
-    border-radius:
-        var(--radius-small);
+    border-radius: var(--radius-small);
 
     font-size: 0.98rem;
-
     font-weight: 700;
 
     cursor: pointer;
@@ -375,31 +341,25 @@ button.link:hover {
 .acts #salvar {
     border: none;
 
-    background-color:
-        var(--primary);
+    background-color: var(--primary);
 
     color: #4E4322;
 }
 
 .acts #salvar:hover {
-    background-color:
-        var(--primary-dark);
+    background-color: var(--primary-dark);
 }
 
 .acts .sec {
-    border:
-        1px solid var(--border);
+    border: 1px solid var(--border);
 
-    background-color:
-        var(--surface-soft);
+    background-color: var(--surface-soft);
 
-    color:
-        var(--text);
+    color: var(--text);
 }
 
 .acts .sec:hover {
-    background-color:
-        var(--hover);
+    background-color: var(--hover);
 }
 
 
@@ -413,18 +373,15 @@ button.link:hover {
     left: 50%;
     bottom: 24px;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
     z-index: 9999;
 
     padding: 11px 18px;
 
-    border-radius:
-        var(--radius-small);
+    border-radius: var(--radius-small);
 
-    background-color:
-        var(--text);
+    background-color: var(--text);
 
     color: #FFFFFF;
 
@@ -450,7 +407,7 @@ button.link:hover {
 
 
 /* -------------------------------------------------------
-   RESPONSIVIDADE
+   RESPONSIVIDADE - LARGURA
 ------------------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -465,14 +422,12 @@ button.link:hover {
 
     .bar {
         flex-direction: column;
-
         align-items: stretch;
     }
 
     .bar input,
     .bar button {
         width: 100%;
-
         min-width: 0;
     }
 
@@ -487,13 +442,11 @@ button.link:hover {
 
     .g .h,
     .g .f {
-        grid-column:
-            span 1;
+        grid-column: span 1;
     }
 
     .acts {
-        flex-direction:
-            column-reverse;
+        flex-direction: column-reverse;
     }
 
     .acts button {
@@ -502,6 +455,23 @@ button.link:hover {
 
     #frm {
         padding: 20px;
+    }
+
+}
+
+
+/* -------------------------------------------------------
+   RESPONSIVIDADE - ALTURA
+
+   Só adiciona scroll quando realmente necessário
+------------------------------------------------------- */
+
+@media (max-height: 720px) {
+
+    #dlg {
+        max-height: calc(100vh - 24px);
+
+        overflow-y: auto;
     }
 
 }
