@@ -4,11 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<<<<<<< HEAD
 
     <title>Clientes - AuMiau Pet</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css" />
+=======
+    <title>AuMiauPet · Clientes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap">
+>>>>>>> origin/main
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/clientes.css">
 </head>
@@ -16,6 +21,7 @@
 <body>
 
     <div class="app-container">
+<<<<<<< HEAD
 
         <!-- Topbar universal -->
         <div id="topbar-container"></div>
@@ -169,6 +175,51 @@
     <!-- Depois o JS da tela -->
     <script src="../js/clientes.js"></script>
 
+=======
+
+        <div id="topbar-container"></div>
+
+        <div class="app-body">
+
+            <!-- Área onde o menu lateral será carregado pelo layout.js -->
+            <div id="sidebar-container"></div>
+
+            <main>
+                <div class="wrap">
+                    <div class="bar">
+                        <input id="q" type="search" placeholder="Buscar por nome, CPF ou telefone"
+                            aria-label="Buscar cliente">
+                        <button id="novo">Novo cliente</button>
+                    </div>
+                    <div class="tbl" id="lista"></div>
+                </div>
+            </main>
+
+            <dialog id="dlg">
+                <form id="frm" novalidate>
+                    <h2 id="tit">Novo cliente</h2>
+                    <div class="g">
+                        <div class="f"><label for="nome">Nome completo *</label><input id="nome"
+                                autocomplete="off"><span class="e" data-e="nome"></span></div>
+                        <div class="h"><label for="cpf">CPF *</label><input id="cpf" inputmode="numeric"
+                                placeholder="000.000.000-00"><span class="e" data-e="cpf"></span></div>
+                        <div class="h"><label for="tel">Telefone *</label><input id="tel" inputmode="tel"
+                                placeholder="(11) 90000-0000"><span class="e" data-e="tel"></span></div>
+                        <div class="f"><label for="email">E-mail</label><input id="email" type="email"><span class="e"
+                                data-e="email"></span></div>
+                        <div class="f"><label for="end">Endereço</label><input id="end"></div>
+                        <div class="f"><label for="obs">Observações</label><textarea id="obs" rows="2"></textarea></div>
+                    </div>
+                    <div class="acts"><button type="button" class="sec" id="cancel">Cancelar</button><button
+                            type="submit" id="salvar">Salvar cliente</button></div>
+                </form>
+            </dialog>
+            <div id="toast" role="status"></div>
+        </div>
+        <script src="../js/layout.js"></script>
+
+        <script src="../js/clientes.js"></script>
+>>>>>>> origin/main
 </body>
 
 </html>
