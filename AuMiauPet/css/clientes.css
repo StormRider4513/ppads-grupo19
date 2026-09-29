@@ -14,96 +14,6 @@
     border-radius: var(--radius);
 
     box-shadow: var(--shadow);
-:root {
-    --bg: #FAFBF9;
-    --card: #fff;
-    --ink: #17282B;
-    --mut: #5B6E71;
-    --line: #D8E3E0;
-    --pri: #0F5257;
-    --pri-t: #fff;
-    --soft: #DCEFE9;
-    --acc: #F2C94C;
-    --err: #B3261E;
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px)
-}
-
-@media (prefers-color-scheme:dark) {
-    :root:not([data-theme="light"]) {
-        --bg: #101B1D;
-        --card: #182629;
-        --ink: #E8F1EF;
-        --mut: #95AAA8;
-        --line: #2A3D40;
-        --pri: #6CC5B8;
-        --pri-t: #0B1A1C;
-        --soft: #1F3B3B;
-        --acc: #F2C94C;
-        --err: #FF8A80
-    }
-}
-
-:root[data-theme="dark"] {
-    --bg: #101B1D;
-    --card: #182629;
-    --ink: #E8F1EF;
-    --mut: #95AAA8;
-    --line: #2A3D40;
-    --pri: #6CC5B8;
-    --pri-t: #0B1A1C;
-    --soft: #1F3B3B;
-    --acc: #F2C94C;
-    --err: #FF8A80
-}
-
-html {
-    scroll-padding-top: env(safe-area-inset-top, 0px)
-}
-
-* {
-    box-sizing: border-box
-}
-
-body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font: 400 16px/1.5 Nunito, system-ui, -apple-system, "Segoe UI", sans-serif
-}
-
-header {
-    background: var(--pri);
-    color: var(--pri-t);
-    padding: 18px 20px
-}
-
-.wrap {
-    max-width: 960px;
-    margin: 0 auto
-}
-
-header .wrap {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    flex-wrap: wrap
-}
-
-h1 {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -.3px
-}
-
-header span {
-    opacity: .85
-}
-
-main {
-    padding: 20px
 }
 
 .clientes-container h2 {
@@ -125,16 +35,17 @@ main {
     align-items: center;
 
     gap: 12px;
+
     flex-wrap: wrap;
 
     margin-bottom: 24px;
 }
 
 .bar input {
-    flex: 1 1 280px;
+    flex: 1 1 320px;
 
     width: auto;
-    min-width: 220px;
+    min-width: 260px;
 
     padding: 12px 14px;
 
@@ -145,6 +56,8 @@ main {
 
     color: var(--text);
 
+    font-size: 0.98rem;
+
     outline: none;
 
     transition: 0.2s ease;
@@ -154,10 +67,27 @@ main {
     color: #9A9187;
 }
 
+.bar input:focus {
+    border-color: var(--primary-dark);
 
-/* Botão novo cliente */
+    box-shadow:
+        0 0 0 4px
+        rgba(232, 217, 167, 0.30);
+}
+
+
+/* -------------------------------------------------------
+   BOTÃO NOVO CLIENTE
+------------------------------------------------------- */
 
 .bar button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
     padding: 11px 16px;
 
     border: none;
@@ -167,9 +97,12 @@ main {
 
     color: #4E4322;
 
+    font-size: 0.98rem;
     font-weight: 700;
 
     cursor: pointer;
+
+    white-space: nowrap;
 
     transition: 0.2s ease;
 }
@@ -196,6 +129,7 @@ main {
 
 .tbl table {
     width: 100%;
+
     min-width: 700px;
 
     border-collapse: collapse;
@@ -203,7 +137,7 @@ main {
 
 .tbl th,
 .tbl td {
-    padding: 14px;
+    padding: 14px 18px;
 
     text-align: left;
 
@@ -229,7 +163,7 @@ main {
     background-color: #FBFAF8;
 }
 
-.tbl tr:last-child td {
+.tbl tbody tr:last-child td {
     border-bottom: none;
 }
 
@@ -262,6 +196,13 @@ main {
 ------------------------------------------------------- */
 
 button.link {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
     padding: 7px 11px;
 
     border: 1px solid var(--primary);
@@ -285,20 +226,9 @@ button.link:hover {
 
 
 /* -------------------------------------------------------
-   MODAL DE CLIENTE
-------------------------------------------------------- */
-
-#dlg {
-    width: min(580px, 94vw);
-
-    max-height: calc(100vh - 40px);
-
-    overflow: hidden;
-}
-
-
-/* -------------------------------------------------------
    FORMULÁRIO DO MODAL
+
+   O dialog em si vem do style.css.
 ------------------------------------------------------- */
 
 #frm {
@@ -329,17 +259,11 @@ button.link:hover {
 }
 
 .g .f {
-    grid-column: span 2
+    grid-column: span 2;
 }
 
 .g .h {
-    grid-column: span 1
-}
-
-@media(max-width:520px) {
-    .g .h {
-        grid-column: span 2
-    }
+    grid-column: span 1;
 }
 
 
@@ -372,6 +296,8 @@ button.link:hover {
 
     color: var(--text);
 
+    font-size: 0.98rem;
+
     outline: none;
 
     transition: 0.2s ease;
@@ -380,6 +306,16 @@ button.link:hover {
 #frm input::placeholder,
 #frm textarea::placeholder {
     color: #9A9187;
+}
+
+#frm input:focus,
+#frm textarea:focus,
+#frm select:focus {
+    border-color: var(--primary-dark);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(232, 217, 167, 0.30);
 }
 
 #frm textarea {
@@ -422,6 +358,13 @@ button.link:hover {
 }
 
 .acts button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
     padding: 11px 16px;
 
     border-radius: var(--radius-small);
@@ -434,6 +377,9 @@ button.link:hover {
     transition: 0.2s ease;
 }
 
+
+/* SALVAR */
+
 .acts #salvar {
     border: none;
 
@@ -445,6 +391,9 @@ button.link:hover {
 .acts #salvar:hover {
     background-color: var(--primary-dark);
 }
+
+
+/* CANCELAR */
 
 .acts .sec {
     border: 1px solid var(--border);
@@ -503,7 +452,7 @@ button.link:hover {
 
 
 /* -------------------------------------------------------
-   RESPONSIVIDADE - LARGURA
+   RESPONSIVIDADE
 ------------------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -518,12 +467,14 @@ button.link:hover {
 
     .bar {
         flex-direction: column;
+
         align-items: stretch;
     }
 
     .bar input,
     .bar button {
         width: 100%;
+
         min-width: 0;
     }
 
@@ -557,9 +508,7 @@ button.link:hover {
 
 
 /* -------------------------------------------------------
-   RESPONSIVIDADE - ALTURA
-
-   Só adiciona scroll quando realmente necessário
+   ALTURA REDUZIDA
 ------------------------------------------------------- */
 
 @media (max-height: 720px) {
@@ -569,7 +518,5 @@ button.link:hover {
 
         overflow-y: auto;
     }
-
-}
 
 }
