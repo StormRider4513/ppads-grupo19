@@ -1,99 +1,235 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-html,
-body {
-    width: 100%;
-    height: 100%;
-    background-color: #ffffff;
-}
-
 .loginContainer {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
-    padding: 20px;
+
+    padding: 32px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--bg) 0%,
+            var(--surface-soft) 100%
+        );
+}
+
+
+/* CABEÇALHO */
+
+.login-header {
     text-align: center;
+
+    margin-bottom: 28px;
 }
 
-.loginContainer h1 {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: normal;
-    color: #000000;
-    margin-bottom: 20px;
+.login-logo {
+    width: 64px;
+    height: 64px;
+
+    margin:
+        0 auto 14px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 18px;
+
+    background-color:
+        var(--primary-soft);
+
+    font-size: 2rem;
 }
 
-.loginContainer h2 {
-    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
-    font-weight: normal;
-    color: #000000;
-    margin-bottom: 40px;
+.login-header h1 {
+    margin: 0;
+
+    font-size: 2.7rem;
+    font-weight: 800;
+
+    color:
+        var(--text);
 }
+
+.login-header p {
+    margin-top: 6px;
+
+    color:
+        var(--text-muted);
+
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/* CARD */
 
 .loginForm {
     width: 100%;
-    max-width: 320px;
-    text-align: left;
+    max-width: 420px;
+
+    padding: 30px;
+
+    background-color:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
 }
 
+.loginForm h2 {
+    margin:
+        0 0 24px;
+
+    font-size: 1.35rem;
+    font-weight: 800;
+
+    color:
+        var(--text);
+
+    text-align: center;
+}
+
+
+/* CAMPOS */
+
 .loginFormGroup {
-    margin-bottom: 20px;
     width: 100%;
+
+    margin-bottom: 18px;
 }
 
 .loginFormGroup label {
     display: block;
-    font-size: 1.1rem;
-    color: #000000;
-    margin-bottom: 6px;
+
+    margin-bottom: 7px;
+
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    color:
+        var(--text);
 }
 
 .loginFormGroup input {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #000000;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text);
+
     font-size: 1rem;
-    color: #333333;
+
     outline: none;
+
+    transition: 0.2s ease;
 }
 
 .loginFormGroup input::placeholder {
-    color: #a0a0a0;
+    color: #A79E95;
 }
 
-.buttonLoginForm {
+.loginFormGroup input:focus {
+    border-color:
+        var(--primary-dark);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(232, 217, 167, 0.32);
+}
+
+
+/* MENSAGEM DE ERRO */
+
+.mensagem-login {
+    min-height: 20px;
+
+    margin:
+        -2px 0 8px;
+
+    color:
+        var(--error);
+
+    font-size: 0.9rem;
+
     text-align: center;
-    margin-top: 30px;
+}
+
+
+/* BOTÃO */
+
+.buttonLoginForm {
+    margin-top: 12px;
 }
 
 .botaoEntrar {
-    background-color: #ffffff;
-    border: 1px solid #000000;
-    padding: 8px 50px;
-    font-size: 1.1rem;
-    color: #000000;
+    width: 100%;
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--primary);
+
+    color: #4E4322;
+
+    font-size: 1rem;
+    font-weight: 800;
+
     cursor: pointer;
-    transition: background-color 0.2s;
-    min-width: 150px;
+
+    transition: 0.2s ease;
 }
 
 .botaoEntrar:hover {
-    background-color: #f0f0f0;
+    background-color:
+        var(--primary-dark);
+
+    transform:
+        translateY(-1px);
 }
 
+
+/* MOBILE */
+
 @media (max-width: 480px) {
+
     .loginContainer {
-        padding: 30px 15px;
+        padding: 24px 16px;
     }
 
-    .botaoEntrar {
-        width: 100%;
+    .loginForm {
+        padding: 24px 20px;
     }
+
+    .login-header h1 {
+        font-size: 2.2rem;
+    }
+
 }
