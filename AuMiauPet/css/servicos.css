@@ -1,0 +1,340 @@
+.servicos-container {
+    width: 100%;
+
+    padding: 28px;
+
+    background-color:
+        var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius);
+
+    box-shadow:
+        var(--shadow);
+}
+
+
+/* CABEÇALHO */
+
+.servicos-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 24px;
+}
+
+.servicos-header h2 {
+    margin: 0;
+
+    font-size: 1.9rem;
+    font-weight: 800;
+
+    color:
+        var(--text);
+}
+
+
+/* BOTÕES */
+
+.btn-principal,
+.btn-secundario {
+    padding: 11px 16px;
+
+    border-radius:
+        var(--radius-small);
+
+    font-size: 0.98rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.btn-principal {
+    border: none;
+
+    background-color:
+        var(--primary);
+
+    color: #4E4322;
+}
+
+.btn-principal:hover {
+    background-color:
+        var(--primary-dark);
+}
+
+.btn-secundario {
+    border:
+        1px solid var(--border);
+
+    background-color:
+        var(--surface-soft);
+
+    color:
+        var(--text);
+}
+
+.btn-secundario:hover {
+    background-color:
+        var(--hover);
+}
+
+
+/* TABELA */
+
+.servicos-tabela-container {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+}
+
+.servicos-tabela {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background-color:
+        var(--surface);
+}
+
+.servicos-tabela th,
+.servicos-tabela td {
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom:
+        1px solid var(--border);
+
+    color:
+        var(--text);
+}
+
+.servicos-tabela th {
+    background-color:
+        var(--surface-soft);
+
+    font-size: 0.9rem;
+
+    font-weight: 800;
+}
+
+.servicos-tabela tbody tr:hover {
+    background-color:
+        #FBFAF8;
+}
+
+.servicos-tabela tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* BOTÃO EDITAR */
+
+.btn-editar {
+    padding: 7px 12px;
+
+    border:
+        1px solid var(--primary);
+
+    border-radius: 10px;
+
+    background-color:
+        var(--primary-soft);
+
+    color: #655722;
+
+    font-size: 0.9rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.btn-editar:hover {
+    background-color:
+        var(--hover);
+}
+
+
+/* BOTÃO EXCLUIR */
+
+.btn-excluir {
+    margin-left: 6px;
+
+    padding: 7px 12px;
+
+    border:
+        1px solid #E5C5C5;
+
+    border-radius: 10px;
+
+    background-color: #F7EEEE;
+
+    color: #9C4848;
+
+    font-size: 0.9rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.btn-excluir:hover {
+    background-color: #F1DEDE;
+}
+
+
+/* FORMULÁRIO */
+
+#form-servico {
+    padding: 26px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+#form-servico h2 {
+    margin:
+        0 0 4px;
+
+    font-size: 1.5rem;
+
+    font-weight: 800;
+}
+
+.servico-campo {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.servico-campo label {
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    color:
+        var(--text);
+}
+
+.servico-campo input,
+.servico-campo textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text);
+
+    outline: none;
+}
+
+.servico-campo textarea {
+    resize: vertical;
+}
+
+
+/* AÇÕES DO MODAL */
+
+.servico-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+
+/* TOAST */
+
+#servico-toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 24px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 9999;
+
+    padding: 11px 18px;
+
+    border-radius:
+        var(--radius-small);
+
+    background-color:
+        var(--text);
+
+    color:
+        #FFFFFF;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.2s ease;
+}
+
+#servico-toast.on {
+    opacity: 1;
+}
+
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+    .servicos-container {
+        padding: 20px;
+    }
+
+    .servicos-header {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .servicos-header .btn-principal {
+        width: 100%;
+    }
+
+    .servico-actions {
+        flex-direction:
+            column-reverse;
+    }
+
+}
