@@ -7,10 +7,7 @@
 
     <title>Agenda - AuMiau Pet</title>
 
-    <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap"
-    >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
 
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/agenda.css">
@@ -34,27 +31,44 @@
 
                     <div class="agenda-actions">
 
-                        <input
-                            type="search"
-                            id="pesquisa"
-                            placeholder="Pesquisar cliente, pet ou serviço..."
-                        >
+                        <input type="search" id="pesquisa" placeholder="Pesquisar cliente, pet ou serviço...">
 
-                        <button
-                            type="button"
-                            id="btn-pesquisar"
-                            class="btn-secundario"
-                        >
+                        <button type="button" id="btn-pesquisar" class="btn-secundario">
                             Pesquisar
                         </button>
 
-                        <button
-                            type="button"
-                            id="btn-novo-agendamento"
-                            class="btn-principal"
-                        >
+                        <button type="button" id="btn-novo-agendamento" class="btn-principal">
                             Novo agendamento
                         </button>
+
+                    </div>
+
+                    <div class="agenda-filtros">
+
+                        <button type="button" class="filtro-rapido ativo" data-filtro="todos">
+                            Todos
+                        </button>
+
+                        <button type="button" class="filtro-rapido" data-filtro="Banho">
+                            Banho
+                        </button>
+
+                        <button type="button" class="filtro-rapido" data-filtro="Tosa">
+                            Tosa
+                        </button>
+
+                        <button type="button" class="filtro-rapido" data-filtro="Consulta veterinária">
+                            Consulta veterinária
+                        </button>
+
+                        <button type="button" class="filtro-rapido" data-filtro="hoje">
+                            Hoje
+                        </button>
+
+                        <button type="button" id="btn-limpar-filtros" class="btn-limpar-filtros">
+                            Limpar filtros
+                        </button>
+
 
                     </div>
 
@@ -92,10 +106,7 @@
 
     <dialog id="modal-agendamento">
 
-        <form
-            id="form-agendamento"
-            class="agendamento-form"
-        >
+        <form id="form-agendamento" class="agendamento-form">
 
             <h2 id="titulo-modal">
                 Novo agendamento
@@ -108,15 +119,8 @@
                     Cliente
                 </label>
 
-                <select
-                    id="cliente"
-                    required
-                >
-                    <option
-                        value=""
-                        disabled
-                        selected
-                    >
+                <select id="cliente" required>
+                    <option value="" disabled selected>
                         Selecionar cliente
                     </option>
                 </select>
@@ -130,15 +134,8 @@
                     Pet
                 </label>
 
-                <select
-                    id="pet"
-                    required
-                >
-                    <option
-                        value=""
-                        disabled
-                        selected
-                    >
+                <select id="pet" required>
+                    <option value="" disabled selected>
                         Selecionar pet
                     </option>
                 </select>
@@ -152,15 +149,8 @@
                     Serviço
                 </label>
 
-                <select
-                    id="servico"
-                    required
-                >
-                    <option
-                        value=""
-                        disabled
-                        selected
-                    >
+                <select id="servico" required>
+                    <option value="" disabled selected>
                         Selecionar serviço
                     </option>
                 </select>
@@ -174,11 +164,7 @@
                     Data
                 </label>
 
-                <input
-                    type="date"
-                    id="data"
-                    required
-                >
+                <input type="date" id="data" required>
 
             </div>
 
@@ -189,10 +175,7 @@
                     Horários disponíveis
                 </label>
 
-                <div
-                    id="horarios-disponiveis"
-                    class="horarios-group"
-                >
+                <div id="horarios-disponiveis" class="horarios-group">
 
                     <span class="mensagem-horarios">
                         Escolha uma data
@@ -205,19 +188,11 @@
 
             <div class="form-actions">
 
-                <button
-                    type="button"
-                    id="btn-cancelar-modal"
-                    class="btn-cancelar"
-                >
+                <button type="button" id="btn-cancelar-modal" class="btn-cancelar">
                     Cancelar
                 </button>
 
-                <button
-                    type="submit"
-                    id="btn-salvar-agendamento"
-                    class="btn-confirmar"
-                >
+                <button type="submit" id="btn-salvar-agendamento" class="btn-confirmar">
                     Confirmar agendamento
                 </button>
 
@@ -228,10 +203,7 @@
     </dialog>
 
 
-    <div
-        id="agenda-toast"
-        role="status"
-    ></div>
+    <div id="agenda-toast" role="status"></div>
 
 
     <script src="../js/layout.js"></script>

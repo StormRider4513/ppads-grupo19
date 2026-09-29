@@ -10,6 +10,17 @@ const botaoPesquisar =
 const botaoNovoAgendamento =
     document.getElementById("btn-novo-agendamento");
 
+const filtrosRapidos =
+    document.querySelectorAll(
+        ".filtro-rapido"
+    );
+
+const botaoLimparFiltros =
+    document.getElementById(
+        "btn-limpar-filtros"
+    );
+
+let filtroAtual = "todos";
 
 /* MODAL */
 
@@ -143,7 +154,6 @@ function salvarAgendamentos(lista) {
 
 }
 
-
 /* ----------------------------------
    CLIENTE E PET
 ---------------------------------- */
@@ -252,8 +262,8 @@ function mostrarAgendamentos(lista) {
 
                 <td>
                     ${formatarData(
-                        agendamento.data
-                    )}
+                agendamento.data
+            )}
                 </td>
 
                 <td>
@@ -262,14 +272,14 @@ function mostrarAgendamentos(lista) {
 
                 <td>
                     ${obterNomeCliente(
-                        agendamento.clienteId
-                    )}
+                agendamento.clienteId
+            )}
                 </td>
 
                 <td>
                     ${obterNomePet(
-                        agendamento.petId
-                    )}
+                agendamento.petId
+            )}
                 </td>
 
                 <td>
@@ -914,8 +924,7 @@ function cancelarAgendamento(id) {
 /* ----------------------------------
    PESQUISA
 ---------------------------------- */
-
-function pesquisarAgendamentos() {
+function aplicarFiltros() {
 
     const texto =
         campoPesquisa.value
@@ -923,56 +932,186 @@ function pesquisarAgendamentos() {
             .trim();
 
 
-    const agendamentos =
+    let agendamentos =
         obterAgendamentos();
 
 
-    if (!texto) {
+    /* filtro por serviço */
 
-        mostrarAgendamentos(
-            agendamentos
-        );
+    if (
+        filtroAtual !== "todos" &&
+        filtroAtual !== "hoje"
+    ) {
 
-        return;
+        agendamentos =
+            agendamentos.filter(
+                function (agendamento) {
+
+                    return (
+                        agendamento.servico ===
+                        filtroAtual
+                    );
+
+                }
+            );
+
     }
 
 
-    const resultados =
-        agendamentos.filter(
-            function (agendamento) {
+    /* filtro hoje */
 
-                const cliente =
-                    obterNomeCliente(
-                        agendamento.clienteId
-                    ).toLowerCase();
+    if (filtroAtual === "hoje") {
 
-                const pet =
-                    obterNomePet(
-                        agendamento.petId
-                    ).toLowerCase();
+        const hoje =
+            new Date();
 
-                const servico =
-                    agendamento.servico
-                        .toLowerCase();
+        const ano =
+            hoje.getFullYear();
+
+        const mes =
+            String(
+                hoje.getMonth() + 1
+            ).padStart(2, "0");
+
+        const dia =
+            String(
+                hoje.getDate()
+            ).padStart(2, "0");
 
 
-                return (
-                    cliente.includes(texto) ||
-                    pet.includes(texto) ||
-                    servico.includes(texto) ||
-                    agendamento.data.includes(texto) ||
-                    agendamento.horario.includes(texto)
+        const dataHoje =
+            `${ano}-${mes}-${dia}`;
+
+
+        agendamentos =
+            agendamentos.filter(
+                function (agendamento) {
+
+                    return (
+                        agendamento.data ===
+                        dataHoje
+                    );
+
+                }
+            );
+
+    }
+
+
+    /* pesquisa */
+
+    if (texto) {
+
+        agendamentos =
+            agendamentos.filter(
+                function (agendamento) {
+
+                    const cliente =
+                        obterNomeCliente(
+                            agendamento.clienteId
+                        ).toLowerCase();
+
+                    const pet =
+                        obterNomePet(
+                            agendamento.petId
+                        ).toLowerCase();
+
+                    const servico =
+                        agendamento.servico
+                            .toLowerCase();
+
+
+                    return (
+                        cliente.includes(texto) ||
+                        pet.includes(texto) ||
+                        servico.includes(texto) ||
+                        agendamento.data.includes(texto) ||
+                        agendamento.horario.includes(texto)
+                    );
+
+                }
+            );
+
+    }
+
+
+    mostrarAgendamentos(
+        agendamentos
+    );
+
+}
+
+function marcarFiltroAtivo(filtro) {
+
+    filtrosRapidos.forEach(
+        function (botao) {
+
+            botao.classList.remove(
+                "ativo"
+            );
+
+            if (
+                botao.dataset.filtro === filtro
+            ) {
+
+                botao.classList.add(
+                    "ativo"
                 );
+
+            }
+
+        }
+    );
+
+}
+
+
+function pesquisarAgendamentos() {
+
+    aplicarFiltros();
+
+}
+
+filtrosRapidos.forEach(
+    function (botao) {
+
+        botao.addEventListener(
+            "click",
+            function () {
+
+                filtroAtual =
+                    this.dataset.filtro;
+
+                marcarFiltroAtivo(
+                    filtroAtual
+                );
+
+                aplicarFiltros();
 
             }
         );
 
+    }
+);
 
-    mostrarAgendamentos(
-        resultados
-    );
+botaoLimparFiltros.addEventListener(
+    "click",
+    function () {
 
-}
+        filtroAtual = "todos";
+
+        campoPesquisa.value = "";
+
+        marcarFiltroAtivo(
+            "todos"
+        );
+
+        mostrarAgendamentos(
+            obterAgendamentos()
+        );
+
+    }
+);
 
 
 /* ----------------------------------
@@ -1092,16 +1231,7 @@ campoPesquisa.addEventListener(
     "input",
     function () {
 
-        if (
-            campoPesquisa.value
-                .trim() === ""
-        ) {
-
-            mostrarAgendamentos(
-                obterAgendamentos()
-            );
-
-        }
+        aplicarFiltros();
 
     }
 );

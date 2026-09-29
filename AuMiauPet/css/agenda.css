@@ -71,6 +71,75 @@
     outline: none;
 }
 
+/* -------------------------------------------------------
+   FILTROS RÁPIDOS
+------------------------------------------------------- */
+
+.agenda-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.filtro-rapido {
+    padding: 9px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background-color: var(--surface);
+
+    color: var(--text-muted);
+
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.filtro-rapido:hover {
+    background-color: var(--primary-soft);
+    border-color: var(--primary);
+}
+
+/* filtro selecionado */
+
+.filtro-rapido.ativo {
+    background-color: var(--primary);
+    border-color: var(--primary-dark);
+
+    color: #4E4322;
+}
+
+
+/* botão limpar */
+
+.btn-limpar-filtros {
+    padding: 9px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background-color: var(--surface-soft);
+
+    color: var(--text);
+
+    font-size: 0.95rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.btn-limpar-filtros:hover {
+    background-color: var(--hover);
+}
 
 /* -------------------------------------------------------
    BOTÕES PRINCIPAIS
@@ -495,6 +564,14 @@
 
     .agenda-container {
         padding: 20px;
+    }
+
+    .agenda-filtros {
+        width: 100%;
+    }
+
+    .filtro-rapido {
+        flex: 1 1 auto;
     }
 
     .agenda-actions {
