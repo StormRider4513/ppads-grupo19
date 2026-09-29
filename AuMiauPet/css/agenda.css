@@ -44,7 +44,7 @@
 
     gap: 12px;
 
-    margin-bottom: 24px;
+    margin-bottom: 18px;
 
     flex-wrap: wrap;
 }
@@ -71,75 +71,10 @@
     outline: none;
 }
 
-/* -------------------------------------------------------
-   FILTROS RÁPIDOS
-------------------------------------------------------- */
-
-.agenda-filtros {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 24px;
+.agenda-actions input::placeholder {
+    color: #9A9187;
 }
 
-.filtro-rapido {
-    padding: 9px 14px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    background-color: var(--surface);
-
-    color: var(--text-muted);
-
-    font-size: 0.95rem;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.filtro-rapido:hover {
-    background-color: var(--primary-soft);
-    border-color: var(--primary);
-}
-
-/* filtro selecionado */
-
-.filtro-rapido.ativo {
-    background-color: var(--primary);
-    border-color: var(--primary-dark);
-
-    color: #4E4322;
-}
-
-
-/* botão limpar */
-
-.btn-limpar-filtros {
-    padding: 9px 14px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    background-color: var(--surface-soft);
-
-    color: var(--text);
-
-    font-size: 0.95rem;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.btn-limpar-filtros:hover {
-    background-color: var(--hover);
-}
 
 /* -------------------------------------------------------
    BOTÕES PRINCIPAIS
@@ -147,6 +82,14 @@
 
 .btn-principal,
 .btn-secundario {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
     padding: 11px 16px;
 
     border-radius:
@@ -189,6 +132,110 @@
 .btn-secundario:hover {
     background-color:
         var(--hover);
+}
+
+
+/* -------------------------------------------------------
+   FILTROS RÁPIDOS
+------------------------------------------------------- */
+
+.agenda-filtros {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-bottom: 24px;
+}
+
+.filtro-rapido,
+.btn-limpar-filtros {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background-color:
+        var(--surface);
+
+    color:
+        var(--text-muted);
+
+    font-size: 0.95rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.filtro-rapido i,
+.btn-limpar-filtros i {
+    font-size: 1rem;
+}
+
+
+/* HOVER */
+
+.filtro-rapido:hover {
+    background-color:
+        var(--primary-soft);
+
+    border-color:
+        var(--primary-dark);
+
+    color: #655722;
+}
+
+
+/* FILTRO ATIVO */
+
+.filtro-rapido.ativo {
+    background-color:
+        var(--primary);
+
+    border-color:
+        var(--primary-dark);
+
+    color: #4E4322;
+
+    box-shadow:
+        0 3px 8px rgba(214, 194, 127, 0.18);
+}
+
+.filtro-rapido.ativo i {
+    color: #4E4322;
+}
+
+
+/* LIMPAR FILTROS */
+
+.btn-limpar-filtros {
+    background-color:
+        var(--surface-soft);
+
+    color:
+        var(--text);
+}
+
+.btn-limpar-filtros:hover {
+    background-color:
+        var(--hover);
+
+    border-color:
+        var(--primary);
 }
 
 
@@ -244,7 +291,8 @@
 }
 
 .agenda-table tbody tr:hover {
-    background-color: #FBFAF8;
+    background-color:
+        #FBFAF8;
 }
 
 .agenda-table tbody tr:last-child td {
@@ -253,7 +301,7 @@
 
 
 /* -------------------------------------------------------
-   EDITAR
+   BOTÃO EDITAR
 ------------------------------------------------------- */
 
 .btn-editar {
@@ -285,7 +333,7 @@
 
 
 /* -------------------------------------------------------
-   CANCELAR AGENDAMENTO
+   BOTÃO CANCELAR AGENDAMENTO
 ------------------------------------------------------- */
 
 .btn-cancelar-agendamento {
@@ -298,9 +346,11 @@
 
     border-radius: 10px;
 
-    background-color: #F7EEEE;
+    background-color:
+        #F7EEEE;
 
-    color: #9C4848;
+    color:
+        #9C4848;
 
     font-size: 0.9rem;
 
@@ -312,7 +362,8 @@
 }
 
 .btn-cancelar-agendamento:hover {
-    background-color: #F1DEDE;
+    background-color:
+        #F1DEDE;
 }
 
 
@@ -397,6 +448,11 @@
         var(--text);
 
     outline: none;
+}
+
+.form-field select option[disabled] {
+    color:
+        #9A9187;
 }
 
 
@@ -525,6 +581,7 @@
     position: fixed;
 
     left: 50%;
+
     bottom: 24px;
 
     transform:
@@ -548,11 +605,16 @@
     pointer-events: none;
 
     transition:
-        opacity 0.2s ease;
+        opacity 0.2s ease,
+        transform 0.2s ease;
 }
 
 #agenda-toast.on {
     opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(-4px);
 }
 
 
@@ -566,12 +628,8 @@
         padding: 20px;
     }
 
-    .agenda-filtros {
-        width: 100%;
-    }
-
-    .filtro-rapido {
-        flex: 1 1 auto;
+    .agenda-container h2 {
+        font-size: 1.6rem;
     }
 
     .agenda-actions {
@@ -585,9 +643,22 @@
         width: 100%;
     }
 
+    .agenda-filtros {
+        width: 100%;
+    }
+
+    .filtro-rapido,
+    .btn-limpar-filtros {
+        flex: 1 1 auto;
+    }
+
     .form-actions {
         flex-direction:
             column-reverse;
+    }
+
+    .form-actions button {
+        width: 100%;
     }
 
     .agenda-table {

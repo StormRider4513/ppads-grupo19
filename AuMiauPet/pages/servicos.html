@@ -14,34 +14,25 @@
 </head>
 
 <body>
-
     <div class="app-container">
 
         <div id="topbar-container"></div>
 
         <div class="app-body">
-
             <div id="sidebar-container"></div>
-
+        
             <main class="main-content">
-
                 <section class="servicos-container">
-
                     <div class="servicos-header">
-
                         <h2>Serviços</h2>
 
                         <button type="button" id="novo-servico" class="btn-principal">
                             Novo serviço
                         </button>
-
                     </div>
 
-
                     <div class="servicos-tabela-container">
-
                         <table class="servicos-tabela">
-
                             <thead>
                                 <tr>
                                     <th>Serviço</th>
@@ -53,17 +44,12 @@
                             </thead>
 
                             <tbody id="servicos-body"></tbody>
-
                         </table>
-
                     </div>
 
                 </section>
-
             </main>
-
         </div>
-
     </div>
 
 
@@ -77,53 +63,39 @@
                 Novo serviço
             </h2>
 
-
             <div class="servico-campo">
-
                 <label for="nome-servico">
                     Nome
                 </label>
 
                 <input type="text" id="nome-servico" required>
-
             </div>
 
-
             <div class="servico-campo">
-
                 <label for="descricao-servico">
                     Descrição
                 </label>
 
                 <textarea id="descricao-servico" rows="3"></textarea>
-
             </div>
 
-
             <div class="servico-campo">
-
                 <label for="valor-servico">
                     Valor
                 </label>
 
                 <input type="number" id="valor-servico" min="0" step="0.01" required>
-
             </div>
 
-
             <div class="servico-campo">
-
                 <label for="duracao-servico">
                     Duração em minutos
                 </label>
 
                 <input type="number" id="duracao-servico" min="1" required>
-
             </div>
 
-
             <div class="servico-actions">
-
                 <button type="button" id="cancelar-servico" class="btn-secundario">
                     Cancelar
                 </button>
@@ -131,11 +103,9 @@
                 <button type="submit" class="btn-principal" id="salvar-servico">
                     Salvar serviço
                 </button>
-
             </div>
 
         </form>
-
     </dialog>
 
 

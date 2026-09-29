@@ -24,13 +24,11 @@
             <div id="sidebar-container"></div>
 
             <main class="main-content">
-
                 <section class="agenda-container">
 
                     <h2>Agenda de Serviços</h2>
 
                     <div class="agenda-actions">
-
                         <input type="search" id="pesquisa" placeholder="Pesquisar cliente, pet ou serviço...">
 
                         <button type="button" id="btn-pesquisar" class="btn-secundario">
@@ -40,42 +38,44 @@
                         <button type="button" id="btn-novo-agendamento" class="btn-principal">
                             Novo agendamento
                         </button>
-
                     </div>
 
                     <div class="agenda-filtros">
 
                         <button type="button" class="filtro-rapido ativo" data-filtro="todos">
-                            Todos
+                            <i class="pi pi-list"></i>
+                            <span>Todos</span>
                         </button>
 
                         <button type="button" class="filtro-rapido" data-filtro="Banho">
-                            Banho
+                            <i class="pi pi-heart"></i>
+                            <span>Banho</span>
                         </button>
 
                         <button type="button" class="filtro-rapido" data-filtro="Tosa">
-                            Tosa
+                            <i class="pi pi-sparkles"></i>
+                            <span>Tosa</span>
                         </button>
 
                         <button type="button" class="filtro-rapido" data-filtro="Consulta veterinária">
-                            Consulta veterinária
+                            <i class="pi pi-user-plus"></i>
+                            <span>Consulta veterinária</span>
                         </button>
 
                         <button type="button" class="filtro-rapido" data-filtro="hoje">
-                            Hoje
+                            <i class="pi pi-calendar"></i>
+                            <span>Hoje</span>
                         </button>
 
                         <button type="button" id="btn-limpar-filtros" class="btn-limpar-filtros">
-                            Limpar filtros
+                            <i class="pi pi-times"></i>
+                            <span>Limpar filtros</span>
                         </button>
-
 
                     </div>
 
                     <div class="agenda-tabela-container">
-
                         <table class="agenda-table">
-
                             <thead>
                                 <tr>
                                     <th>Data</th>
@@ -90,31 +90,23 @@
                             <tbody id="agenda-body"></tbody>
 
                         </table>
-
                     </div>
-
                 </section>
-
             </main>
-
         </div>
-
     </div>
 
 
     <!-- MODAL DE AGENDAMENTO -->
 
     <dialog id="modal-agendamento">
-
         <form id="form-agendamento" class="agendamento-form">
 
             <h2 id="titulo-modal">
                 Novo agendamento
             </h2>
 
-
             <div class="form-field">
-
                 <label for="cliente">
                     Cliente
                 </label>
@@ -124,12 +116,9 @@
                         Selecionar cliente
                     </option>
                 </select>
-
             </div>
 
-
             <div class="form-field">
-
                 <label for="pet">
                     Pet
                 </label>
@@ -139,12 +128,9 @@
                         Selecionar pet
                     </option>
                 </select>
-
             </div>
 
-
             <div class="form-field">
-
                 <label for="servico">
                     Serviço
                 </label>
@@ -154,23 +140,17 @@
                         Selecionar serviço
                     </option>
                 </select>
-
             </div>
 
-
             <div class="form-field">
-
                 <label for="data">
                     Data
                 </label>
 
                 <input type="date" id="data" required>
-
             </div>
 
-
             <div class="form-field">
-
                 <label>
                     Horários disponíveis
                 </label>
@@ -180,14 +160,11 @@
                     <span class="mensagem-horarios">
                         Escolha uma data
                     </span>
-
                 </div>
-
             </div>
 
 
             <div class="form-actions">
-
                 <button type="button" id="btn-cancelar-modal" class="btn-cancelar">
                     Cancelar
                 </button>
@@ -195,16 +172,11 @@
                 <button type="submit" id="btn-salvar-agendamento" class="btn-confirmar">
                     Confirmar agendamento
                 </button>
-
             </div>
-
         </form>
-
     </dialog>
 
-
     <div id="agenda-toast" role="status"></div>
-
 
     <script src="../js/layout.js"></script>
     <script src="../js/dados.js"></script>
