@@ -186,6 +186,24 @@ function mostrarPets(lista) {
             botaoEditar
         );
 
+        const botaoExcluir =
+            document.createElement("button");
+
+        botaoExcluir.type =
+            "button";
+
+        botaoExcluir.textContent =
+            "Excluir";
+
+        botaoExcluir.classList.add(
+            "pets-botao",
+            "btn-excluir"
+        );
+
+        botaoExcluir.dataset.id =
+            pet.id;
+
+
         linha.appendChild(
             celulaAcoes
         );
@@ -228,6 +246,7 @@ async function carregarClientes() {
         await supabaseClient
             .from("clientes")
             .select("id, nome")
+            .eq("excluido", false)
             .order("nome", {
                 ascending: true
             });
@@ -266,6 +285,7 @@ async function carregarPets() {
         await supabaseClient
             .from("pets")
             .select("*")
+            .eq("excluido", false)
             .order("nome", {
                 ascending: true
             });
@@ -522,26 +542,45 @@ corpoTabela.addEventListener(
     "click",
     function (evento) {
 
-        const botao =
+        const botaoExcluir =
             evento.target.closest(
-                "button[data-id]"
+                ".btn-excluir"
             );
 
 
-        if (!botao) {
+        if (botaoExcluir) {
+
+            const id =
+                Number(
+                    botaoExcluir.dataset.id
+                );
+
+            excluirPet(id);
 
             return;
+        }
 
+
+        const botaoEditar =
+            evento.target.closest(
+                ".pets-botao:not(.btn-excluir)"
+            );
+
+
+        if (!botaoEditar) {
+            return;
         }
 
 
         const pet =
-            pets.find(function (item) {
+            pets.find(
+                function (item) {
 
-                return String(item.id)
-                    === botao.dataset.id;
+                    return String(item.id) ===
+                        botaoEditar.dataset.id;
 
-            });
+                }
+            );
 
 
         if (pet) {
@@ -552,7 +591,6 @@ corpoTabela.addEventListener(
 
     }
 );
-
 
 /* --------------------------------
    CADASTRAR PET
@@ -642,6 +680,60 @@ async function atualizarPet(id, dadosPet) {
 
     return true;
 
+}
+
+async function excluirPet(id) {
+
+    const confirmar =
+        confirm(
+            "Deseja realmente excluir este pet?"
+        );
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    const { error } =
+        await supabaseClient
+            .from("pets")
+            .update({
+                excluido: true
+            })
+            .eq("id", id);
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao excluir pet:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao excluir pet."
+        );
+
+        return;
+    }
+
+
+    pets =
+        pets.filter(
+            function (pet) {
+
+                return pet.id !== id;
+
+            }
+        );
+
+
+    mostrarPets(pets);
+
+
+    mostrarToast(
+        "Pet excluído com sucesso."
+    );
 }
 
 
