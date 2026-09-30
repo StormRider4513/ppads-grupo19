@@ -11,16 +11,13 @@ const botaoNovoAgendamento =
     document.getElementById("btn-novo-agendamento");
 
 const filtrosRapidos =
-    document.querySelectorAll(
-        ".filtro-rapido"
-    );
+    document.querySelectorAll(".filtro-rapido");
 
 const botaoLimparFiltros =
-    document.getElementById(
-        "btn-limpar-filtros"
-    );
+    document.getElementById("btn-limpar-filtros");
 
 let filtroAtual = "todos";
+
 
 /* MODAL */
 
@@ -55,286 +52,36 @@ const inputData =
     document.getElementById("data");
 
 const horariosContainer =
-    document.getElementById(
-        "horarios-disponiveis"
-    );
+    document.getElementById("horarios-disponiveis");
 
 
 let horarioSelecionado = null;
-
 let agendamentoEmEdicao = null;
 
-
-/* ----------------------------------
-   AGENDAMENTOS FICTÍCIOS
----------------------------------- */
-
-function criarAgendamentosIniciais() {
-
-    const existentes =
-        localStorage.getItem("agendamentos");
-
-    if (existentes !== null) {
-        return;
-    }
-
-
-    const agendamentosIniciais = [
-
-        {
-            id: 1,
-            clienteId: 1,
-            petId: 1,
-            servico: "Banho",
-            data: "2026-09-29",
-            horario: "09:00"
-        },
-
-        {
-            id: 2,
-            clienteId: 2,
-            petId: 2,
-            servico: "Consulta veterinária",
-            data: "2026-09-29",
-            horario: "14:00"
-        },
-
-        {
-            id: 3,
-            clienteId: 3,
-            petId: 3,
-            servico: "Tosa",
-            data: "2026-09-30",
-            horario: "10:00"
-        },
-
-        {
-            id: 4,
-            clienteId: 1,
-            petId: 4,
-            servico: "Banho",
-            data: "2026-10-01",
-            horario: "15:00"
-        }
-
-    ];
-
-
-    localStorage.setItem(
-        "agendamentos",
-        JSON.stringify(
-            agendamentosIniciais
-        )
-    );
-
-}
+let agendamentos = [];
+let clientes = [];
+let pets = [];
+let servicos = [];
 
 
 /* ----------------------------------
-   LOCAL STORAGE
+   TOAST
 ---------------------------------- */
 
-function obterAgendamentos() {
+function mostrarToast(mensagem) {
 
-    return JSON.parse(
-        localStorage.getItem(
-            "agendamentos"
-        )
-    ) || [];
+    const toast =
+        document.getElementById("agenda-toast");
 
-}
+    toast.textContent = mensagem;
 
+    toast.classList.add("on");
 
-function salvarAgendamentos(lista) {
+    setTimeout(function () {
 
-    localStorage.setItem(
-        "agendamentos",
-        JSON.stringify(lista)
-    );
+        toast.classList.remove("on");
 
-}
-
-function limparAgendamentosAntigos() {
-
-    const hoje =
-        new Date();
-
-    const ano =
-        hoje.getFullYear();
-
-    const mes =
-        String(
-            hoje.getMonth() + 1
-        ).padStart(2, "0");
-
-    const dia =
-        String(
-            hoje.getDate()
-        ).padStart(2, "0");
-
-
-    const dataHoje =
-        `${ano}-${mes}-${dia}`;
-
-
-    const agendamentos =
-        obterAgendamentos();
-
-
-    const agendamentosAtuais =
-        agendamentos.filter(
-            function (agendamento) {
-
-                return (
-                    agendamento.data >=
-                    dataHoje
-                );
-
-            }
-        );
-
-
-    salvarAgendamentos(
-        agendamentosAtuais
-    );
-
-}
-
-function definirDataMinima() {
-
-    const hoje =
-        new Date();
-
-    const ano =
-        hoje.getFullYear();
-
-    const mes =
-        String(
-            hoje.getMonth() + 1
-        ).padStart(2, "0");
-
-    const dia =
-        String(
-            hoje.getDate()
-        ).padStart(2, "0");
-
-
-    const dataHoje =
-        `${ano}-${mes}-${dia}`;
-
-
-    inputData.min =
-        dataHoje;
-
-}
-
-function obterHoraAtual() {
-
-    const agora = new Date();
-
-    const horas =
-        String(agora.getHours()).padStart(2, "0");
-
-    const minutos =
-        String(agora.getMinutes()).padStart(2, "0");
-
-    return `${horas}:${minutos}`;
-}
-
-// function limparAgendamentosPassados() {
-
-//     const agora = new Date();
-
-//     const ano = agora.getFullYear();
-
-//     const mes =
-//         String(agora.getMonth() + 1)
-//             .padStart(2, "0");
-
-//     const dia =
-//         String(agora.getDate())
-//             .padStart(2, "0");
-
-//     const hora =
-//         String(agora.getHours())
-//             .padStart(2, "0");
-
-//     const minuto =
-//         String(agora.getMinutes())
-//             .padStart(2, "0");
-
-
-//     const agoraTexto =
-//         `${ano}-${mes}-${dia} ${hora}:${minuto}`;
-
-
-//     const agendamentos =
-//         obterAgendamentos();
-
-
-//     const agendamentosFuturos =
-//         agendamentos.filter(
-//             function (agendamento) {
-
-//                 const dataHora =
-//                     `${agendamento.data} ${agendamento.horario}`;
-
-//                 return dataHora > agoraTexto;
-
-//             }
-//         );
-
-
-//     if (
-//         agendamentosFuturos.length !==
-//         agendamentos.length
-//     ) {
-
-//         salvarAgendamentos(
-//             agendamentosFuturos
-//         );
-
-//     }
-
-
-//     return agendamentosFuturos;
-
-// }
-
-
-
-/* ----------------------------------
-   CLIENTE E PET
----------------------------------- */
-
-function obterNomeCliente(clienteId) {
-
-    const cliente =
-        clientes.find(
-            cliente =>
-                cliente.id ===
-                Number(clienteId)
-        );
-
-    return cliente
-        ? cliente.nome
-        : "Cliente não encontrado";
-
-}
-
-
-function obterNomePet(petId) {
-
-    const pet =
-        pets.find(
-            pet =>
-                pet.id ===
-                Number(petId)
-        );
-
-    return pet
-        ? pet.nome
-        : "Pet não encontrado";
+    }, 2000);
 
 }
 
@@ -349,14 +96,226 @@ function formatarData(data) {
         return "";
     }
 
-    const partes =
-        data.split("-");
+    const partes = data.split("-");
 
-    return (
-        `${partes[2]}/` +
-        `${partes[1]}/` +
-        `${partes[0]}`
+    return `${partes[2]}/${partes[1]}/${partes[0]}`;
+
+}
+
+
+function obterHoraAtual() {
+
+    const agora = new Date();
+
+    const horas =
+        String(agora.getHours()).padStart(2, "0");
+
+    const minutos =
+        String(agora.getMinutes()).padStart(2, "0");
+
+    return `${horas}:${minutos}`;
+
+}
+
+
+function definirDataMinima() {
+
+    const hoje = new Date();
+
+    const ano = hoje.getFullYear();
+
+    const mes =
+        String(hoje.getMonth() + 1)
+            .padStart(2, "0");
+
+    const dia =
+        String(hoje.getDate())
+            .padStart(2, "0");
+
+    inputData.min =
+        `${ano}-${mes}-${dia}`;
+
+}
+
+
+/* ----------------------------------
+   CARREGAR DADOS DO SUPABASE
+---------------------------------- */
+
+async function carregarClientesBanco() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("clientes")
+            .select("id, nome")
+            .eq("excluido", false)
+            .order("nome", {
+                ascending: true
+            });
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar clientes:",
+            error
+        );
+
+        return false;
+    }
+
+    clientes = data || [];
+
+    return true;
+
+}
+
+
+async function carregarPetsBanco() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("pets")
+            .select("id, cliente_id, nome")
+            .eq("excluido", false)
+            .order("nome", {
+                ascending: true
+            });
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar pets:",
+            error
+        );
+
+        return false;
+    }
+
+    pets = data || [];
+
+    return true;
+
+}
+
+
+async function carregarServicosBanco() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("servicos")
+            .select(
+                "id, nome, duracao_minutos"
+            )
+            .eq("excluido", false)
+            .order("nome", {
+                ascending: true
+            });
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar serviços:",
+            error
+        );
+
+        return false;
+    }
+
+    servicos = data || [];
+
+    return true;
+
+}
+
+
+async function carregarAgendamentos() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("agendamentos")
+            .select("*")
+            .eq("excluido", false)
+            .order("data_agendamento", {
+                ascending: true
+            })
+            .order("hora_agendamento", {
+                ascending: true
+            });
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar agendamentos:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao carregar agendamentos."
+        );
+
+        return;
+    }
+
+    agendamentos = data || [];
+
+    mostrarAgendamentos(
+        agendamentos
     );
+
+}
+
+
+/* ----------------------------------
+   CLIENTE / PET / SERVIÇO
+---------------------------------- */
+
+function obterNomeCliente(clienteId) {
+
+    const cliente =
+        clientes.find(function (cliente) {
+
+            return String(cliente.id) ===
+                String(clienteId);
+
+        });
+
+    return cliente
+        ? cliente.nome
+        : "Cliente não encontrado";
+
+}
+
+
+function obterNomePet(petId) {
+
+    const pet =
+        pets.find(function (pet) {
+
+            return String(pet.id) ===
+                String(petId);
+
+        });
+
+    return pet
+        ? pet.nome
+        : "Pet não encontrado";
+
+}
+
+
+function obterNomeServico(servicoId) {
+
+    const servico =
+        servicos.find(function (servico) {
+
+            return String(servico.id) ===
+                String(servicoId);
+
+        });
+
+    return servico
+        ? servico.nome
+        : "Serviço não encontrado";
 
 }
 
@@ -368,7 +327,6 @@ function formatarData(data) {
 function mostrarAgendamentos(lista) {
 
     agendaBody.innerHTML = "";
-
 
     if (lista.length === 0) {
 
@@ -388,13 +346,14 @@ function mostrarAgendamentos(lista) {
 
 
     lista
+        .slice()
         .sort(function (a, b) {
 
             const dataA =
-                `${a.data} ${a.horario}`;
+                `${a.data_agendamento} ${a.hora_agendamento}`;
 
             const dataB =
-                `${b.data} ${b.horario}`;
+                `${b.data_agendamento} ${b.hora_agendamento}`;
 
             return dataA.localeCompare(
                 dataB
@@ -406,33 +365,36 @@ function mostrarAgendamentos(lista) {
             const linha =
                 document.createElement("tr");
 
-
             linha.innerHTML = `
 
                 <td>
                     ${formatarData(
-                agendamento.data
-            )}
+                        agendamento.data_agendamento
+                    )}
                 </td>
 
                 <td>
-                    ${agendamento.horario}
+                    ${String(
+                        agendamento.hora_agendamento
+                    ).substring(0, 5)}
                 </td>
 
                 <td>
                     ${obterNomeCliente(
-                agendamento.clienteId
-            )}
+                        agendamento.cliente_id
+                    )}
                 </td>
 
                 <td>
                     ${obterNomePet(
-                agendamento.petId
-            )}
+                        agendamento.pet_id
+                    )}
                 </td>
 
                 <td>
-                    ${agendamento.servico}
+                    ${obterNomeServico(
+                        agendamento.servico_id
+                    )}
                 </td>
 
                 <td>
@@ -456,7 +418,6 @@ function mostrarAgendamentos(lista) {
                 </td>
 
             `;
-
 
             agendaBody.appendChild(
                 linha
@@ -483,13 +444,10 @@ function carregarClientes() {
         </option>
     `;
 
-
     clientes.forEach(function (cliente) {
 
         const option =
-            document.createElement(
-                "option"
-            );
+            document.createElement("option");
 
         option.value =
             cliente.id;
@@ -522,17 +480,16 @@ function carregarPets(clienteId) {
         </option>
     `;
 
-
     const petsDoCliente =
         pets.filter(function (pet) {
 
-            return (
-                pet.clienteId ===
-                Number(clienteId)
+            return String(
+                pet.cliente_id
+            ) === String(
+                clienteId
             );
 
         });
-
 
     petsDoCliente.forEach(
         function (pet) {
@@ -574,7 +531,6 @@ function carregarServicos() {
         </option>
     `;
 
-
     servicos.forEach(
         function (servico) {
 
@@ -584,10 +540,10 @@ function carregarServicos() {
                 );
 
             option.value =
-                servico;
+                servico.id;
 
             option.textContent =
-                servico;
+                servico.nome;
 
             selectServico.appendChild(
                 option
@@ -607,15 +563,8 @@ function carregarHorarios() {
 
     horariosContainer.innerHTML = "";
 
-    horarioSelecionado =
-        agendamentoEmEdicao
-            ? horarioSelecionado
-            : null;
-
-
     const data =
         inputData.value;
-
 
     if (!data) {
 
@@ -627,8 +576,6 @@ function carregarHorarios() {
 
         return;
     }
-
-
 
 
     const horarios = [
@@ -646,31 +593,40 @@ function carregarHorarios() {
 
     ];
 
-    const agora = new Date();
+
+    const agora =
+        new Date();
 
     const hoje =
         `${agora.getFullYear()}-` +
-        `${String(agora.getMonth() + 1).padStart(2, "0")}-` +
-        `${String(agora.getDate()).padStart(2, "0")}`;
+        `${String(
+            agora.getMonth() + 1
+        ).padStart(2, "0")}-` +
+        `${String(
+            agora.getDate()
+        ).padStart(2, "0")}`;
 
     const horaAtual =
-        `${String(agora.getHours()).padStart(2, "0")}:` +
-        `${String(agora.getMinutes()).padStart(2, "0")}`;
+        `${String(
+            agora.getHours()
+        ).padStart(2, "0")}:` +
+        `${String(
+            agora.getMinutes()
+        ).padStart(2, "0")}`;
 
-
-    const agendamentos =
-        obterAgendamentos();
 
     if (data < hoje) {
+
         horariosContainer.innerHTML = `
-        <span class="mensagem-horarios">
-            Não é possível agendar em uma data passada.
-        </span>
-    `;
+            <span class="mensagem-horarios">
+                Não é possível agendar em uma data passada.
+            </span>
+        `;
 
         return;
     }
-    
+
+
     horarios.forEach(
         function (horario) {
 
@@ -678,8 +634,11 @@ function carregarHorarios() {
                 data === hoje &&
                 horario <= horaAtual
             ) {
+
                 return;
+
             }
+
 
             const ocupado =
                 agendamentos.some(
@@ -688,15 +647,21 @@ function carregarHorarios() {
                         if (
                             agendamentoEmEdicao &&
                             agendamento.id ===
-                            agendamentoEmEdicao.id
+                                agendamentoEmEdicao.id
                         ) {
+
                             return false;
+
                         }
 
 
                         return (
-                            agendamento.data === data &&
-                            agendamento.horario === horario
+                            agendamento.data_agendamento ===
+                                data &&
+                            String(
+                                agendamento.hora_agendamento
+                            ).substring(0, 5) ===
+                                horario
                         );
 
                     }
@@ -704,7 +669,9 @@ function carregarHorarios() {
 
 
             if (ocupado) {
+
                 return;
+
             }
 
 
@@ -800,21 +767,7 @@ function abrirModal(
 
     formularioAgendamento.reset();
 
-    const hoje = new Date();
-
-    const ano = hoje.getFullYear();
-
-    const mes =
-        String(hoje.getMonth() + 1)
-            .padStart(2, "0");
-
-    const dia =
-        String(hoje.getDate())
-            .padStart(2, "0");
-
-    inputData.min =
-        `${ano}-${mes}-${dia}`;
-
+    definirDataMinima();
 
     carregarClientes();
 
@@ -856,28 +809,30 @@ function abrirModal(
 
 
         selectCliente.value =
-            agendamento.clienteId;
+            agendamento.cliente_id;
 
 
         carregarPets(
-            agendamento.clienteId
+            agendamento.cliente_id
         );
 
 
         selectPet.value =
-            agendamento.petId;
+            agendamento.pet_id;
 
 
         selectServico.value =
-            agendamento.servico;
+            agendamento.servico_id;
 
 
         inputData.value =
-            agendamento.data;
+            agendamento.data_agendamento;
 
 
         horarioSelecionado =
-            agendamento.horario;
+            String(
+                agendamento.hora_agendamento
+            ).substring(0, 5);
 
 
         carregarHorarios();
@@ -908,9 +863,112 @@ function fecharModal() {
 
     formularioAgendamento.reset();
 
-    agendamentoEmEdicao = null;
+    agendamentoEmEdicao =
+        null;
 
-    horarioSelecionado = null;
+    horarioSelecionado =
+        null;
+
+}
+
+
+/* ----------------------------------
+   CADASTRAR AGENDAMENTO
+---------------------------------- */
+
+async function cadastrarAgendamento(
+    dados
+) {
+
+    const { data, error } =
+        await supabaseClient
+            .from("agendamentos")
+            .insert(dados)
+            .select()
+            .single();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao cadastrar agendamento:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao realizar agendamento."
+        );
+
+        return false;
+
+    }
+
+
+    agendamentos.push(
+        data
+    );
+
+
+    mostrarToast(
+        "Agendamento realizado com sucesso."
+    );
+
+    return true;
+
+}
+
+
+/* ----------------------------------
+   ATUALIZAR AGENDAMENTO
+---------------------------------- */
+
+async function atualizarAgendamento(
+    id,
+    dados
+) {
+
+    const { data, error } =
+        await supabaseClient
+            .from("agendamentos")
+            .update(dados)
+            .eq("id", id)
+            .select()
+            .single();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao atualizar agendamento:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao atualizar agendamento."
+        );
+
+        return false;
+
+    }
+
+
+    agendamentos =
+        agendamentos.map(
+            function (agendamento) {
+
+                return agendamento.id === id
+                    ? data
+                    : agendamento;
+
+            }
+        );
+
+
+    mostrarToast(
+        "Agendamento atualizado com sucesso."
+    );
+
+    return true;
 
 }
 
@@ -919,7 +977,8 @@ function fecharModal() {
    SALVAR
 ---------------------------------- */
 
-function salvarAgendamento() {
+async function salvarAgendamento() {
+
     const clienteId =
         Number(
             selectCliente.value
@@ -930,25 +989,30 @@ function salvarAgendamento() {
             selectPet.value
         );
 
-    const servico =
-        selectServico.value;
+    const servicoId =
+        Number(
+            selectServico.value
+        );
 
     const data =
         inputData.value;
+
 
     const agora =
         new Date();
 
     const dataHoje =
         `${agora.getFullYear()}-` +
-        `${String(agora.getMonth() + 1).padStart(2, "0")}-` +
-        `${String(agora.getDate()).padStart(2, "0")}`;
+        `${String(
+            agora.getMonth() + 1
+        ).padStart(2, "0")}-` +
+        `${String(
+            agora.getDate()
+        ).padStart(2, "0")}`;
 
     const horaAtual =
         obterHoraAtual();
 
-
-    /* Não permite data passada */
 
     if (data < dataHoje) {
 
@@ -957,10 +1021,9 @@ function salvarAgendamento() {
         );
 
         return;
+
     }
 
-
-    /* Não permite horário passado hoje */
 
     if (
         data === dataHoje &&
@@ -977,13 +1040,14 @@ function salvarAgendamento() {
         carregarHorarios();
 
         return;
+
     }
 
 
     if (
         !clienteId ||
         !petId ||
-        !servico ||
+        !servicoId ||
         !data
     ) {
 
@@ -992,6 +1056,7 @@ function salvarAgendamento() {
         );
 
         return;
+
     }
 
 
@@ -1002,115 +1067,78 @@ function salvarAgendamento() {
         );
 
         return;
+
     }
 
 
-    const agendamentos =
-        obterAgendamentos();
+    const dados = {
+
+        cliente_id:
+            clienteId,
+
+        pet_id:
+            petId,
+
+        servico_id:
+            servicoId,
+
+        data_agendamento:
+            data,
+
+        hora_agendamento:
+            horarioSelecionado,
+
+        status:
+            "AGENDADO",
+
+        excluido:
+            false
+
+    };
+
+
+    let sucesso;
 
 
     if (agendamentoEmEdicao) {
 
-        const indice =
-            agendamentos.findIndex(
-                function (agendamento) {
-
-                    return (
-                        agendamento.id ===
-                        agendamentoEmEdicao.id
-                    );
-
-                }
+        sucesso =
+            await atualizarAgendamento(
+                agendamentoEmEdicao.id,
+                dados
             );
-
-
-        if (indice !== -1) {
-
-            agendamentos[indice] = {
-
-                id:
-                    agendamentoEmEdicao.id,
-
-                clienteId:
-                    clienteId,
-
-                petId:
-                    petId,
-
-                servico:
-                    servico,
-
-                data:
-                    data,
-
-                horario:
-                    horarioSelecionado
-
-            };
-
-        }
-
-
-        salvarAgendamentos(
-            agendamentos
-        );
-
-
-        mostrarToast(
-            "Agendamento atualizado com sucesso."
-        );
 
     } else {
 
-        agendamentos.push({
+        sucesso =
+            await cadastrarAgendamento(
+                dados
+            );
 
-            id: Date.now(),
-
-            clienteId:
-                clienteId,
-
-            petId:
-                petId,
-
-            servico:
-                servico,
-
-            data:
-                data,
-
-            horario:
-                horarioSelecionado
-
-        });
+    }
 
 
-        salvarAgendamentos(
-            agendamentos
-        );
+    if (!sucesso) {
 
-
-        mostrarToast(
-            "Agendamento realizado com sucesso."
-        );
+        return;
 
     }
 
 
     fecharModal();
 
-
     mostrarAgendamentos(
-        obterAgendamentos()
+        agendamentos
     );
 
 }
 
 
 /* ----------------------------------
-   CANCELAR AGENDAMENTO
+   CANCELAR / EXCLUSÃO LÓGICA
 ---------------------------------- */
 
-function cancelarAgendamento(id) {
+async function cancelarAgendamento(id) {
 
     const confirmar =
         confirm(
@@ -1119,34 +1147,57 @@ function cancelarAgendamento(id) {
 
 
     if (!confirmar) {
+
         return;
+
     }
 
 
-    const agendamentos =
-        obterAgendamentos();
+    const { error } =
+        await supabaseClient
+            .from("agendamentos")
+            .update({
+
+                excluido: true,
+
+                status: "CANCELADO"
+
+            })
+            .eq(
+                "id",
+                Number(id)
+            );
 
 
-    const novaLista =
+    if (error) {
+
+        console.error(
+            "Erro ao cancelar agendamento:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao cancelar agendamento."
+        );
+
+        return;
+
+    }
+
+
+    agendamentos =
         agendamentos.filter(
             function (agendamento) {
 
-                return (
-                    agendamento.id !==
-                    Number(id)
-                );
+                return agendamento.id !==
+                    Number(id);
 
             }
         );
 
 
-    salvarAgendamentos(
-        novaLista
-    );
-
-
     mostrarAgendamentos(
-        novaLista
+        agendamentos
     );
 
 
@@ -1158,8 +1209,9 @@ function cancelarAgendamento(id) {
 
 
 /* ----------------------------------
-   PESQUISA
+   FILTROS
 ---------------------------------- */
+
 function aplicarFiltros() {
 
     const texto =
@@ -1168,24 +1220,28 @@ function aplicarFiltros() {
             .trim();
 
 
-    let agendamentos =
-        obterAgendamentos();
+    let lista =
+        [...agendamentos];
 
-
-    /* filtro por serviço */
 
     if (
         filtroAtual !== "todos" &&
         filtroAtual !== "hoje"
     ) {
 
-        agendamentos =
-            agendamentos.filter(
+        lista =
+            lista.filter(
                 function (agendamento) {
 
+                    const nomeServico =
+                        obterNomeServico(
+                            agendamento.servico_id
+                        )
+                        .toLowerCase();
+
                     return (
-                        agendamento.servico ===
-                        filtroAtual
+                        nomeServico ===
+                        filtroAtual.toLowerCase()
                     );
 
                 }
@@ -1194,9 +1250,9 @@ function aplicarFiltros() {
     }
 
 
-    /* filtro hoje */
-
-    if (filtroAtual === "hoje") {
+    if (
+        filtroAtual === "hoje"
+    ) {
 
         const hoje =
             new Date();
@@ -1214,17 +1270,16 @@ function aplicarFiltros() {
                 hoje.getDate()
             ).padStart(2, "0");
 
-
         const dataHoje =
             `${ano}-${mes}-${dia}`;
 
 
-        agendamentos =
-            agendamentos.filter(
+        lista =
+            lista.filter(
                 function (agendamento) {
 
                     return (
-                        agendamento.data ===
+                        agendamento.data_agendamento ===
                         dataHoje
                     );
 
@@ -1234,35 +1289,39 @@ function aplicarFiltros() {
     }
 
 
-    /* pesquisa */
-
     if (texto) {
 
-        agendamentos =
-            agendamentos.filter(
+        lista =
+            lista.filter(
                 function (agendamento) {
 
                     const cliente =
                         obterNomeCliente(
-                            agendamento.clienteId
+                            agendamento.cliente_id
                         ).toLowerCase();
 
                     const pet =
                         obterNomePet(
-                            agendamento.petId
+                            agendamento.pet_id
                         ).toLowerCase();
 
                     const servico =
-                        agendamento.servico
-                            .toLowerCase();
+                        obterNomeServico(
+                            agendamento.servico_id
+                        ).toLowerCase();
+
+                    const horario =
+                        String(
+                            agendamento.hora_agendamento
+                        ).substring(0, 5);
 
 
                     return (
                         cliente.includes(texto) ||
                         pet.includes(texto) ||
                         servico.includes(texto) ||
-                        agendamento.data.includes(texto) ||
-                        agendamento.horario.includes(texto)
+                        agendamento.data_agendamento.includes(texto) ||
+                        horario.includes(texto)
                     );
 
                 }
@@ -1272,12 +1331,15 @@ function aplicarFiltros() {
 
 
     mostrarAgendamentos(
-        agendamentos
+        lista
     );
 
 }
 
-function marcarFiltroAtivo(filtro) {
+
+function marcarFiltroAtivo(
+    filtro
+) {
 
     filtrosRapidos.forEach(
         function (botao) {
@@ -1287,7 +1349,8 @@ function marcarFiltroAtivo(filtro) {
             );
 
             if (
-                botao.dataset.filtro === filtro
+                botao.dataset.filtro ===
+                filtro
             ) {
 
                 botao.classList.add(
@@ -1305,82 +1368,6 @@ function marcarFiltroAtivo(filtro) {
 function pesquisarAgendamentos() {
 
     aplicarFiltros();
-
-}
-
-filtrosRapidos.forEach(
-    function (botao) {
-
-        botao.addEventListener(
-            "click",
-            function () {
-
-                filtroAtual =
-                    this.dataset.filtro;
-
-                marcarFiltroAtivo(
-                    filtroAtual
-                );
-
-                aplicarFiltros();
-
-            }
-        );
-
-    }
-);
-
-botaoLimparFiltros.addEventListener(
-    "click",
-    function () {
-
-        filtroAtual = "todos";
-
-        campoPesquisa.value = "";
-
-        marcarFiltroAtivo(
-            "todos"
-        );
-
-        mostrarAgendamentos(
-            obterAgendamentos()
-        );
-
-    }
-);
-
-
-/* ----------------------------------
-   TOAST
----------------------------------- */
-
-function mostrarToast(mensagem) {
-
-    const toast =
-        document.getElementById(
-            "agenda-toast"
-        );
-
-
-    toast.textContent =
-        mensagem;
-
-
-    toast.classList.add(
-        "on"
-    );
-
-
-    setTimeout(
-        function () {
-
-            toast.classList.remove(
-                "on"
-            );
-
-        },
-        2000
-    );
 
 }
 
@@ -1421,7 +1408,8 @@ inputData.addEventListener(
     "change",
     function () {
 
-        horarioSelecionado = null;
+        horarioSelecionado =
+            null;
 
         carregarHorarios();
 
@@ -1431,11 +1419,11 @@ inputData.addEventListener(
 
 formularioAgendamento.addEventListener(
     "submit",
-    function (event) {
+    async function (event) {
 
         event.preventDefault();
 
-        salvarAgendamento();
+        await salvarAgendamento();
 
     }
 );
@@ -1455,6 +1443,8 @@ campoPesquisa.addEventListener(
             event.key === "Enter"
         ) {
 
+            event.preventDefault();
+
             pesquisarAgendamentos();
 
         }
@@ -1468,6 +1458,51 @@ campoPesquisa.addEventListener(
     function () {
 
         aplicarFiltros();
+
+    }
+);
+
+
+filtrosRapidos.forEach(
+    function (botao) {
+
+        botao.addEventListener(
+            "click",
+            function () {
+
+                filtroAtual =
+                    this.dataset.filtro;
+
+                marcarFiltroAtivo(
+                    filtroAtual
+                );
+
+                aplicarFiltros();
+
+            }
+        );
+
+    }
+);
+
+
+botaoLimparFiltros.addEventListener(
+    "click",
+    function () {
+
+        filtroAtual =
+            "todos";
+
+        campoPesquisa.value =
+            "";
+
+        marcarFiltroAtivo(
+            "todos"
+        );
+
+        mostrarAgendamentos(
+            agendamentos
+        );
 
     }
 );
@@ -1496,16 +1531,15 @@ agendaBody.addEventListener(
 
 
             const agendamento =
-                obterAgendamentos()
-                    .find(
-                        function (item) {
+                agendamentos.find(
+                    function (item) {
 
-                            return (
-                                item.id === id
-                            );
+                        return (
+                            item.id === id
+                        );
 
-                        }
-                    );
+                    }
+                );
 
 
             if (agendamento) {
@@ -1518,6 +1552,7 @@ agendaBody.addEventListener(
 
 
             return;
+
         }
 
 
@@ -1564,29 +1599,19 @@ modalAgendamento.addEventListener(
    INICIALIZAÇÃO
 ---------------------------------- */
 
-criarAgendamentosIniciais();
+async function inicializarAgenda() {
 
-/* Remove agendamentos que já passaram */
+    definirDataMinima();
 
-// limparAgendamentosPassados();
+    await carregarClientesBanco();
 
-mostrarAgendamentos(
-    obterAgendamentos()
-);
+    await carregarPetsBanco();
+
+    await carregarServicosBanco();
+
+    await carregarAgendamentos();
+
+}
 
 
-/* Verifica novamente a cada minuto */
-
-// setInterval(
-//     function () {
-
-//         const agendamentos =
-//             limparAgendamentosPassados();
-
-//         mostrarAgendamentos(
-//             agendamentos
-//         );
-
-//     },
-//     60000
-// );
+inicializarAgenda();

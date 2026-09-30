@@ -48,6 +48,9 @@ const campoNascimento =
     document.getElementById("nascimento-pet");
 
 
+let pets = [];
+let clientes = [];
+
 let petEmEdicao = null;
 
 
@@ -116,6 +119,7 @@ function mostrarPets(lista) {
         corpoTabela.appendChild(linha);
 
         return;
+
     }
 
 
@@ -124,8 +128,8 @@ function mostrarPets(lista) {
         const cliente =
             clientes.find(function (cliente) {
 
-                return cliente.id ===
-                    Number(pet.clienteId);
+                return String(cliente.id) ===
+                    String(pet.cliente_id);
 
             });
 
@@ -182,6 +186,24 @@ function mostrarPets(lista) {
             botaoEditar
         );
 
+        const botaoExcluir =
+            document.createElement("button");
+
+        botaoExcluir.type =
+            "button";
+
+        botaoExcluir.textContent =
+            "Excluir";
+
+        botaoExcluir.classList.add(
+            "pets-botao",
+            "btn-excluir"
+        );
+
+        botaoExcluir.dataset.id =
+            pet.id;
+
+
         linha.appendChild(
             celulaAcoes
         );
@@ -202,7 +224,7 @@ function mostrarPets(lista) {
 
 function normalizarTexto(texto) {
 
-    return texto
+    return String(texto || "")
         .normalize("NFD")
         .replace(
             /[\u0300-\u036f]/g,
@@ -210,6 +232,84 @@ function normalizarTexto(texto) {
         )
         .toLowerCase()
         .trim();
+
+}
+
+
+/* --------------------------------
+   CARREGAR CLIENTES DO SUPABASE
+-------------------------------- */
+
+async function carregarClientes() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("clientes")
+            .select("id, nome")
+            .eq("excluido", false)
+            .order("nome", {
+                ascending: true
+            });
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar clientes:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao carregar clientes."
+        );
+
+        return false;
+
+    }
+
+
+    clientes = data || [];
+
+    return true;
+
+}
+
+
+/* --------------------------------
+   CARREGAR PETS DO SUPABASE
+-------------------------------- */
+
+async function carregarPets() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("pets")
+            .select("*")
+            .eq("excluido", false)
+            .order("nome", {
+                ascending: true
+            });
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar pets:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao carregar pets."
+        );
+
+        return;
+
+    }
+
+
+    pets = data || [];
+
+    mostrarPets(pets);
 
 }
 
@@ -276,7 +376,7 @@ function abrirModal(pet = null) {
 
 
         selecaoCliente.value =
-            pet.clienteId;
+            pet.cliente_id;
 
         campoNome.value =
             pet.nome || "";
@@ -288,7 +388,7 @@ function abrirModal(pet = null) {
             pet.raca || "";
 
         campoNascimento.value =
-            pet.dataNascimento || "";
+            pet.data_nascimento || "";
 
     } else {
 
@@ -442,24 +542,45 @@ corpoTabela.addEventListener(
     "click",
     function (evento) {
 
-        const botao =
+        const botaoExcluir =
             evento.target.closest(
-                "button[data-id]"
+                ".btn-excluir"
             );
 
 
-        if (!botao) {
+        if (botaoExcluir) {
+
+            const id =
+                Number(
+                    botaoExcluir.dataset.id
+                );
+
+            excluirPet(id);
+
+            return;
+        }
+
+
+        const botaoEditar =
+            evento.target.closest(
+                ".pets-botao:not(.btn-excluir)"
+            );
+
+
+        if (!botaoEditar) {
             return;
         }
 
 
         const pet =
-            pets.find(function (item) {
+            pets.find(
+                function (item) {
 
-                return String(item.id)
-                    === botao.dataset.id;
+                    return String(item.id) ===
+                        botaoEditar.dataset.id;
 
-            });
+                }
+            );
 
 
         if (pet) {
@@ -471,6 +592,150 @@ corpoTabela.addEventListener(
     }
 );
 
+/* --------------------------------
+   CADASTRAR PET
+-------------------------------- */
+
+async function cadastrarPet(dadosPet) {
+
+    const { data, error } =
+        await supabaseClient
+            .from("pets")
+            .insert(dadosPet)
+            .select()
+            .single();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao cadastrar pet:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao cadastrar pet."
+        );
+
+        return false;
+
+    }
+
+
+    pets.push(data);
+
+    mostrarToast(
+        "Pet cadastrado com sucesso."
+    );
+
+    return true;
+
+}
+
+
+/* --------------------------------
+   ATUALIZAR PET
+-------------------------------- */
+
+async function atualizarPet(id, dadosPet) {
+
+    const { data, error } =
+        await supabaseClient
+            .from("pets")
+            .update(dadosPet)
+            .eq("id", id)
+            .select()
+            .single();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao atualizar pet:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao atualizar pet."
+        );
+
+        return false;
+
+    }
+
+
+    pets =
+        pets.map(function (pet) {
+
+            return pet.id === id
+                ? data
+                : pet;
+
+        });
+
+
+    mostrarToast(
+        "Pet atualizado com sucesso."
+    );
+
+    return true;
+
+}
+
+async function excluirPet(id) {
+
+    const confirmar =
+        confirm(
+            "Deseja realmente excluir este pet?"
+        );
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    const { error } =
+        await supabaseClient
+            .from("pets")
+            .update({
+                excluido: true
+            })
+            .eq("id", id);
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao excluir pet:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao excluir pet."
+        );
+
+        return;
+    }
+
+
+    pets =
+        pets.filter(
+            function (pet) {
+
+                return pet.id !== id;
+
+            }
+        );
+
+
+    mostrarPets(pets);
+
+
+    mostrarToast(
+        "Pet excluído com sucesso."
+    );
+}
+
 
 /* --------------------------------
    SALVAR
@@ -478,7 +743,7 @@ corpoTabela.addEventListener(
 
 formularioPet.addEventListener(
     "submit",
-    function (evento) {
+    async function (evento) {
 
         evento.preventDefault();
 
@@ -486,13 +751,15 @@ formularioPet.addEventListener(
         if (
             !formularioPet.reportValidity()
         ) {
+
             return;
+
         }
 
 
         const dadosPet = {
 
-            clienteId:
+            cliente_id:
                 Number(
                     selecaoCliente.value
                 ),
@@ -504,40 +771,38 @@ formularioPet.addEventListener(
                 campoEspecie.value,
 
             raca:
-                campoRaca.value.trim(),
+                campoRaca.value.trim() || null,
 
-            dataNascimento:
-                campoNascimento.value
+            data_nascimento:
+                campoNascimento.value || null
 
         };
 
 
+        let sucesso;
+
+
         if (petEmEdicao) {
 
-            Object.assign(
-                petEmEdicao,
-                dadosPet
-            );
-
-
-            mostrarToast(
-                "Pet atualizado com sucesso."
-            );
+            sucesso =
+                await atualizarPet(
+                    petEmEdicao.id,
+                    dadosPet
+                );
 
         } else {
 
-            pets.push({
+            sucesso =
+                await cadastrarPet(
+                    dadosPet
+                );
 
-                id: Date.now(),
-
-                ...dadosPet
-
-            });
+        }
 
 
-            mostrarToast(
-                "Pet cadastrado com sucesso."
-            );
+        if (!sucesso) {
+
+            return;
 
         }
 
@@ -578,4 +843,13 @@ dialogPet.addEventListener(
    INICIALIZAÇÃO
 -------------------------------- */
 
-mostrarPets(pets);
+async function inicializar() {
+
+    await carregarClientes();
+
+    await carregarPets();
+
+}
+
+
+inicializar();

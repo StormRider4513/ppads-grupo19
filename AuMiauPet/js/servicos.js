@@ -33,7 +33,6 @@ const botaoSalvar =
         "salvar-servico"
     );
 
-
 const campoNome =
     document.getElementById(
         "nome-servico"
@@ -60,90 +59,38 @@ const unidadeDuracao =
     );
 
 
+let servicos = [];
+
 let servicoEmEdicao = null;
 
 
 /* -------------------------------------------------------
-   DADOS INICIAIS
+   TOAST
 ------------------------------------------------------- */
 
-function criarServicosIniciais() {
+function mostrarToast(mensagem) {
 
-    const existentes =
-        localStorage.getItem(
-            "servicos"
+    const toast =
+        document.getElementById(
+            "servico-toast"
         );
 
+    toast.textContent =
+        mensagem;
 
-    if (existentes) {
-        return;
-    }
-
-
-    const lista = [
-
-        {
-            id: 1,
-            nome: "Banho",
-            descricao:
-                "Banho completo para o pet.",
-            valor: 60,
-            duracao: 60,
-            unidadeDuracao: "minutos"
-        },
-
-        {
-            id: 2,
-            nome: "Tosa",
-            descricao:
-                "Serviço de tosa.",
-            valor: 80,
-            duracao: 90,
-            unidadeDuracao: "minutos"
-        },
-
-        {
-            id: 3,
-            nome:
-                "Consulta veterinária",
-            descricao:
-                "Consulta clínica veterinária.",
-            valor: 150,
-            duracao: 45,
-            unidadeDuracao: "minutos"
-        }
-
-    ];
-
-
-    localStorage.setItem(
-        "servicos",
-        JSON.stringify(lista)
+    toast.classList.add(
+        "on"
     );
 
-}
+    setTimeout(
+        function () {
 
+            toast.classList.remove(
+                "on"
+            );
 
-/* -------------------------------------------------------
-   STORAGE
-------------------------------------------------------- */
-
-function obterServicos() {
-
-    return JSON.parse(
-        localStorage.getItem(
-            "servicos"
-        )
-    ) || [];
-
-}
-
-
-function salvarServicos(lista) {
-
-    localStorage.setItem(
-        "servicos",
-        JSON.stringify(lista)
+        },
+        2000
     );
 
 }
@@ -168,20 +115,62 @@ function formatarValor(valor) {
 
 
 /* -------------------------------------------------------
-   TABELA
+   CARREGAR SERVIÇOS
+------------------------------------------------------- */
+
+async function carregarServicos() {
+
+    const { data, error } =
+        await supabaseClient
+            .from("servicos")
+            .select("*")
+            .eq("excluido", false)
+            .order(
+                "nome",
+                {
+                    ascending: true
+                }
+            );
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao carregar serviços:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao carregar serviços."
+        );
+
+        return;
+
+    }
+
+
+    servicos =
+        data || [];
+
+
+    mostrarServicos();
+
+}
+
+
+/* -------------------------------------------------------
+   MOSTRAR SERVIÇOS
 ------------------------------------------------------- */
 
 function mostrarServicos() {
-
-    const servicos =
-        obterServicos();
-
 
     corpoServicos.innerHTML =
         "";
 
 
-    if (servicos.length === 0) {
+    if (
+        servicos.length === 0
+    ) {
 
         corpoServicos.innerHTML = `
             <tr>
@@ -192,6 +181,7 @@ function mostrarServicos() {
         `;
 
         return;
+
     }
 
 
@@ -216,12 +206,24 @@ function mostrarServicos() {
 
                 <td>
                     ${formatarValor(
-                servico.valor
-            )}
+                        servico.valor
+                    )}
                 </td>
 
                 <td>
-                    ${servico.duracao} ${servico.unidadeDuracao || "minutos"}
+                        ${
+                            servico.unidade_duracao === "horas"
+                                ? `${servico.duracao_minutos / 60} ${
+                                    servico.duracao_minutos === 60
+                                        ? "hora"
+                                        : "horas"
+                                }`
+                                : `${servico.duracao_minutos} ${
+                                    servico.duracao_minutos === 1
+                                        ? "minuto"
+                                        : "minutos"
+                                }`
+                        }
                 </td>
 
                 <td>
@@ -258,16 +260,14 @@ function mostrarServicos() {
 
 
 /* -------------------------------------------------------
-   MODAL
+   ABRIR MODAL
 ------------------------------------------------------- */
 
 function abrirModal(servico = null) {
 
     formularioServico.reset();
 
-    servicoEmEdicao =
-        servico;
-
+    servicoEmEdicao = servico;
 
     if (servico) {
 
@@ -279,19 +279,33 @@ function abrirModal(servico = null) {
 
 
         campoNome.value =
-            servico.nome;
+            servico.nome || "";
 
         campoDescricao.value =
-            servico.descricao;
+            servico.descricao || "";
 
         campoValor.value =
-            servico.valor;
+            servico.valor || "";
 
-        campoDuracao.value =
-            servico.duracao;
-        
+
+        const unidade =
+            servico.unidade_duracao || "minutos";
+
         unidadeDuracao.value =
-            servico.unidadeDuracao || "minutos";
+            unidade;
+
+
+        if (unidade === "horas") {
+
+            campoDuracao.value =
+                servico.duracao_minutos / 60;
+
+        } else {
+
+            campoDuracao.value =
+                servico.duracao_minutos;
+
+        }
 
     } else {
 
@@ -301,6 +315,9 @@ function abrirModal(servico = null) {
         botaoSalvar.textContent =
             "Salvar serviço";
 
+        unidadeDuracao.value =
+            "minutos";
+
     }
 
 
@@ -308,6 +325,11 @@ function abrirModal(servico = null) {
 
 }
 
+
+
+/* -------------------------------------------------------
+   FECHAR MODAL
+------------------------------------------------------- */
 
 function fecharModal() {
 
@@ -320,12 +342,181 @@ function fecharModal() {
 
 
 /* -------------------------------------------------------
-   SALVAR
+   CADASTRAR SERVIÇO
+------------------------------------------------------- */
+
+async function cadastrarServico(
+    dados
+) {
+
+    const { data, error } =
+        await supabaseClient
+            .from("servicos")
+            .insert(dados)
+            .select()
+            .single();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao cadastrar serviço:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao cadastrar serviço."
+        );
+
+        return false;
+
+    }
+
+
+    servicos.push(
+        data
+    );
+
+
+    mostrarToast(
+        "Serviço cadastrado."
+    );
+
+    return true;
+
+}
+
+
+/* -------------------------------------------------------
+   ATUALIZAR SERVIÇO
+------------------------------------------------------- */
+
+async function atualizarServico(
+    id,
+    dados
+) {
+
+    const { data, error } =
+        await supabaseClient
+            .from("servicos")
+            .update(dados)
+            .eq(
+                "id",
+                id
+            )
+            .select()
+            .single();
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao atualizar serviço:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao atualizar serviço."
+        );
+
+        return false;
+
+    }
+
+
+    servicos =
+        servicos.map(
+            function (servico) {
+
+                return servico.id === id
+                    ? data
+                    : servico;
+
+            }
+        );
+
+
+    mostrarToast(
+        "Serviço atualizado."
+    );
+
+    return true;
+
+}
+
+
+/* -------------------------------------------------------
+   EXCLUIR SERVIÇO
+------------------------------------------------------- */
+
+async function excluirServico(id) {
+
+    const confirmar =
+        confirm(
+            "Deseja realmente excluir este serviço?"
+        );
+
+
+    if (!confirmar) {
+
+        return;
+
+    }
+
+
+    const { error } =
+        await supabaseClient
+            .from("servicos")
+            .update({
+                excluido: true
+            })
+            .eq("id",id);
+
+    if (error) {
+
+        console.error(
+            "Erro ao excluir serviço:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao excluir serviço."
+        );
+
+        return;
+
+    }
+
+
+    servicos =
+        servicos.filter(
+            function (servico) {
+
+                return (
+                    servico.id !== id
+                );
+
+            }
+        );
+
+
+    mostrarServicos();
+
+
+    mostrarToast(
+        "Serviço excluído."
+    );
+
+}
+
+
+/* -------------------------------------------------------
+   SALVAR FORMULÁRIO
 ------------------------------------------------------- */
 
 formularioServico.addEventListener(
     "submit",
-    function (event) {
+    async function (event) {
 
         event.preventDefault();
 
@@ -334,92 +525,70 @@ formularioServico.addEventListener(
             !formularioServico
                 .reportValidity()
         ) {
+
             return;
+
         }
 
+    const duracaoInformada =
+        Number(campoDuracao.value);
 
-        const servicos =
-            obterServicos();
+    const unidadeSelecionada =
+        unidadeDuracao.value;
+
+    const duracaoEmMinutos =
+        unidadeSelecionada === "horas"
+            ? duracaoInformada * 60
+            : duracaoInformada;
+
 
 
         const dados = {
-
             nome:
                 campoNome.value.trim(),
 
             descricao:
-                campoDescricao.value.trim(),
+                campoDescricao.value.trim() || null,
 
             valor:
-                Number(
-                    campoValor.value
-                ),
+                Number(campoValor.value),
 
-            duracao:
-                Number(
-                    campoDuracao.value
-                ),
+            duracao_minutos:
+                duracaoEmMinutos,
 
-            unidadeDuracao:
-                unidadeDuracao.value
-
+            unidade_duracao:
+                unidadeSelecionada
         };
 
 
-        if (servicoEmEdicao) {
+        let sucesso;
 
-            const indice =
-                servicos.findIndex(
-                    function (item) {
 
-                        return (
-                            item.id ===
-                            servicoEmEdicao.id
-                        );
+        if (
+            servicoEmEdicao
+        ) {
 
-                    }
+            sucesso =
+                await atualizarServico(
+                    servicoEmEdicao.id,
+                    dados
                 );
-
-
-            if (indice !== -1) {
-
-                servicos[indice] = {
-
-                    id:
-                        servicoEmEdicao.id,
-
-                    ...dados
-
-                };
-
-            }
-
-
-            mostrarToast(
-                "Serviço atualizado."
-            );
 
         } else {
 
-            servicos.push({
-
-                id: Date.now(),
-
-                ...dados
-
-            });
-
-
-            mostrarToast(
-                "Serviço cadastrado."
-            );
+            sucesso =
+                await cadastrarServico(
+                    dados
+                );
 
         }
 
 
-        salvarServicos(
-            servicos
-        );
+        if (!sucesso) {
+
+            return;
+
+        }
 
 
         fecharModal();
@@ -431,7 +600,7 @@ formularioServico.addEventListener(
 
 
 /* -------------------------------------------------------
-   NOVO
+   NOVO SERVIÇO
 ------------------------------------------------------- */
 
 botaoNovoServico.addEventListener(
@@ -477,16 +646,15 @@ corpoServicos.addEventListener(
 
 
             const servico =
-                obterServicos()
-                    .find(
-                        function (item) {
+                servicos.find(
+                    function (item) {
 
-                            return (
-                                item.id === id
-                            );
+                        return (
+                            item.id === id
+                        );
 
-                        }
-                    );
+                    }
+                );
 
 
             if (servico) {
@@ -499,6 +667,7 @@ corpoServicos.addEventListener(
 
 
             return;
+
         }
 
 
@@ -516,7 +685,9 @@ corpoServicos.addEventListener(
                 );
 
 
-            excluirServico(id);
+            excluirServico(
+                id
+            );
 
         }
 
@@ -525,89 +696,28 @@ corpoServicos.addEventListener(
 
 
 /* -------------------------------------------------------
-   EXCLUIR
+   FECHAR CLICANDO FORA
 ------------------------------------------------------- */
 
-function excluirServico(id) {
+modalServico.addEventListener(
+    "click",
+    function (event) {
 
-    const confirmar =
-        confirm(
-            "Deseja realmente excluir este serviço?"
-        );
+        if (
+            event.target ===
+            modalServico
+        ) {
 
+            fecharModal();
 
-    if (!confirmar) {
-        return;
+        }
+
     }
-
-
-    const servicos =
-        obterServicos()
-            .filter(
-                function (servico) {
-
-                    return (
-                        servico.id !== id
-                    );
-
-                }
-            );
-
-
-    salvarServicos(
-        servicos
-    );
-
-
-    mostrarServicos();
-
-
-    mostrarToast(
-        "Serviço excluído."
-    );
-
-}
-
-
-/* -------------------------------------------------------
-   TOAST
-------------------------------------------------------- */
-
-function mostrarToast(mensagem) {
-
-    const toast =
-        document.getElementById(
-            "servico-toast"
-        );
-
-
-    toast.textContent =
-        mensagem;
-
-
-    toast.classList.add(
-        "on"
-    );
-
-
-    setTimeout(
-        function () {
-
-            toast.classList.remove(
-                "on"
-            );
-
-        },
-        2000
-    );
-
-}
+);
 
 
 /* -------------------------------------------------------
    INICIALIZAÇÃO
 ------------------------------------------------------- */
 
-criarServicosIniciais();
-
-mostrarServicos();
+carregarServicos();
