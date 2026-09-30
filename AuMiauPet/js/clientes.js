@@ -357,6 +357,48 @@ async function excluirCliente(id) {
     return;
   }
 
+/* --------------------------------
+  VERIFICAR AGENDAMENTOS
+-------------------------------- */
+
+  const {
+    data: agendamentos,
+    error: erroAgendamentos
+  } =
+    await supabaseClient
+      .from("agendamentos")
+      .select("id")
+      .eq("cliente_id", id)
+      .eq("excluido", false)
+      .limit(1);
+
+
+  if (erroAgendamentos) {
+
+    console.error(
+      "Erro ao verificar agendamentos do cliente:",
+      erroAgendamentos
+    );
+
+    toast(
+      "Erro ao verificar os agendamentos do cliente."
+    );
+
+    return;
+  }
+
+
+  if (
+    agendamentos &&
+    agendamentos.length > 0
+  ) {
+
+    toast(
+      "Não é possível excluir este cliente, pois ele possui agendamento associado."
+    );
+
+    return;
+  }
 
   const { error } =
     await supabaseClient
