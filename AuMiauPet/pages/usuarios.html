@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Usuários - AuMiau Pet</title>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+
+    <link rel="stylesheet"
+        href="https://unpkg.com/primeicons/primeicons.css">
+
+    <link rel="stylesheet"
+        href="../css/style.css">
+
+    <link rel="stylesheet"
+        href="../css/usuarios.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <div id="topbar-container"></div>
+
+        <div class="app-body">
+
+            <div id="sidebar-container"></div>
+
+            <main class="main-content">
+
+                <section class="usuarios-container">
+
+                    <h2>Usuários</h2>
+
+                    <div class="bar">
+
+                        <input
+                            id="pesquisa-usuario"
+                            type="search"
+                            placeholder="Buscar por nome ou e-mail"
+                            aria-label="Buscar usuário">
+
+                        <button
+                            id="novo-usuario"
+                            type="button">
+
+                            Novo usuário
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="tbl">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Perfil</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="usuarios-body"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <!-- MODAL DE USUÁRIO -->
+
+    <dialog id="usuario-dialog">
+
+        <form id="form-usuario">
+
+            <h2 id="titulo-usuario-modal">
+                Novo usuário
+            </h2>
+
+
+            <div class="g">
+
+                <div class="f">
+
+                    <label for="nome-usuario">
+                        Nome *
+                    </label>
+
+                    <input
+                        id="nome-usuario"
+                        type="text"
+                        required>
+
+                </div>
+
+
+                <div class="f">
+
+                    <label for="email-usuario">
+                        E-mail *
+                    </label>
+
+                    <input
+                        id="email-usuario"
+                        type="email"
+                        required>
+
+                </div>
+
+
+                <div class="h">
+
+                    <label for="perfil-usuario">
+                        Perfil *
+                    </label>
+
+                    <select
+                        id="perfil-usuario"
+                        required>
+
+                        <option
+                            value=""
+                            disabled
+                            selected>
+                            Selecione
+                        </option>
+
+                        <option value="ADMINISTRADOR">
+                            Administrador
+                        </option>
+
+                        <option value="GERENTE">
+                            Gerente
+                        </option>
+
+                        <option value="FUNCIONARIO">
+                            Funcionário
+                        </option>
+
+                        <option value="VETERINARIO">
+                            Veterinário
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="h">
+
+                    <label for="ativo-usuario">
+                        Status *
+                    </label>
+
+                    <select
+                        id="ativo-usuario"
+                        required>
+
+                        <option value="true">
+                            Ativo
+                        </option>
+
+                        <option value="false">
+                            Inativo
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="acts">
+
+                <button
+                    type="button"
+                    class="sec"
+                    id="cancelar-usuario">
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    type="submit"
+                    id="salvar-usuario">
+
+                    Salvar usuário
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+
+    <div
+        id="usuario-toast"
+        role="status">
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../js/supabase.js"></script>
+
+    <script src="../js/layout.js"></script>
+
+    <script src="../js/usuarios.js"></script>
+
+</body>
+
+</html>
