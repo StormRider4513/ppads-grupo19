@@ -33,35 +33,19 @@ const botaoCancelar =
 
 const botaoSalvar =
     document.getElementById("salvar-usuario");
+const grupoSenha =
+    document.getElementById("campo-senha-grupo");
+
+const campoSenha =
+    document.getElementById("senha-usuario");
+
+const usuarioLogado =
+    JSON.parse(sessionStorage.getItem("usuarioLogado") || "null");
 
 
 let usuarios = [];
 
 let usuarioEmEdicao = null;
-
-
-/* -------------------------------------------------------
-   TOAST
-------------------------------------------------------- */
-
-function mostrarToast(mensagem) {
-
-    const toast =
-        document.getElementById("usuario-toast");
-
-    toast.textContent =
-        mensagem;
-
-    toast.classList.add("on");
-
-
-    setTimeout(function () {
-
-        toast.classList.remove("on");
-
-    }, 2000);
-
-}
 
 
 /* -------------------------------------------------------
@@ -91,6 +75,17 @@ function formatarPerfil(perfil) {
 
 }
 
+function ehUsuarioLogado(usuario) {
+    if (!usuarioLogado || !usuario) {
+        return false;
+    }
+
+    return (
+        String(usuario.id) === String(usuarioLogado.id) ||
+        String(usuario.email).toLowerCase() ===
+        String(usuarioLogado.email).toLowerCase()
+    );
+}
 
 /* -------------------------------------------------------
    CARREGAR USUÁRIOS
@@ -192,17 +187,17 @@ function mostrarUsuarios(lista) {
             linha.innerHTML = `
 
                 <td>
-                    ${usuario.nome}
+                    ${esc(usuario.nome)}
                 </td>
 
                 <td>
-                    ${usuario.email}
+                    ${esc(usuario.email)}
                 </td>
 
                 <td>
                     ${formatarPerfil(
-                        usuario.perfil
-                    )}
+                usuario.perfil
+            )}
                 </td>
 
                 <td>
@@ -222,46 +217,49 @@ function mostrarUsuarios(lista) {
 
                     <div class="acoes-usuario">
 
-                        <button
-                            type="button"
-                            class="
-                                btn-usuario
-                                btn-editar
-                            "
-                            data-id="${usuario.id}"
-                        >
-                            Editar
-                        </button>
+                    <button
+                        type="button"
+                        class="
+                            btn-usuario
+                            btn-editar
+                        "
+                        data-id="${usuario.id}"
+                    >
+                        Editar
+                    </button>
+
+                    ${!ehUsuarioLogado(usuario)
+                    ? `
+                            <button
+                                type="button"
+                                class="
+                                    btn-usuario
+                                    btn-status
+                                "
+                                data-id="${usuario.id}"
+                            >
+                                ${usuario.ativo
+                        ? "Desativar"
+                        : "Ativar"
+                    }
+                            </button>
 
 
-                        <button
-                            type="button"
-                            class="
-                                btn-usuario
-                                btn-status
-                            "
-                            data-id="${usuario.id}"
-                        >
-                            ${
-                                usuario.ativo
-                                    ? "Desativar"
-                                    : "Ativar"
-                            }
-                        </button>
+                            <button
+                                type="button"
+                                class="
+                                    btn-usuario
+                                    btn-excluir
+                                "
+                                data-id="${usuario.id}"
+                            >
+                                Excluir
+                            </button>
+                        `
+                    : ""
+                }
 
-
-                        <button
-                            type="button"
-                            class="
-                                btn-usuario
-                                btn-excluir
-                            "
-                            data-id="${usuario.id}"
-                        >
-                            Excluir
-                        </button>
-
-                    </div>
+                </div>
 
                 </td>
 
@@ -309,19 +307,19 @@ function pesquisarUsuarios() {
                     String(
                         usuario.nome || ""
                     )
-                    .toLowerCase();
+                        .toLowerCase();
 
                 const email =
                     String(
                         usuario.email || ""
                     )
-                    .toLowerCase();
+                        .toLowerCase();
 
                 const perfil =
                     formatarPerfil(
                         usuario.perfil
                     )
-                    .toLowerCase();
+                        .toLowerCase();
 
 
                 return (
@@ -357,6 +355,10 @@ function abrirModal(
 
     if (usuario) {
 
+        grupoSenha.style.display = "none";
+        campoSenha.required = false;
+        campoAtivo.disabled = ehUsuarioLogado(usuario);
+
         tituloModal.textContent =
             "Editar usuário";
 
@@ -381,6 +383,10 @@ function abrirModal(
             );
 
     } else {
+
+        grupoSenha.style.display = "block";
+        campoSenha.required = true;
+        campoAtivo.disabled = false;
 
         tituloModal.textContent =
             "Novo usuário";
@@ -475,45 +481,100 @@ async function emailJaExiste(
    CADASTRAR
 ------------------------------------------------------- */
 
-async function cadastrarUsuario(
-    dados
-) {
+async function cadastrarUsuario(dados, senha) {
 
-    const { data, error } =
-        await supabaseClient
-            .from("usuarios")
-            .insert(dados)
-            .select()
-            .single();
+    const authAuxiliar = supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            auth: {
+                persistSession: false,
+                autoRefreshToken: false,
+                storageKey: "aumiau-auth-auxiliar"
+            }
+        }
+    );
 
+    const { error: erroAuth } =
+        await authAuxiliar.auth.signUp({
+            email: dados.email,
+            password: senha
+        });
 
-    if (error) {
+    if (
+        erroAuth &&
+        !String(erroAuth.message || "").toLowerCase().includes("already registered")
+    ) {
+        console.error("Erro ao criar login do usuário:", erroAuth);
 
-        console.error(
-            "Erro ao cadastrar usuário:",
-            error
-        );
+        const msg = String(erroAuth.message || "").toLowerCase();
+        let aviso = "Erro ao criar credenciais de acesso do usuário.";
 
-        mostrarToast(
-            "Erro ao cadastrar usuário."
-        );
+        if (msg.includes("rate limit")) {
+            aviso = "Limite de cadastros atingido. Aguarde alguns minutos.";
+        } else if (msg.includes("invalid") && msg.includes("email")) {
+            aviso = "E-mail inválido. Use um domínio válido (ex: @gmail.com).";
+        } else if (msg.includes("password")) {
+            aviso = "Senha fraca ou menor que 6 caracteres.";
+        } else if (msg.includes("signups not allowed")) {
+            aviso = "Cadastro de novos usuários desativado no Supabase.";
+        }
 
+        mostrarToast(aviso);
         return false;
-
     }
 
+    // Verifica se já existe um registro excluído com este e-mail (evita erro 409)
+    const { data: usuarioExcluido } =
+        await supabaseClient
+            .from("usuarios")
+            .select("id")
+            .ilike("email", dados.email)
+            .eq("excluido", true)
+            .maybeSingle();
 
-    usuarios.push(
-        data
-    );
+    let resultado;
 
+    if (usuarioExcluido) {
+        resultado =
+            await supabaseClient
+                .from("usuarios")
+                .update({
+                    nome: dados.nome,
+                    email: dados.email,
+                    perfil: dados.perfil,
+                    ativo: dados.ativo,
+                    excluido: false
+                })
+                .eq("id", usuarioExcluido.id)
+                .select()
+                .single();
+    } else {
+        resultado =
+            await supabaseClient
+                .from("usuarios")
+                .insert(dados)
+                .select()
+                .single();
+    }
 
-    mostrarToast(
-        "Usuário cadastrado com sucesso."
-    );
+    if (resultado.error) {
+        console.error("Erro ao cadastrar usuário:", resultado.error);
+
+        if (resultado.error.code === "23505") {
+            mostrarToast("Já existe um usuário com este e-mail.");
+        } else {
+            mostrarToast("Erro ao cadastrar usuário.");
+        }
+
+        return false;
+    }
+
+    usuarios.push(resultado.data);
+
+    mostrarToast("Usuário cadastrado com sucesso.");
 
     return true;
-
 }
 
 
@@ -682,8 +743,9 @@ formularioUsuario.addEventListener(
                 await cadastrarUsuario(
                     {
                         ...dados,
-                        excluido: false
-                    }
+                        excluido: false,
+                    },
+                    campoSenha.value
                 );
 
         }
@@ -711,6 +773,10 @@ formularioUsuario.addEventListener(
 async function alterarStatusUsuario(
     usuario
 ) {
+    if (ehUsuarioLogado(usuario)) {
+        mostrarToast("Não é possível desativar seu próprio usuário.");
+        return;
+    }
 
     const novoStatus =
         !usuario.ativo;
@@ -722,10 +788,12 @@ async function alterarStatusUsuario(
             : "desativar";
 
 
-    const confirmar =
-        confirm(
-            `Deseja realmente ${texto} este usuário?`
-        );
+    const confirmar = await confirmarAcao({
+        titulo: novoStatus ? "Ativar usuário" : "Desativar usuário",
+        mensagem: `Deseja realmente ${texto} este usuário?`,
+        textoConfirmar: novoStatus ? "Ativar" : "Desativar",
+        perigo: !novoStatus
+    });
 
 
     if (!confirmar) {
@@ -772,7 +840,7 @@ async function alterarStatusUsuario(
 
                 return (
                     item.id ===
-                    usuario.id
+                        usuario.id
                         ? data
                         : item
                 );
@@ -803,11 +871,18 @@ async function excluirUsuario(
     id
 ) {
 
-    const confirmar =
-        confirm(
-            "Deseja realmente excluir este usuário?"
-        );
+    const alvo = usuarios.find((u) => u.id === id);
+    if (ehUsuarioLogado(alvo)) {
+        mostrarToast("Não é possível excluir seu próprio usuário.");
+        return;
+    }
 
+    const confirmar = await confirmarAcao({
+        titulo: "Excluir usuário",
+        mensagem: "Deseja realmente excluir este usuário?",
+        textoConfirmar: "Excluir",
+        perigo: true
+    });
 
     if (!confirmar) {
 

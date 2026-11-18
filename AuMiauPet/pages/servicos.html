@@ -102,6 +102,21 @@
                 </div>
             </div>
 
+            <div class="servico-campo">
+                <label for="ocupa-horario">
+                    Ocupa horário na agenda?
+                </label>
+
+                <select id="ocupa-horario" required>
+                    <option value="true" selected>
+                        Sim (bloqueia o horário)
+                    </option>
+                    <option value="false">
+                        Não (livre, ex.: hospedagem)
+                    </option>
+                </select>
+            </div>
+
             <div class="servico-actions">
                 <button type="button" id="cancelar-servico" class="btn-secundario">
                     Cancelar
@@ -115,12 +130,10 @@
         </form>
     </dialog>
 
-
-    <div id="servico-toast" role="status"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase.js"></script>
     <script src="../js/layout.js"></script>
+    <script src="../js/utils.js"></script>
     <script src="../js/servicos.js"></script>
 
 </body>

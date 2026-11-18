@@ -74,11 +74,9 @@ body {
     padding: 24px;
 
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             #F7F5F2 0%,
-            #F3EFE7 100%
-        );
+            #F3EFE7 100%);
 }
 
 .loginCard {
@@ -522,8 +520,7 @@ textarea:focus {
         var(--primary-dark);
 
     box-shadow:
-        0 0 0 4px
-        rgba(232, 217, 167, 0.32);
+        0 0 0 4px rgba(232, 217, 167, 0.32);
 }
 
 
@@ -574,6 +571,140 @@ dialog::backdrop {
         blur(2px);
 }
 
+/* -------------------------------------------------------
+   TOAST GLOBAL
+------------------------------------------------------- */
+
+.toast-global {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(8px);
+    z-index: 9999;
+
+    max-width: min(520px, 92vw);
+    padding: 12px 18px;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-small);
+
+    box-shadow: var(--shadow);
+
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast-global.on {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast-global.sucesso {
+    background-color: #EDF7ED;
+    border-color: #BFDDC2;
+    color: #2E6B34;
+}
+
+.toast-global.erro {
+    background-color: #FDEBE9;
+    border-color: #E6B8B4;
+    color: var(--error);
+}
+
+.toast-global.aviso {
+    background-color: var(--primary-soft);
+    border-color: #EADFB8;
+    color: #5E5024;
+}
+
+
+/* -------------------------------------------------------
+   MODAL DE CONFIRMAÇÃO
+------------------------------------------------------- */
+
+.confirm-dialog {
+    width: min(420px, 92vw);
+}
+
+.confirm-corpo {
+    padding: 24px 26px;
+}
+
+.confirm-corpo h2 {
+    margin: 0 0 10px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.confirm-corpo p {
+    margin: 0 0 22px;
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.45;
+}
+
+.confirm-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.confirm-acoes button {
+    padding: 11px 16px;
+    border-radius: var(--radius-small);
+    font-size: 0.98rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.confirm-cancelar {
+    border: 1px solid var(--border);
+    background-color: var(--surface-soft);
+    color: var(--text);
+}
+
+.confirm-cancelar:hover {
+    background-color: var(--hover);
+}
+
+.confirm-ok {
+    border: none;
+    background-color: var(--primary);
+    color: #4E4322;
+}
+
+.confirm-ok:hover {
+    background-color: var(--primary-dark);
+}
+
+.confirm-ok.perigo {
+    background-color: var(--error);
+    color: #FFFFFF;
+}
+
+.confirm-ok.perigo:hover {
+    background-color: #8F1B11;
+}
+
+@media (max-width: 480px) {
+
+    .confirm-acoes {
+        flex-direction: column-reverse;
+    }
+
+    .confirm-acoes button {
+        width: 100%;
+    }
+
+}
 
 /* -------------------------------------------------------
    FOCO / ACESSIBILIDADE

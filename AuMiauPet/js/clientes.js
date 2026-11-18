@@ -8,17 +8,17 @@ const $ = (id) => document.getElementById(id);
 ------------------------------------------------------- */
 
 const fCpf = (v) => {
-  const valor = String(v || "").replace(/\D/g, "");
+    const valor = String(v || "").replace(/\D/g, "");
 
-  return valor.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+    return valor.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
 };
 
 const fTel = (v) => {
-  const valor = String(v || "").replace(/\D/g, "");
+    const valor = String(v || "").replace(/\D/g, "");
 
-  return valor.length === 11
-    ? valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")
-    : valor.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3");
+    return valor.length === 11
+        ? valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")
+        : valor.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3");
 };
 
 const dig = (v) => String(v || "").replace(/\D/g, "");
@@ -28,56 +28,23 @@ const dig = (v) => String(v || "").replace(/\D/g, "");
 ------------------------------------------------------- */
 
 function cpfOk(c) {
-  if (c.length !== 11 || /^(\d)\1+$/.test(c)) {
-    return false;
-  }
-
-  for (let t = 9; t < 11; t++) {
-    let soma = 0;
-
-    for (let i = 0; i < t; i++) {
-      soma += c[i] * (t + 1 - i);
+    if (c.length !== 11 || /^(\d)\1+$/.test(c)) {
+        return false;
     }
 
-    if (((soma * 10) % 11) % 10 != c[t]) {
-      return false;
+    for (let t = 9; t < 11; t++) {
+        let soma = 0;
+
+        for (let i = 0; i < t; i++) {
+            soma += c[i] * (t + 1 - i);
+        }
+
+        if (((soma * 10) % 11) % 10 != c[t]) {
+            return false;
+        }
     }
-  }
 
-  return true;
-}
-
-/* -------------------------------------------------------
-   SEGURANÇA HTML
-------------------------------------------------------- */
-
-function esc(valor) {
-  return String(valor ?? "").replace(
-    /[&<>"]/g,
-    (c) =>
-      ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-      })[c],
-  );
-}
-
-/* -------------------------------------------------------
-   TOAST
-------------------------------------------------------- */
-
-function toast(mensagem) {
-  const t = $("toast");
-
-  t.textContent = mensagem;
-
-  t.classList.add("on");
-
-  setTimeout(() => {
-    t.classList.remove("on");
-  }, 2200);
+    return true;
 }
 
 /* -------------------------------------------------------
@@ -85,25 +52,25 @@ function toast(mensagem) {
 ------------------------------------------------------- */
 
 async function carregarClientes() {
-  const { data, error } = await supabaseClient
-    .from("clientes")
-    .select("*")
-    .eq("excluido", false)
-    .order("nome", {
-      ascending: true,
-    });
+    const { data, error } = await supabaseClient
+        .from("clientes")
+        .select("*")
+        .eq("excluido", false)
+        .order("nome", {
+            ascending: true,
+        });
 
-  if (error) {
-    console.error("Erro ao carregar clientes:", error);
+    if (error) {
+        console.error("Erro ao carregar clientes:", error);
 
-    toast("Erro ao carregar clientes");
+        mostrarToast("Erro ao carregar clientes");
 
-    return;
-  }
+        return;
+    }
 
-  clientes = data || [];
+    clientes = data || [];
 
-  render();
+    render();
 }
 
 /* -------------------------------------------------------
@@ -111,36 +78,36 @@ async function carregarClientes() {
 ------------------------------------------------------- */
 
 function render() {
-  const q = $("q").value.trim().toLowerCase();
+    const q = $("q").value.trim().toLowerCase();
 
-  const qd = dig(q);
+    const qd = dig(q);
 
-  const resultado = clientes.filter((c) => {
-    const nome = String(c.nome || "").toLowerCase();
+    const resultado = clientes.filter((c) => {
+        const nome = String(c.nome || "").toLowerCase();
 
-    const cpf = dig(c.cpf);
+        const cpf = dig(c.cpf);
 
-    const telefone = dig(c.telefone);
+        const telefone = dig(c.telefone);
 
-    return (
-      !q ||
-      nome.includes(q) ||
-      (qd && (cpf.includes(qd) || telefone.includes(qd)))
-    );
-  });
+        return (
+            !q ||
+            nome.includes(q) ||
+            (qd && (cpf.includes(qd) || telefone.includes(qd)))
+        );
+    });
 
-  if (!resultado.length) {
-    $("lista").innerHTML =
-      '<div class="empty">' +
-      (clientes.length
-        ? "Nenhum cliente encontrado para essa busca."
-        : "Nenhum cliente cadastrado. Clique em Novo cliente para começar.") +
-      "</div>";
+    if (!resultado.length) {
+        $("lista").innerHTML =
+            '<div class="empty">' +
+            (clientes.length
+                ? "Nenhum cliente encontrado para essa busca."
+                : "Nenhum cliente cadastrado. Clique em Novo cliente para começar.") +
+            "</div>";
 
-    return;
-  }
+        return;
+    }
 
-  $("lista").innerHTML = `
+    $("lista").innerHTML = `
     <table>
 
       <thead>
@@ -155,8 +122,8 @@ function render() {
       <tbody>
 
         ${resultado
-          .map(
-            (c) => `
+            .map(
+                (c) => `
               <tr>
 
                 <td>
@@ -197,8 +164,8 @@ function render() {
 
               </tr>
             `,
-          )
-          .join("")}
+            )
+            .join("")}
 
       </tbody>
 
@@ -211,27 +178,27 @@ function render() {
 ------------------------------------------------------- */
 
 function open(c) {
-  editId = c ? c.id : null;
+    editId = c ? c.id : null;
 
-  $("tit").textContent = c ? "Editar cliente" : "Novo cliente";
+    $("tit").textContent = c ? "Editar cliente" : "Novo cliente";
 
-  $("nome").value = c ? c.nome : "";
+    $("nome").value = c ? c.nome : "";
 
-  $("cpf").value = c ? fCpf(c.cpf) : "";
+    $("cpf").value = c ? fCpf(c.cpf) : "";
 
-  $("tel").value = c ? fTel(c.telefone) : "";
+    $("tel").value = c ? fTel(c.telefone) : "";
 
-  $("email").value = c ? c.email || "" : "";
+    $("email").value = c ? c.email || "" : "";
 
-  $("end").value = c ? c.endereco || "" : "";
+    $("end").value = c ? c.endereco || "" : "";
 
-  $("obs").value = c ? c.observacoes || "" : "";
+    $("obs").value = c ? c.observacoes || "" : "";
 
-  document.querySelectorAll(".e").forEach((e) => (e.textContent = ""));
+    document.querySelectorAll(".e").forEach((e) => (e.textContent = ""));
 
-  $("dlg").showModal();
+    $("dlg").showModal();
 
-  $("nome").focus();
+    $("nome").focus();
 }
 
 /* -------------------------------------------------------
@@ -239,57 +206,57 @@ function open(c) {
 ------------------------------------------------------- */
 
 function validar() {
-  const erros = {};
+    const erros = {};
 
-  const nome = $("nome").value.trim();
+    const nome = $("nome").value.trim();
 
-  const cpf = dig($("cpf").value);
+    const cpf = dig($("cpf").value);
 
-  const telefone = dig($("tel").value);
+    const telefone = dig($("tel").value);
 
-  const email = $("email").value.trim();
+    const email = $("email").value.trim();
 
-  if (nome.length < 3) {
-    erros.nome = "Informe o nome completo.";
-  }
+    if (nome.length < 3) {
+        erros.nome = "Informe o nome completo.";
+    }
 
-  if (!cpfOk(cpf)) {
-    erros.cpf = "CPF inválido. Confira os 11 dígitos.";
-  } else if (
-    clientes.some((x) => x.cpf === cpf && String(x.id) !== String(editId))
-  ) {
-    erros.cpf = "Já existe um cliente com esse CPF.";
-  }
+    if (!cpfOk(cpf)) {
+        erros.cpf = "CPF inválido. Confira os 11 dígitos.";
+    } else if (
+        clientes.some((x) => x.cpf === cpf && String(x.id) !== String(editId))
+    ) {
+        erros.cpf = "Já existe um cliente com esse CPF.";
+    }
 
-  if (telefone.length < 10 || telefone.length > 11) {
-    erros.tel = "Informe DDD e telefone (10 ou 11 dígitos).";
-  }
+    if (telefone.length < 10 || telefone.length > 11) {
+        erros.tel = "Informe DDD e telefone (10 ou 11 dígitos).";
+    }
 
-  if (email && !/^\S+@\S+\.\S+$/.test(email)) {
-    erros.email = "E-mail inválido.";
-  }
+    if (email && !/^\S+@\S+\.\S+$/.test(email)) {
+        erros.email = "E-mail inválido.";
+    }
 
-  document
-    .querySelectorAll(".e")
-    .forEach((s) => (s.textContent = erros[s.dataset.e] || ""));
+    document
+        .querySelectorAll(".e")
+        .forEach((s) => (s.textContent = erros[s.dataset.e] || ""));
 
-  if (Object.keys(erros).length) {
-    return null;
-  }
+    if (Object.keys(erros).length) {
+        return null;
+    }
 
-  return {
-    nome: nome,
+    return {
+        nome: nome,
 
-    cpf: cpf,
+        cpf: cpf,
 
-    telefone: telefone,
+        telefone: telefone,
 
-    email: email || null,
+        email: email || null,
 
-    endereco: $("end").value.trim() || null,
+        endereco: $("end").value.trim() || null,
 
-    observacoes: $("obs").value.trim() || null,
-  };
+        observacoes: $("obs").value.trim() || null,
+    };
 }
 
 /* -------------------------------------------------------
@@ -297,25 +264,25 @@ function validar() {
 ------------------------------------------------------- */
 
 async function cadastrarCliente(cliente) {
-  const { data, error } = await supabaseClient
-    .from("clientes")
-    .insert(cliente)
-    .select()
-    .single();
+    const { data, error } = await supabaseClient
+        .from("clientes")
+        .insert(cliente)
+        .select()
+        .single();
 
-  if (error) {
-    console.error("Erro ao cadastrar cliente:", error);
+    if (error) {
+        console.error("Erro ao cadastrar cliente:", error);
 
-    toast("Erro ao cadastrar cliente");
+        mostrarToast("Erro ao cadastrar cliente");
 
-    return false;
-  }
+        return false;
+    }
 
-  clientes.push(data);
+    clientes.push(data);
 
-  toast("Cliente cadastrado");
+    mostrarToast("Cliente cadastrado");
 
-  return true;
+    return true;
 }
 
 /* -------------------------------------------------------
@@ -323,124 +290,159 @@ async function cadastrarCliente(cliente) {
 ------------------------------------------------------- */
 
 async function atualizarCliente(id, cliente) {
-  const { data, error } = await supabaseClient
-    .from("clientes")
-    .update(cliente)
-    .eq("id", id)
-    .select()
-    .single();
+    const { data, error } = await supabaseClient
+        .from("clientes")
+        .update(cliente)
+        .eq("id", id)
+        .select()
+        .single();
 
-  if (error) {
-    console.error("Erro ao atualizar cliente:", error);
+    if (error) {
+        console.error("Erro ao atualizar cliente:", error);
 
-    toast("Erro ao atualizar cliente");
+        mostrarToast("Erro ao atualizar cliente");
 
-    return false;
-  }
+        return false;
+    }
 
-  clientes = clientes.map((c) => (c.id === id ? data : c));
+    clientes = clientes.map((c) => (c.id === id ? data : c));
 
-  toast("Cliente atualizado");
+    mostrarToast("Cliente atualizado");
 
-  return true;
+    return true;
 }
 
 async function excluirCliente(id) {
 
-  const confirmar =
-    confirm(
-      "Deseja realmente excluir este cliente?"
+    const confirmar = await confirmarAcao({
+        titulo: "Excluir cliente",
+        mensagem: "Deseja realmente excluir este cliente?",
+        textoConfirmar: "Excluir",
+        perigo: true
+    });
+
+    if (!confirmar) {
+        return;
+    }
+
+    /* --------------------------------
+      VERIFICAR AGENDAMENTOS
+    -------------------------------- */
+
+    const {
+        data: agendamentos,
+        error: erroAgendamentos
+    } =
+        await supabaseClient
+            .from("agendamentos")
+            .select("id")
+            .eq("cliente_id", id)
+            .eq("excluido", false)
+            .limit(1);
+
+
+    if (erroAgendamentos) {
+
+        console.error(
+            "Erro ao verificar agendamentos do cliente:",
+            erroAgendamentos
+        );
+
+        mostrarToast(
+            "Erro ao verificar os agendamentos do cliente."
+        );
+
+        return;
+    }
+
+
+    if (
+        agendamentos &&
+        agendamentos.length > 0
+    ) {
+
+        mostrarToast(
+            "Não é possível excluir este cliente, pois ele possui agendamento associado."
+        );
+
+        return;
+    }
+
+    const {
+        data: petsDoCliente,
+        error: erroPets
+    } =
+        await supabaseClient
+            .from("pets")
+            .select("id")
+            .eq("cliente_id", id)
+            .eq("excluido", false)
+            .limit(1);
+
+    if (erroPets) {
+
+        console.error(
+            "Erro ao verificar pets do cliente:",
+            erroPets
+        );
+
+        mostrarToast(
+            "Erro ao verificar os pets do cliente."
+        );
+
+        return;
+    }
+
+    if (petsDoCliente && petsDoCliente.length > 0) {
+
+        mostrarToast(
+            "Não é possível excluir este cliente, pois ele possui pet cadastrado. Exclua ou transfira os pets primeiro."
+        );
+
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+            .from("clientes")
+            .update({
+                excluido: true
+            })
+            .eq("id", id);
+
+
+    if (error) {
+
+        console.error(
+            "Erro ao excluir cliente:",
+            error
+        );
+
+        mostrarToast(
+            "Erro ao excluir cliente."
+        );
+
+        return;
+
+    }
+
+
+    clientes =
+        clientes.filter(
+            function (cliente) {
+
+                return cliente.id !== id;
+
+            }
+        );
+
+
+    render();
+
+
+    mostrarToast(
+        "Cliente excluído com sucesso."
     );
-
-
-  if (!confirmar) {
-    return;
-  }
-
-/* --------------------------------
-  VERIFICAR AGENDAMENTOS
--------------------------------- */
-
-  const {
-    data: agendamentos,
-    error: erroAgendamentos
-  } =
-    await supabaseClient
-      .from("agendamentos")
-      .select("id")
-      .eq("cliente_id", id)
-      .eq("excluido", false)
-      .limit(1);
-
-
-  if (erroAgendamentos) {
-
-    console.error(
-      "Erro ao verificar agendamentos do cliente:",
-      erroAgendamentos
-    );
-
-    toast(
-      "Erro ao verificar os agendamentos do cliente."
-    );
-
-    return;
-  }
-
-
-  if (
-    agendamentos &&
-    agendamentos.length > 0
-  ) {
-
-    toast(
-      "Não é possível excluir este cliente, pois ele possui agendamento associado."
-    );
-
-    return;
-  }
-
-  const { error } =
-    await supabaseClient
-      .from("clientes")
-      .update({
-        excluido: true
-      })
-      .eq("id", id);
-
-
-  if (error) {
-
-    console.error(
-      "Erro ao excluir cliente:",
-      error
-    );
-
-    toast(
-      "Erro ao excluir cliente."
-    );
-
-    return;
-
-  }
-
-
-  clientes =
-    clientes.filter(
-      function (cliente) {
-
-        return cliente.id !== id;
-
-      }
-    );
-
-
-  render();
-
-
-  toast(
-    "Cliente excluído com sucesso."
-  );
 
 }
 
@@ -449,7 +451,7 @@ async function excluirCliente(id) {
 ------------------------------------------------------- */
 
 $("novo").onclick = () => {
-  open(null);
+    open(null);
 };
 
 /* -------------------------------------------------------
@@ -457,7 +459,7 @@ $("novo").onclick = () => {
 ------------------------------------------------------- */
 
 $("cancel").onclick = () => {
-  $("dlg").close();
+    $("dlg").close();
 };
 
 /* -------------------------------------------------------
@@ -472,58 +474,58 @@ $("q").oninput = render;
 
 $("lista").onclick = function (e) {
 
-  const botaoExcluir =
-    e.target.closest(
-      ".btn-excluir"
-    );
+    const botaoExcluir =
+        e.target.closest(
+            ".btn-excluir"
+        );
 
 
-  if (botaoExcluir) {
+    if (botaoExcluir) {
+
+        const id =
+            Number(
+                botaoExcluir.dataset.id
+            );
+
+        excluirCliente(id);
+
+        return;
+
+    }
+
+
+    const botaoEditar =
+        e.target.closest(
+            ".btn-editar"
+        );
+
+
+    if (!botaoEditar) {
+        return;
+    }
+
 
     const id =
-      Number(
-        botaoExcluir.dataset.id
-      );
-
-    excluirCliente(id);
-
-    return;
-
-  }
+        Number(
+            botaoEditar.dataset.id
+        );
 
 
-  const botaoEditar =
-    e.target.closest(
-      ".btn-editar"
-    );
+    const cliente =
+        clientes.find(
+            function (cliente) {
+
+                return cliente.id === id;
+
+            }
+        );
 
 
-  if (!botaoEditar) {
-    return;
-  }
+    if (cliente) {
 
+        open(cliente);
 
-  const id =
-    Number(
-      botaoEditar.dataset.id
-    );
-
-
-  const cliente =
-    clientes.find(
-      function (cliente) {
-
-        return cliente.id === id;
-
-      }
-    );
-
-
-  if (cliente) {
-
-    open(cliente);
-
-  }
+    }
 
 };
 /* -------------------------------------------------------
@@ -531,29 +533,29 @@ $("lista").onclick = function (e) {
 ------------------------------------------------------- */
 
 $("frm").onsubmit = async (ev) => {
-  ev.preventDefault();
+    ev.preventDefault();
 
-  const dados = validar();
+    const dados = validar();
 
-  if (!dados) {
-    return;
-  }
+    if (!dados) {
+        return;
+    }
 
-  let sucesso;
+    let sucesso;
 
-  if (editId !== null) {
-    sucesso = await atualizarCliente(editId, dados);
-  } else {
-    sucesso = await cadastrarCliente(dados);
-  }
+    if (editId !== null) {
+        sucesso = await atualizarCliente(editId, dados);
+    } else {
+        sucesso = await cadastrarCliente(dados);
+    }
 
-  if (!sucesso) {
-    return;
-  }
+    if (!sucesso) {
+        return;
+    }
 
-  $("dlg").close();
+    $("dlg").close();
 
-  render();
+    render();
 };
 
 /* -------------------------------------------------------

@@ -55,28 +55,6 @@ let petEmEdicao = null;
 
 
 /* --------------------------------
-   MOSTRAR MENSAGEM
--------------------------------- */
-
-function mostrarToast(mensagem) {
-
-    const toast =
-        document.getElementById("pet-toast");
-
-    toast.textContent = mensagem;
-
-    toast.classList.add("on");
-
-    setTimeout(function () {
-
-        toast.classList.remove("on");
-
-    }, 2000);
-
-}
-
-
-/* --------------------------------
    CRIAR CÉLULA
 -------------------------------- */
 
@@ -160,7 +138,6 @@ function mostrarPets(lista) {
                 : "Responsável não encontrado"
         );
 
-
         const celulaAcoes =
             document.createElement("td");
 
@@ -203,11 +180,13 @@ function mostrarPets(lista) {
         botaoExcluir.dataset.id =
             pet.id;
 
+        celulaAcoes.appendChild(
+            botaoExcluir
+        );
 
         linha.appendChild(
             celulaAcoes
         );
-
 
         corpoTabela.appendChild(
             linha
@@ -216,25 +195,6 @@ function mostrarPets(lista) {
     });
 
 }
-
-
-/* --------------------------------
-   NORMALIZAR PESQUISA
--------------------------------- */
-
-function normalizarTexto(texto) {
-
-    return String(texto || "")
-        .normalize("NFD")
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-        .toLowerCase()
-        .trim();
-
-}
-
 
 /* --------------------------------
    CARREGAR CLIENTES DO SUPABASE
@@ -684,15 +644,49 @@ async function atualizarPet(id, dadosPet) {
 
 async function excluirPet(id) {
 
-    const confirmar =
-        confirm(
-            "Deseja realmente excluir este pet?"
-        );
-
+    const confirmar = await confirmarAcao({
+        titulo: "Excluir pet",
+        mensagem: "Deseja realmente excluir este pet?",
+        textoConfirmar: "Excluir",
+        perigo: true
+    });
     if (!confirmar) {
         return;
     }
 
+    const {
+        data: agendamentos,
+        error: erroAgendamentos
+    } =
+        await supabaseClient
+            .from("agendamentos")
+            .select("id")
+            .eq("pet_id", id)
+            .eq("excluido", false)
+            .limit(1);
+
+    if (erroAgendamentos) {
+
+        console.error(
+            "Erro ao verificar agendamentos do pet:",
+            erroAgendamentos
+        );
+
+        mostrarToast(
+            "Erro ao verificar os agendamentos do pet."
+        );
+
+        return;
+    }
+
+    if (agendamentos && agendamentos.length > 0) {
+
+        mostrarToast(
+            "Não é possível excluir este pet, pois ele possui agendamento associado."
+        );
+
+        return;
+    }
 
     const { error } =
         await supabaseClient

@@ -23,6 +23,11 @@ const tituloModal =
         "titulo-servico-modal"
     );
 
+const campoOcupaHorario =
+    document.getElementById(
+        "ocupa-horario"
+    );
+
 const botaoCancelar =
     document.getElementById(
         "cancelar-servico"
@@ -62,38 +67,6 @@ const unidadeDuracao =
 let servicos = [];
 
 let servicoEmEdicao = null;
-
-
-/* -------------------------------------------------------
-   TOAST
-------------------------------------------------------- */
-
-function mostrarToast(mensagem) {
-
-    const toast =
-        document.getElementById(
-            "servico-toast"
-        );
-
-    toast.textContent =
-        mensagem;
-
-    toast.classList.add(
-        "on"
-    );
-
-    setTimeout(
-        function () {
-
-            toast.classList.remove(
-                "on"
-            );
-
-        },
-        2000
-    );
-
-}
 
 
 /* -------------------------------------------------------
@@ -197,33 +170,34 @@ function mostrarServicos() {
             linha.innerHTML = `
 
                 <td>
-                    ${servico.nome}
+                    ${esc(servico.nome)}
                 </td>
 
                 <td>
-                    ${servico.descricao || "-"}
+                    ${esc(servico.descricao) || "-"}
                 </td>
 
                 <td>
                     ${formatarValor(
-                        servico.valor
-                    )}
+                servico.valor
+            )}
                 </td>
 
                 <td>
-                        ${
-                            servico.unidade_duracao === "horas"
-                                ? `${servico.duracao_minutos / 60} ${
-                                    servico.duracao_minutos === 60
-                                        ? "hora"
-                                        : "horas"
-                                }`
-                                : `${servico.duracao_minutos} ${
-                                    servico.duracao_minutos === 1
-                                        ? "minuto"
-                                        : "minutos"
-                                }`
-                        }
+                        ${servico.unidade_duracao === "horas"
+                    ? `${servico.duracao_minutos / 60} ${servico.duracao_minutos === 60
+                        ? "hora"
+                        : "horas"
+                    }`
+                    : `${servico.duracao_minutos} ${servico.duracao_minutos === 1
+                        ? "minuto"
+                        : "minutos"
+                    }`
+                }
+                    ${servico.ocupa_horario === false
+                    ? "<br><small>Não ocupa horário</small>"
+                    : ""
+                }
                 </td>
 
                 <td>
@@ -287,6 +261,9 @@ function abrirModal(servico = null) {
         campoValor.value =
             servico.valor || "";
 
+        campoOcupaHorario.value =
+            String(servico.ocupa_horario !== false);
+
 
         const unidade =
             servico.unidade_duracao || "minutos";
@@ -317,6 +294,9 @@ function abrirModal(servico = null) {
 
         unidadeDuracao.value =
             "minutos";
+
+        campoOcupaHorario.value =
+            "true";
 
     }
 
@@ -451,11 +431,12 @@ async function atualizarServico(
 
 async function excluirServico(id) {
 
-    const confirmar =
-        confirm(
-            "Deseja realmente excluir este serviço?"
-        );
-
+    const confirmar = await confirmarAcao({
+        titulo: "Excluir serviço",
+        mensagem: "Deseja realmente excluir este serviço?",
+        textoConfirmar: "Excluir",
+        perigo: true
+    });
 
     if (!confirmar) {
 
@@ -470,7 +451,7 @@ async function excluirServico(id) {
             .update({
                 excluido: true
             })
-            .eq("id",id);
+            .eq("id", id);
 
     if (error) {
 
@@ -530,16 +511,16 @@ formularioServico.addEventListener(
 
         }
 
-    const duracaoInformada =
-        Number(campoDuracao.value);
+        const duracaoInformada =
+            Number(campoDuracao.value);
 
-    const unidadeSelecionada =
-        unidadeDuracao.value;
+        const unidadeSelecionada =
+            unidadeDuracao.value;
 
-    const duracaoEmMinutos =
-        unidadeSelecionada === "horas"
-            ? duracaoInformada * 60
-            : duracaoInformada;
+        const duracaoEmMinutos =
+            unidadeSelecionada === "horas"
+                ? duracaoInformada * 60
+                : duracaoInformada;
 
 
 
@@ -557,7 +538,10 @@ formularioServico.addEventListener(
                 duracaoEmMinutos,
 
             unidade_duracao:
-                unidadeSelecionada
+                unidadeSelecionada,
+
+            ocupa_horario:
+                campoOcupaHorario.value === "true"
         };
 
 

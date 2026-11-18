@@ -239,7 +239,8 @@
 }
 
 .servico-campo input,
-.servico-campo textarea {
+.servico-campo textarea,
+.servico-campo select {
     width: 100%;
 
     padding: 12px 14px;
@@ -311,44 +312,6 @@
 
     margin-top: 10px;
 }
-
-
-/* TOAST */
-
-#servico-toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 24px;
-
-    transform:
-        translateX(-50%);
-
-    z-index: 9999;
-
-    padding: 11px 18px;
-
-    border-radius:
-        var(--radius-small);
-
-    background-color:
-        var(--text);
-
-    color:
-        #FFFFFF;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.2s ease;
-}
-
-#servico-toast.on {
-    opacity: 1;
-}
-
 
 /* RESPONSIVO */
 

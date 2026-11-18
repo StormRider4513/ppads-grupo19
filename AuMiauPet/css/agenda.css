@@ -572,52 +572,6 @@
         var(--primary-dark);
 }
 
-
-/* -------------------------------------------------------
-   TOAST
-------------------------------------------------------- */
-
-#agenda-toast {
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 24px;
-
-    transform:
-        translateX(-50%);
-
-    z-index: 9999;
-
-    padding: 11px 18px;
-
-    border-radius:
-        var(--radius-small);
-
-    background-color:
-        var(--text);
-
-    color:
-        #FFFFFF;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-}
-
-#agenda-toast.on {
-    opacity: 1;
-
-    transform:
-        translateX(-50%)
-        translateY(-4px);
-}
-
-
 /* -------------------------------------------------------
    RESPONSIVIDADE
 ------------------------------------------------------- */
