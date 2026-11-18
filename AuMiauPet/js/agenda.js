@@ -65,28 +65,6 @@ let servicos = [];
 
 
 /* ----------------------------------
-   TOAST
----------------------------------- */
-
-function mostrarToast(mensagem) {
-
-    const toast =
-        document.getElementById("agenda-toast");
-
-    toast.textContent = mensagem;
-
-    toast.classList.add("on");
-
-    setTimeout(function () {
-
-        toast.classList.remove("on");
-
-    }, 2000);
-
-}
-
-
-/* ----------------------------------
    DATA
 ---------------------------------- */
 
@@ -204,7 +182,7 @@ async function carregarServicosBanco() {
         await supabaseClient
             .from("servicos")
             .select(
-                "id, nome, duracao_minutos"
+                "id, nome, duracao_minutos, ocupa_horario"
             )
             .eq("excluido", false)
             .order("nome", {
@@ -319,6 +297,21 @@ function obterNomeServico(servicoId) {
 
 }
 
+function servicoOcupaHorario(servicoId) {
+
+    const servico =
+        servicos.find(function (item) {
+
+            return String(item.id) ===
+                String(servicoId);
+
+        });
+
+    return servico
+        ? servico.ocupa_horario !== false
+        : true;
+
+}
 
 /* ----------------------------------
    TABELA
@@ -369,32 +362,32 @@ function mostrarAgendamentos(lista) {
 
                 <td>
                     ${formatarData(
-                        agendamento.data_agendamento
-                    )}
+                agendamento.data_agendamento
+            )}
                 </td>
 
                 <td>
                     ${String(
-                        agendamento.hora_agendamento
-                    ).substring(0, 5)}
+                agendamento.hora_agendamento
+            ).substring(0, 5)}
                 </td>
 
                 <td>
-                    ${obterNomeCliente(
-                        agendamento.cliente_id
-                    )}
+                    ${esc(obterNomeCliente(
+                agendamento.cliente_id
+            ))}
                 </td>
 
                 <td>
-                    ${obterNomePet(
-                        agendamento.pet_id
-                    )}
+                    ${esc(obterNomePet(
+                agendamento.pet_id
+            ))}
                 </td>
 
                 <td>
-                    ${obterNomeServico(
-                        agendamento.servico_id
-                    )}
+                    ${esc(obterNomeServico(
+                agendamento.servico_id
+            ))}
                 </td>
 
                 <td>
@@ -640,28 +633,44 @@ function carregarHorarios() {
             }
 
 
+            const servicoSelecionadoOcupa =
+                !selectServico.value ||
+                servicoOcupaHorario(
+                    selectServico.value
+                );
+
             const ocupado =
+                servicoSelecionadoOcupa &&
                 agendamentos.some(
                     function (agendamento) {
 
                         if (
                             agendamentoEmEdicao &&
                             agendamento.id ===
-                                agendamentoEmEdicao.id
+                            agendamentoEmEdicao.id
                         ) {
 
                             return false;
 
                         }
 
+                        if (
+                            !servicoOcupaHorario(
+                                agendamento.servico_id
+                            )
+                        ) {
+
+                            return false;
+
+                        }
 
                         return (
                             agendamento.data_agendamento ===
-                                data &&
+                            data &&
                             String(
                                 agendamento.hora_agendamento
                             ).substring(0, 5) ===
-                                horario
+                            horario
                         );
 
                     }
@@ -740,6 +749,16 @@ function carregarHorarios() {
         }
     );
 
+    if (
+        horarioSelecionado &&
+        !horariosContainer.querySelector(
+            ".btn-horario.selected"
+        )
+    ) {
+
+        horarioSelecionado = null;
+
+    }
 
     if (
         horariosContainer
@@ -1016,7 +1035,7 @@ async function salvarAgendamento() {
 
     if (data < dataHoje) {
 
-        alert(
+        mostrarToast(
             "Não é possível realizar agendamentos em datas passadas."
         );
 
@@ -1031,7 +1050,7 @@ async function salvarAgendamento() {
         horarioSelecionado <= horaAtual
     ) {
 
-        alert(
+        mostrarToast(
             "Não é possível realizar agendamento em um horário que já passou."
         );
 
@@ -1051,7 +1070,7 @@ async function salvarAgendamento() {
         !data
     ) {
 
-        alert(
+        mostrarToast(
             "Preencha todos os campos."
         );
 
@@ -1062,7 +1081,7 @@ async function salvarAgendamento() {
 
     if (!horarioSelecionado) {
 
-        alert(
+        mostrarToast(
             "Selecione um horário."
         );
 
@@ -1140,18 +1159,19 @@ async function salvarAgendamento() {
 
 async function cancelarAgendamento(id) {
 
-    const confirmar =
-        confirm(
-            "Deseja realmente cancelar este agendamento?"
-        );
-
+    const confirmar = await confirmarAcao({
+        titulo: "Cancelar agendamento",
+        mensagem: "Deseja realmente cancelar este agendamento?",
+        textoConfirmar: "Cancelar",
+        textoCancelar: "Voltar",
+        perigo: true
+    });
 
     if (!confirmar) {
 
         return;
 
     }
-
 
     const { error } =
         await supabaseClient
@@ -1237,7 +1257,7 @@ function aplicarFiltros() {
                         obterNomeServico(
                             agendamento.servico_id
                         )
-                        .toLowerCase();
+                            .toLowerCase();
 
                     return (
                         nomeServico ===
@@ -1385,6 +1405,18 @@ botaoNovoAgendamento.addEventListener(
     }
 );
 
+selectServico.addEventListener(
+    "change",
+    function () {
+
+        if (inputData.value) {
+
+            carregarHorarios();
+
+        }
+
+    }
+);
 
 botaoCancelarModal.addEventListener(
     "click",

@@ -7,17 +7,13 @@
 
     <title>Usuários - AuMiau Pet</title>
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
 
-    <link rel="stylesheet"
-        href="https://unpkg.com/primeicons/primeicons.css">
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
 
-    <link rel="stylesheet"
-        href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
-    <link rel="stylesheet"
-        href="../css/usuarios.css">
+    <link rel="stylesheet" href="../css/usuarios.css">
 </head>
 
 <body>
@@ -38,15 +34,10 @@
 
                     <div class="bar">
 
-                        <input
-                            id="pesquisa-usuario"
-                            type="search"
-                            placeholder="Buscar por nome ou e-mail"
+                        <input id="pesquisa-usuario" type="search" placeholder="Buscar por nome ou e-mail"
                             aria-label="Buscar usuário">
 
-                        <button
-                            id="novo-usuario"
-                            type="button">
+                        <button id="novo-usuario" type="button">
 
                             Novo usuário
 
@@ -105,10 +96,7 @@
                         Nome *
                     </label>
 
-                    <input
-                        id="nome-usuario"
-                        type="text"
-                        required>
+                    <input id="nome-usuario" type="text" required>
 
                 </div>
 
@@ -119,13 +107,19 @@
                         E-mail *
                     </label>
 
-                    <input
-                        id="email-usuario"
-                        type="email"
-                        required>
+                    <input id="email-usuario" type="email" required>
 
                 </div>
 
+                <div class="f" id="campo-senha-grupo">
+
+                    <label for="senha-usuario">
+                        Senha inicial *
+                    </label>
+
+                    <input id="senha-usuario" type="password" minlength="6" placeholder="Mínimo 6 caracteres" required>
+
+                </div>
 
                 <div class="h">
 
@@ -133,14 +127,9 @@
                         Perfil *
                     </label>
 
-                    <select
-                        id="perfil-usuario"
-                        required>
+                    <select id="perfil-usuario" required>
 
-                        <option
-                            value=""
-                            disabled
-                            selected>
+                        <option value="" disabled selected>
                             Selecione
                         </option>
 
@@ -171,9 +160,7 @@
                         Status *
                     </label>
 
-                    <select
-                        id="ativo-usuario"
-                        required>
+                    <select id="ativo-usuario" required>
 
                         <option value="true">
                             Ativo
@@ -192,18 +179,13 @@
 
             <div class="acts">
 
-                <button
-                    type="button"
-                    class="sec"
-                    id="cancelar-usuario">
+                <button type="button" class="sec" id="cancelar-usuario">
 
                     Cancelar
 
                 </button>
 
-                <button
-                    type="submit"
-                    id="salvar-usuario">
+                <button type="submit" id="salvar-usuario">
 
                     Salvar usuário
 
@@ -215,19 +197,10 @@
 
     </dialog>
 
-
-    <div
-        id="usuario-toast"
-        role="status">
-    </div>
-
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script src="../js/supabase.js"></script>
-
     <script src="../js/layout.js"></script>
-
+    <script src="../js/utils.js"></script>
     <script src="../js/usuarios.js"></script>
 
 </body>

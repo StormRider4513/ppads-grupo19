@@ -186,6 +186,22 @@
     border-bottom: none;
 }
 
+.pets-tabela td .pets-botao {
+    padding: 7px 12px;
+    font-size: 0.9rem;
+}
+
+.pets-botao.btn-excluir {
+    margin-left: 6px;
+    border: 1px solid #E5C5C5;
+    background-color: #F7EEEE;
+    color: #9C4848;
+}
+
+.pets-botao.btn-excluir:hover {
+    background-color: #F1DEDE;
+}
+
 
 /* -------------------------------------------------------
    FORMULÁRIO DO MODAL
@@ -295,46 +311,6 @@
     display: none;
 }
 
-
-/* -------------------------------------------------------
-   TOAST
-------------------------------------------------------- */
-
-#pet-toast {
-    position: fixed;
-
-    left: 50%;
-    bottom: 24px;
-
-    transform:
-        translateX(-50%);
-
-    z-index: 9999;
-
-    padding: 11px 18px;
-
-    border-radius:
-        var(--radius-small);
-
-    background-color:
-        var(--text);
-
-    color:
-        #FFFFFF;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition:
-        opacity 0.2s ease;
-}
-
-#pet-toast.on {
-    opacity: 1;
-}
-
-
 /* -------------------------------------------------------
    RESPONSIVIDADE
 ------------------------------------------------------- */
@@ -352,7 +328,7 @@
     }
 
     .pets-actions input,
-    .pets-botao {
+    .pets-actions .pets-botao {
         width: 100%;
     }
 
